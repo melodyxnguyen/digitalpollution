@@ -1,0 +1,204 @@
+.hero {
+    position: relative;
+    padding: 6rem 0 5rem;
+    overflow: hidden;
+    border-bottom: 1px solid var(--border);
+  }
+  
+  .hero-bg-pattern {
+    position: absolute;
+    inset: 0;
+    background-image:
+      repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 47px,
+        var(--border-light) 47px,
+        var(--border-light) 48px
+      ),
+      repeating-linear-gradient(
+        90deg,
+        transparent,
+        transparent 47px,
+        var(--border-light) 47px,
+        var(--border-light) 48px
+      );
+    opacity: 0.4;
+    pointer-events: none;
+  }
+  
+  .hero-content {
+    position: relative;
+    z-index: 1;
+    max-width: 680px;
+  }
+  
+  .hero-title {
+    font-size: clamp(3rem, 8vw, 5.5rem);
+    font-weight: 700;
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+    color: var(--ink);
+    margin: 0.75rem 0 1.25rem;
+  }
+  
+  .hero-title em {
+    font-style: italic;
+    color: var(--sage);
+  }
+  
+  .hero-sub {
+    font-size: 1.1rem;
+    color: var(--text-secondary);
+    line-height: 1.75;
+    max-width: 54ch;
+    margin-bottom: 2.25rem;
+  }
+  
+  .hero-actions {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+  
+  .stats-strip {
+    background: var(--ink);
+    padding: 2.5rem 0;
+  }
+  
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+  }
+  
+  .stat-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+  
+  .stat-item .stat-callout {
+    color: var(--sage-light);
+  }
+  
+  .stat-label {
+    font-size: 0.88rem;
+    color: rgba(255,255,255,0.55);
+    max-width: 30ch;
+    line-height: 1.5;
+  }
+  
+  .intro-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: start;
+  }
+  
+  .intro-text h2 { margin-bottom: 1.25rem; }
+  .intro-text p { max-width: 100%; }
+  
+  .pull-quote {
+    border-left: 3px solid var(--sage);
+    padding: 0.75rem 1.25rem;
+    margin: 1.75rem 0 0;
+    background: var(--sage-pale);
+    border-radius: 0 3px 3px 0;
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: 1rem;
+    color: var(--text-secondary);
+  }
+  
+  .pull-quote cite {
+    font-style: normal;
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    color: var(--sage);
+    margin-left: 0.35rem;
+  }
+  
+  .intro-cards {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .intro-card {
+    border-left: 3px solid var(--border);
+    border-radius: 0 4px 4px 0;
+    transition: border-color 0.2s;
+  }
+  .intro-card:hover { border-left-color: var(--sage); }
+  
+  .nav-teaser { background: var(--bg-alt); }
+  
+  .nav-teaser-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    overflow: hidden;
+    margin-top: 1.5rem;
+  }
+  
+  .nav-card {
+    display: flex;
+    flex-direction: column;
+    padding: 1.75rem 1.5rem;
+    background: var(--surface);
+    text-decoration: none;
+    color: inherit;
+    transition: background 0.2s;
+    position: relative;
+  }
+  
+  .nav-card:hover { background: var(--bg-alt); }
+  .nav-card:hover .nav-card-arrow { color: var(--sage); transform: translateX(4px); }
+  
+  .nav-card-num {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--sage);
+    letter-spacing: 0.1em;
+    margin-bottom: 0.75rem;
+  }
+  
+  .nav-card-title {
+    font-size: 0.95rem;
+    margin-bottom: 0.5rem;
+    color: var(--ink);
+  }
+  
+  .nav-card-desc {
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    line-height: 1.55;
+    flex: 1;
+    max-width: 100%;
+  }
+  
+  .nav-card-arrow {
+    margin-top: 1rem;
+    color: var(--border);
+    font-size: 1.1rem;
+    transition: color 0.2s, transform 0.2s;
+  }
+  
+  @media (max-width: 1024px) {
+    .nav-teaser-grid { grid-template-columns: repeat(3, 1fr); }
+  }
+  
+  @media (max-width: 768px) {
+    .stats-grid { grid-template-columns: 1fr; gap: 1.5rem; }
+    .intro-grid { grid-template-columns: 1fr; gap: 2rem; }
+    .nav-teaser-grid { grid-template-columns: 1fr 1fr; }
+  }
+  
+  @media (max-width: 480px) {
+    .nav-teaser-grid { grid-template-columns: 1fr; }
+    .hero-actions { flex-direction: column; }
+  }
