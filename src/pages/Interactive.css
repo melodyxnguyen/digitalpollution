@@ -1,0 +1,374 @@
+.interactive-page .tool-section {
+    padding: 4rem 0;
+    border-bottom: 1px solid var(--border);
+  }
+  
+  .interactive-page .tool-section--alt {
+    background: var(--bg-alt);
+  }
+  
+  .tool-desc {
+    max-width: 58ch;
+    color: var(--text-secondary);
+    margin-bottom: 2rem;
+    font-size: 1rem;
+  }
+  
+  /* Model Comparison */
+  .model-selectors {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+  }
+  
+  .model-selector label {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.1em;
+    color: var(--sage);
+    margin-bottom: 0.5rem;
+    text-transform: uppercase;
+  }
+  
+  .model-selector select {
+    width: 100%;
+    padding: 0.65rem 0.9rem;
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    background: var(--surface);
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    color: var(--ink);
+    cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%236B8F4E' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0.9rem center;
+  }
+  
+  .model-selector select:focus {
+    outline: none;
+    border-color: var(--sage);
+  }
+  
+  .model-bars {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .model-bar-row {
+    display: grid;
+    grid-template-columns: 220px 1fr 100px;
+    align-items: center;
+    gap: 1rem;
+  }
+  
+  .model-bar-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+  }
+  
+  .model-bar-name {
+    font-size: 0.92rem;
+    color: var(--ink);
+    font-weight: 500;
+  }
+  
+  .model-bar-track {
+    height: 12px;
+    background: var(--bg-alt);
+    border-radius: 2px;
+    border: 1px solid var(--border);
+    overflow: hidden;
+  }
+  
+  .model-bar-fill {
+    height: 100%;
+    border-radius: 2px;
+    transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  .model-bar-val {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    text-align: right;
+  }
+  
+  .model-insight {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    padding: 1.25rem 1.5rem;
+    background: var(--sage-pale);
+    border: 1px solid var(--sage-light);
+    border-radius: 4px;
+    margin-top: 0.5rem;
+  }
+  
+  .model-insight-ratio {
+    font-family: var(--font-display);
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--sage-dark);
+    flex-shrink: 0;
+  }
+  
+  .model-insight p {
+    font-size: 0.92rem;
+    color: var(--text-secondary);
+    max-width: 100%;
+  }
+  
+  /* Email Calculator */
+  .calc-controls {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    margin-bottom: 2rem;
+  }
+  
+  .calc-control label {
+    display: block;
+    font-size: 0.88rem;
+    color: var(--text-secondary);
+    margin-bottom: 0.75rem;
+  }
+  
+  .calc-control input[type="range"] {
+    width: 100%;
+    accent-color: var(--sage);
+    cursor: pointer;
+  }
+  
+  .range-labels {
+    display: flex;
+    justify-content: space-between;
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    color: var(--text-muted);
+    margin-top: 0.3rem;
+  }
+  
+  .toggle-group {
+    display: flex;
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    overflow: hidden;
+  }
+  
+  .toggle-btn {
+    flex: 1;
+    padding: 0.6rem 1rem;
+    background: var(--surface);
+    border: none;
+    font-family: var(--font-body);
+    font-size: 0.88rem;
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: background 0.15s, color 0.15s;
+  }
+  
+  .toggle-btn:first-child {
+    border-right: 1px solid var(--border);
+  }
+  
+  .toggle-btn.active {
+    background: var(--sage);
+    color: white;
+  }
+  
+  .calc-result {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-top: 3px solid var(--sage);
+    border-radius: 4px;
+    padding: 2rem;
+  }
+  
+  .calc-result-main {
+    display: flex;
+    align-items: baseline;
+    gap: 0.75rem;
+    margin-bottom: 0.75rem;
+  }
+  
+  .calc-result-num {
+    font-family: var(--font-display);
+    font-size: 3rem;
+    font-weight: 700;
+    color: var(--sage-dark);
+    line-height: 1;
+  }
+  
+  .calc-result-label {
+    font-size: 1rem;
+    color: var(--text-muted);
+  }
+  
+  .calc-result-desc {
+    font-size: 0.92rem;
+    color: var(--text-secondary);
+    max-width: 60ch;
+    margin-bottom: 1.25rem;
+  }
+  
+  .calc-breakdown {
+    border-top: 1px solid var(--border);
+    padding-top: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .calc-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+  }
+  
+  /* Energy Meter */
+  .meter-controls {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    margin-bottom: 2rem;
+    max-width: 640px;
+  }
+  
+  .meter-model-select label,
+  .meter-prompt label {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.1em;
+    color: var(--sage);
+    margin-bottom: 0.5rem;
+    text-transform: uppercase;
+  }
+  
+  .meter-model-select select {
+    width: 100%;
+    padding: 0.65rem 0.9rem;
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    background: var(--surface);
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    color: var(--ink);
+    cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%236B8F4E' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0.9rem center;
+  }
+  
+  .meter-prompt textarea {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    background: var(--surface);
+    font-family: var(--font-body);
+    font-size: 0.92rem;
+    color: var(--ink);
+    resize: vertical;
+    transition: border-color 0.15s;
+    box-sizing: border-box;
+  }
+  
+  .meter-prompt textarea:focus {
+    outline: none;
+    border-color: var(--sage);
+  }
+  
+  .meter-estimate {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    margin-top: 0.4rem;
+    max-width: 100%;
+  }
+  
+  .meter-actions {
+    display: flex;
+    gap: 0.75rem;
+  }
+  
+  .meter-display {
+    max-width: 640px;
+  }
+  
+  .meter-progress-track {
+    height: 6px;
+    background: var(--bg-alt);
+    border-radius: 3px;
+    border: 1px solid var(--border);
+    overflow: hidden;
+    margin-bottom: 1.5rem;
+  }
+  
+  .meter-progress-fill {
+    height: 100%;
+    background: var(--sage);
+    border-radius: 3px;
+    transition: width 0.1s linear;
+  }
+  
+  .meter-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    margin-bottom: 1rem;
+  }
+  
+  .meter-stat {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    padding: 1rem;
+    background: var(--bg-alt);
+    border: 1px solid var(--border);
+    border-radius: 3px;
+  }
+  
+  .meter-stat-val {
+    font-family: var(--font-mono);
+    font-size: 1.4rem;
+    color: var(--ink);
+    font-weight: 600;
+  }
+  
+  .meter-stat-label {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    color: var(--text-muted);
+    letter-spacing: 0.05em;
+  }
+  
+  .meter-complete {
+    padding: 0.75rem 1rem;
+    background: var(--sage-pale);
+    border: 1px solid var(--sage-light);
+    border-radius: 3px;
+    font-size: 0.88rem;
+    color: var(--sage-dark);
+  }
+  
+  @media (max-width: 768px) {
+    .model-selectors { grid-template-columns: 1fr; }
+    .model-bar-row { grid-template-columns: 1fr; }
+    .calc-controls { grid-template-columns: 1fr; }
+    .meter-stats { grid-template-columns: 1fr 1fr; }
+  }
+  
+  @media (max-width: 480px) {
+    .meter-stats { grid-template-columns: 1fr; }
+  }
