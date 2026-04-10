@@ -2,9 +2,9 @@ import { Link } from 'react-router-dom'
 import './Landing.css'
 
 const stats = [
-  { value: "80–90%", label: "of LLM energy used during inference, not training", cite: "[6]" },
-  { value: "2.3B", label: "people use cloud storage services today", cite: "[18]" },
-  { value: "4×", label: "TDP estimates can overstate real GPU energy use", cite: "[17]" },
+  { value: "80–90%", label: "of LLM energy used during inference, not training", cite: "[Shao et al.]" },
+  { value: "2.3B", label: "people use cloud storage services today", cite: "[Greenly]" },
+  { value: "4×", label: "TDP estimates can overstate real GPU energy use", cite: "[ML.ENERGY]" },
 ]
 
 export default function Landing() {
@@ -61,7 +61,7 @@ export default function Landing() {
             </p>
             <blockquote className="pull-quote">
               "Any efforts to reduce our current carbon footprint created by digital pollution
-              will become more challenging over time." <cite>[18]</cite>
+              will become more challenging over time." <cite>[Greenly]</cite>
             </blockquote>
           </div>
           <div className="intro-cards">

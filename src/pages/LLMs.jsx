@@ -31,19 +31,19 @@ export default function LLMs() {
               <p style={{ marginTop: '1rem' }}>
                 Cooling systems for AI clusters can consume millions to tens of millions of liters
                 of water per year — an impact often overlooked in popular discussions of AI
-                sustainability [4]. In water-stressed regions such as California, this is comparable
+                sustainability [MIT Technology Review]. In water-stressed regions such as California, this is comparable
                 to the annual water required to produce thousands of pounds of almonds.
               </p>
               <p style={{ marginTop: '1rem' }}>
                 AI workloads are projected to account for up to 20% of global data-center electricity
-                demand by the end of 2025 [8].
+                demand by the end of 2025 [WIRED].
               </p>
             </div>
             <div className="infra-stats">
               {[
-                { stat: '~20%', label: 'of global data-center electricity demand attributed to AI by end of 2025', cite: '[8]' },
-                { stat: '10M+', label: 'liters of water per year consumed by some AI cooling systems', cite: '[4]' },
-                { stat: '$M/yr', label: 'cost to power and maintain large AI model infrastructure', cite: '[8]' },
+                { stat: '~20%', label: 'of global data-center electricity demand attributed to AI by end of 2025', cite: '[WIRED]' },
+                { stat: '10M+', label: 'liters of water per year consumed by some AI cooling systems', cite: '[MIT Technology Review]' },
+                { stat: '$M/yr', label: 'cost to power and maintain large AI model infrastructure', cite: '[WIRED]' },
               ].map((s, i) => (
                 <div key={i} className="card infra-stat-card">
                   <span className="stat-callout">{s.stat}</span>
@@ -64,7 +64,7 @@ export default function LLMs() {
           <div className="accent-rule" />
           <h2>Training vs. Inference</h2>
           <p style={{ marginBottom: '2.5rem' }}>
-            Two computational processes dominate LLM energy use — and most people conflate them [7].
+            Two computational processes dominate LLM energy use — and most people conflate them [Searchlight Institute].
           </p>
           <div className="two-col training-cols">
             <div className="card training-card">
@@ -78,7 +78,7 @@ export default function LLMs() {
               <p style={{ marginTop: '0.75rem' }}>
                 A single state-of-the-art LLM training run can consume megawatt-hours to
                 gigawatt-hours of electricity — comparable to the annual energy use of hundreds
-                of U.S. households [3], [5].
+                of U.S. households [International Energy Agency, Patterson et al.].
               </p>
               <div className="training-badge training-badge--high">
                 Very high one-time cost
@@ -95,10 +95,10 @@ export default function LLMs() {
               <p style={{ marginTop: '0.75rem' }}>
                 While a single inference request uses far less energy than training, inference is
                 estimated to account for <strong>80–90% of total lifecycle energy</strong> because it
-                happens billions of times daily worldwide [6].
+                happens billions of times daily worldwide [Shao et al.].
               </p>
               <div className="training-badge training-badge--sage">
-                80–90% of lifecycle energy [6]
+                80–90% of lifecycle energy [Shao et al.]
               </div>
             </div>
           </div>
@@ -182,7 +182,7 @@ export default function LLMs() {
               <p style={{ marginTop: '1rem' }}>
                 This is the <strong>Jevons paradox</strong> applied to AI: efficiency gains enable
                 greater consumption, not less. Measuring AI sustainability requires examining
-                full system-level costs, not just hardware specifications [17].
+                full system-level costs, not just hardware specifications [ML.ENERGY].
               </p>
             </div>
             <div>
@@ -230,7 +230,7 @@ export default function LLMs() {
             </div>
           </div>
           <p className="cite-note" style={{ marginTop: '1.5rem' }}>
-            Source: [4]. See the Interactive page to compare specific models.
+            Source: [MIT Technology Review]. See the Interactive page to compare specific models.
           </p>
         </div>
       </section>

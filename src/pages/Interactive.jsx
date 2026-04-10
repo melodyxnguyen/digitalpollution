@@ -19,7 +19,7 @@ function ModelComparison() {
       <h2>Model Energy Comparison</h2>
       <p className="tool-desc">
         Select two models to compare their energy cost per token of output.
-        Data sourced from the ML.ENERGY Leaderboard [17].
+        Data sourced from the ML.ENERGY Leaderboard [ML.ENERGY].
       </p>
       <div className="model-selectors">
         <div className="model-selector">
@@ -136,7 +136,7 @@ function EmailCalculator() {
             <span className="mono-tag">{(aiQuery_kWh * 1000).toFixed(2)} Wh</span>
           </div>
         </div>
-        <p className="cite-note" style={{ marginTop: '1rem' }}>Sources: [6], [17], [18]</p>
+        <p className="cite-note" style={{ marginTop: '1rem' }}>Sources: [Shao et al., ML.ENERGY, Greenly]</p>
       </div>
     </div>
   )
@@ -185,7 +185,7 @@ function EnergyMeter() {
       <h2>Live Energy Meter</h2>
       <p className="tool-desc">
         Type a prompt and watch the energy cost accumulate token by token —
-        just as it would on a real GPU. Uses measured J/token values from the ML.ENERGY Leaderboard [17].
+        just as it would on a real GPU. Uses measured J/token values from the ML.ENERGY Leaderboard [ML.ENERGY].
       </p>
       <div className="meter-controls">
         <div className="meter-model-select">

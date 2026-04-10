@@ -19,35 +19,35 @@ export const funFacts = [
     ],
     answer: 1,
     explanation: "A single Google search consumes roughly the equivalent energy of running a 60-watt lightbulb for 17 seconds. A generative AI response can consume significantly more depending on model size and response length.",
-    source: "[4]"
+    source: "[MIT Technology Review]"
   },
   {
     question: "What percentage of an LLM's total lifecycle energy is used during inference (not training)?",
     options: ["20–30%", "40–50%", "60–70%", "80–90%"],
     answer: 3,
     explanation: "While training is energy-intensive, inference accounts for an estimated 80–90% of total lifecycle energy because it happens billions of times daily across all deployed models.",
-    source: "[6]"
+    source: "[Shao et al.]"
   },
   {
     question: "How many people currently use cloud storage services?",
     options: ["500 million", "1.2 billion", "2.3 billion", "4 billion"],
     answer: 2,
     explanation: "Approximately 2.3 billion people use cloud storage services, creating continuous strain on data centers worldwide. Local storage alternatives like hard drives can help reduce this demand.",
-    source: "[18]"
+    source: "[Greenly]"
   },
   {
     question: "By how much can TDP-based energy estimates overstate actual GPU power use?",
     options: ["Up to 2×", "Up to 4×", "Up to 10×", "They are usually accurate"],
     answer: 1,
     explanation: "Real-world benchmarks from the ML.ENERGY Leaderboard show actual GPU power consumption ranges from 25–75% of rated TDP. TDP-based estimates can overstate actual energy use by up to a factor of four.",
-    source: "[17]"
+    source: "[ML.ENERGY]"
   },
   {
     question: "What share of Gen Z has more than 1,000 unread emails?",
     options: ["12%", "22%", "36%", "51%"],
     answer: 2,
     explanation: "36% of Gen Z has over 1,000 unread emails sitting in their inbox. Each stored email has a small but non-zero carbon cost — multiplied across billions of accounts, email clutter becomes a meaningful source of emissions.",
-    source: "[18]"
+    source: "[Greenly]"
   },
   {
     question: "What is the Jevons paradox as it applies to AI hardware?",
@@ -59,7 +59,7 @@ export const funFacts = [
     ],
     answer: 1,
     explanation: "Even though newer GPUs like the H100 are more efficient per operation than the A100, they enable more complex reasoning models — so total energy per user request often increases even as the underlying hardware improves.",
-    source: "[17]"
+    source: "[ML.ENERGY]"
   },
 ]
 

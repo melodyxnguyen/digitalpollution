@@ -6,56 +6,56 @@ const practices = [
     icon: '✏️',
     title: 'Write concise prompts',
     detail: 'Shorter, well-scoped prompts generate shorter responses — reducing the number of tokens produced and the energy consumed per interaction.',
-    cite: '[4], [6]',
+    cite: '[MIT Technology Review, Shao et al.]',
   },
   {
     num: '02',
     icon: '📦',
     title: 'Batch related questions',
     detail: 'Instead of sending five separate queries, combine them into one. Each model call has a fixed overhead cost — batching reduces that overhead.',
-    cite: '[6]',
+    cite: '[Shao et al.]',
   },
   {
     num: '03',
     icon: '🔍',
     title: 'Choose the right model',
     detail: 'A small model like Mistral 7B uses ~0.052 J/token. A reasoning model like DeepSeek R1 uses ~2.37 J/token. For simple tasks, smaller is smarter.',
-    cite: '[17]',
+    cite: '[ML.ENERGY]',
   },
   {
     num: '04',
     icon: '🗑️',
     title: 'Delete old emails',
     detail: 'Every stored email sits on a server consuming energy. Deleting old emails and unsubscribing from newsletters reduces persistent server load.',
-    cite: '[18]',
+    cite: '[Greenly]',
   },
   {
     num: '05',
     icon: '📶',
     title: 'Use Wi-Fi over cellular',
     detail: 'Mobile networks (4G/5G) are less energy-efficient per bit than fixed broadband. Switch to Wi-Fi for data-heavy tasks like video or AI use.',
-    cite: '[18]',
+    cite: '[Greenly]',
   },
   {
     num: '06',
     icon: '📱',
     title: 'Keep devices longer',
     detail: 'Manufacturing a new device embeds significant carbon before it is ever turned on. Extending device life is one of the highest-impact individual actions.',
-    cite: '[5]',
+    cite: '[Patterson et al.]',
   },
   {
     num: '07',
     icon: '⏸️',
     title: 'Disable autoplay',
     detail: 'Automatic video playback on YouTube and social platforms continuously loads server bandwidth — even when you are not actively watching.',
-    cite: '[18]',
+    cite: '[Greenly]',
   },
   {
     num: '08',
     icon: '☁️',
     title: 'Audit your cloud storage',
     detail: 'Unneeded cloud backups, duplicate files, and unused subscriptions place constant load on data infrastructure. Review and trim regularly.',
-    cite: '[18]',
+    cite: '[Greenly]',
   },
 ]
 
@@ -160,7 +160,7 @@ export default function BestPractices() {
               The dominant research culture rewards scale and performance
               while sidelining environmental and social costs.
             </blockquote>
-            <cite>Gebru et al., On the Dangers of Stochastic Parrots, FAccT 2021 [2]</cite>
+            <cite>Gebru et al., On the Dangers of Stochastic Parrots, FAccT 2021</cite>
           </div>
         </div>
       </section>

@@ -16,7 +16,7 @@ const categories = [
         { stat: 'Frequent Hardware Turnover', detail: 'Data centers upgrade hardware frequently, generating substantial e-waste even when equipment still functions perfectly well.' },
         { stat: 'What You Can Do', detail: 'Keeping your devices longer is one of the most impactful individual actions — it reduces the manufacturing carbon embedded in every piece of hardware you own.' },
       ],
-      cite: '[5]',
+      cite: '[Patterson et al.]',
     }
   },
   {
@@ -33,7 +33,7 @@ const categories = [
         { stat: '2.3 Billion Users', detail: 'Approximately 2.3 billion people use cloud storage services today, placing constant and growing load on global data infrastructure.' },
         { stat: 'AI\'s Growing Share', detail: 'AI workloads may account for up to 20% of global data-center electricity demand by the end of 2025 — and that share is rising.' },
       ],
-      cite: '[4], [8], [18]',
+      cite: '[MIT Technology Review, WIRED, Greenly]',
     }
   },
   {
@@ -50,7 +50,7 @@ const categories = [
         { stat: 'The Email Problem', detail: '36% of Gen Z has over 1,000 unread emails sitting in a server. Each stored email has a small but real carbon cost — multiplied across billions of accounts, it adds up.' },
         { stat: 'AI Queries', detail: 'Every AI response belongs to this category. Each token generated requires a full forward pass through a GPU — longer, more elaborate responses consume more energy.' },
       ],
-      cite: '[18]',
+      cite: '[Greenly]',
     }
   },
 ]
@@ -147,7 +147,7 @@ export default function DigitalTech() {
           <h2>Consumer Mitigation Strategies</h2>
           <p style={{ marginBottom: '2rem' }}>
             Individual actions may feel small, but at the scale of billions of users they represent
-            a meaningful driver of data center energy demand [18].
+            a meaningful driver of data center energy demand [Greenly].
           </p>
           <div className="actions-grid">
             {[
@@ -164,7 +164,7 @@ export default function DigitalTech() {
               </div>
             ))}
           </div>
-          <p className="cite-note">Sources: [4], [6], [18]</p>
+          <p className="cite-note">Sources: [MIT Technology Review, Shao et al., Greenly]</p>
         </div>
       </section>
     </main>
