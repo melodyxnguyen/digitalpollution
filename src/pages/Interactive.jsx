@@ -14,6 +14,7 @@ function ModelComparison() {
 
   return (
     <div className="tool-section">
+      <div className="container">
       <span className="section-label">Tool 01</span>
       <div className="accent-rule" />
       <h2>Model Energy Comparison</h2>
@@ -68,6 +69,7 @@ function ModelComparison() {
           </p>
         </div>
       )}
+      </div>
     </div>
   )
 }
@@ -83,6 +85,7 @@ function EmailCalculator() {
 
   return (
     <div className="tool-section tool-section--alt">
+      <div className="container">
       <span className="section-label">Tool 02</span>
       <div className="accent-rule" />
       <h2>Email vs. AI Calculator</h2>
@@ -138,6 +141,7 @@ function EmailCalculator() {
         </div>
         <p className="cite-note" style={{ marginTop: '1rem' }}>Sources: [Shao et al., ML.ENERGY, Greenly]</p>
       </div>
+      </div>
     </div>
   )
 }
@@ -180,6 +184,7 @@ function EnergyMeter() {
 
   return (
     <div className="tool-section">
+      <div className="container">
       <span className="section-label">Tool 03</span>
       <div className="accent-rule" />
       <h2>Live Energy Meter</h2>
@@ -236,6 +241,7 @@ function EnergyMeter() {
             <span>✓ Complete — {model.name} used {totalJoules.toFixed(3)} J for this response.</span>
           </div>
         )}
+      </div>
       </div>
     </div>
   )
