@@ -1,4 +1,5 @@
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useRef, useMemo } from 'react'
+import { encode, decode } from 'gpt-tokenizer'
 import { modelData, ENERGY } from '../data/content'
 import './Interactive.css'
 
@@ -247,6 +248,142 @@ function EnergyMeter() {
   )
 }
 
+// ── 4. Tokenizer ────────────────────────────────────────────────────────────
+const TOKEN_COLORS = [
+  'rgba(107,143,78,0.22)',
+  'rgba(196,149,90,0.22)',
+  'rgba(90,124,164,0.22)',
+  'rgba(176,107,90,0.22)',
+  'rgba(90,143,143,0.22)',
+  'rgba(122,90,143,0.22)',
+]
+
+function Tokenizer() {
+  const [text, setText] = useState('The environmental cost of AI is often invisible.')
+  const [selectedModel, setSelectedModel] = useState(2)
+  const [showIds, setShowIds] = useState(false)
+
+  const { tokenIds, tokenTexts } = useMemo(() => {
+    if (!text) return { tokenIds: [], tokenTexts: [] }
+    const ids = encode(text)
+    const texts = ids.map(id => decode([id]))
+    return { tokenIds: ids, tokenTexts: texts }
+  }, [text])
+
+  const model = modelData[selectedModel]
+  const energyJ = tokenIds.length * model.joulesPerToken
+
+  return (
+    <div className="tool-section tool-section--alt">
+      <div className="container">
+        <span className="section-label">Tool 04</span>
+        <div className="accent-rule" />
+        <h2>Token Visualizer</h2>
+        <p className="tool-desc">
+          LLMs don't read words — they read <em>tokens</em>, subword pieces produced by
+          byte-pair encoding. Type anything below to see exactly how GPT-4's tokenizer
+          (cl100k_base) splits your text, and what that costs in energy.
+        </p>
+
+        <div className="tokenizer-layout">
+          {/* Input */}
+          <div className="tokenizer-input-col">
+            <label className="tokenizer-label">Your text</label>
+            <textarea
+              className="tokenizer-textarea"
+              rows={6}
+              value={text}
+              onChange={e => setText(e.target.value)}
+              placeholder="Type or paste any text…"
+            />
+            <div className="tokenizer-stats-bar">
+              <span className="tokenizer-stat">
+                <span className="tokenizer-stat-val">{text.length}</span>
+                <span className="tokenizer-stat-key">characters</span>
+              </span>
+              <span className="tokenizer-divider" />
+              <span className="tokenizer-stat">
+                <span className="tokenizer-stat-val">{tokenIds.length}</span>
+                <span className="tokenizer-stat-key">tokens</span>
+              </span>
+              {text.length > 0 && (
+                <>
+                  <span className="tokenizer-divider" />
+                  <span className="tokenizer-stat">
+                    <span className="tokenizer-stat-val">
+                      {(text.length / Math.max(tokenIds.length, 1)).toFixed(2)}
+                    </span>
+                    <span className="tokenizer-stat-key">chars / token</span>
+                  </span>
+                </>
+              )}
+            </div>
+
+            {/* Model + energy */}
+            <div className="tokenizer-energy-row">
+              <div className="tokenizer-model-select">
+                <label className="tokenizer-label">Model (for energy estimate)</label>
+                <select
+                  value={selectedModel}
+                  onChange={e => setSelectedModel(Number(e.target.value))}
+                >
+                  {modelData.map((m, i) => (
+                    <option key={i} value={i}>{m.name} — {m.joulesPerToken} J/token</option>
+                  ))}
+                </select>
+              </div>
+              {tokenIds.length > 0 && (
+                <div className="tokenizer-energy-result">
+                  <span className="tokenizer-energy-val">{energyJ.toFixed(3)} J</span>
+                  <span className="tokenizer-energy-desc">
+                    to process these {tokenIds.length} tokens on {model.name}
+                  </span>
+                </div>
+              )}
+            </div>
+          </div>
+
+          {/* Token visualization */}
+          <div className="tokenizer-vis-col">
+            <div className="tokenizer-vis-header">
+              <label className="tokenizer-label">Token view</label>
+              <button
+                className={`tokenizer-ids-toggle ${showIds ? 'active' : ''}`}
+                onClick={() => setShowIds(v => !v)}
+              >
+                {showIds ? 'Hide IDs' : 'Show IDs'}
+              </button>
+            </div>
+            <div className="tokenizer-vis-box">
+              {tokenTexts.length === 0 ? (
+                <span className="tokenizer-empty">Start typing to see tokens…</span>
+              ) : (
+                tokenTexts.map((txt, i) => (
+                  <span
+                    key={i}
+                    className="token-chip"
+                    style={{ background: TOKEN_COLORS[i % TOKEN_COLORS.length] }}
+                    title={`Token ID: ${tokenIds[i]}`}
+                  >
+                    {txt.replace(/ /g, '·')}
+                    {showIds && (
+                      <sub className="token-id">{tokenIds[i]}</sub>
+                    )}
+                  </span>
+                ))
+              )}
+            </div>
+            <p className="tokenizer-note">
+              Middle dots (·) represent spaces. Hover a token to see its integer ID.
+              Encoding: cl100k_base (GPT-4 / GPT-3.5).
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
+
 // ── Page ────────────────────────────────────────────────────────────────────
 export default function Interactive() {
   return (
@@ -257,14 +394,16 @@ export default function Interactive() {
           <div className="accent-rule" />
           <h1>Interactive Tools</h1>
           <p className="page-hero-sub">
-            Three tools to make AI energy costs tangible. Explore model differences,
-            compare familiar digital habits, and watch energy accumulate in real time.
+            Four tools to make AI energy costs tangible. Explore model differences,
+            compare familiar digital habits, watch energy accumulate in real time,
+            and see exactly how your text is split into tokens.
           </p>
         </div>
       </section>
       <ModelComparison />
       <EmailCalculator />
       <EnergyMeter />
+      <Tokenizer />
     </main>
   )
 }

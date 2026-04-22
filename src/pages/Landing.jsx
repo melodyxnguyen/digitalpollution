@@ -7,6 +7,12 @@ const stats = [
   { value: "4×", label: "TDP estimates can overstate real GPU energy use", cite: "[ML.ENERGY]" },
 ]
 
+const researchCards = [
+  { label: "Research Question", text: "Do people understand the energy and emissions costs of LLMs, and can a brief educational intervention shift behavioral intentions?" },
+  { label: "Central Method", text: "Pre/post surveys with an interactive educational website as the intervention, measuring changes in knowledge, attitudes, and intentions." },
+  { label: "Key Output", text: "An open educational website pairing empirical benchmarks with interactive tools to make AI energy use tangible and personally meaningful." },
+]
+
 export default function Landing() {
   return (
     <main className="landing page-enter">
@@ -43,43 +49,46 @@ export default function Landing() {
         </div>
       </section>
 
-      {/* What this is */}
-      <section className="section intro-section">
-        <div className="container intro-grid">
-          <div className="intro-text">
-            <span className="section-label">About This Research</span>
-            <div className="accent-rule" />
-            <h2>Understanding the energy costs of large language models</h2>
-            <p>
-              In an age when our lives are increasingly digitized, the environmental costs of
-              our digital habits often go unseen. Behind every query to an AI system are data centers
-              filled with servers that consume enormous amounts of electricity and water.
-            </p>
-            <p style={{ marginTop: '1rem' }}>
-              This research evaluates whether targeted education can improve public understanding
-              of AI sustainability, and shift behavioral intentions toward more mindful use.
-            </p>
-            <blockquote className="pull-quote">
-              "Any efforts to reduce our current carbon footprint created by digital pollution
-              will become more challenging over time." <cite>[Greenly]</cite>
-            </blockquote>
-          </div>
-          <div className="intro-cards">
-            {[
-              { label: "Research Question", text: "Do people understand the energy and emissions costs of LLMs, and can a brief educational intervention shift behavioral intentions?" },
-              { label: "Central Method", text: "Pre/post surveys with an interactive educational website as the intervention, measuring changes in knowledge, attitudes, and intentions." },
-              { label: "Key Output", text: "An open educational website pairing empirical benchmarks with interactive tools to make AI energy use tangible and personally meaningful." },
-            ].map((c, i) => (
-              <div key={i} className="card intro-card">
-                <span className="mono-tag">{c.label}</span>
-                <p style={{ marginTop: '0.75rem', fontSize: '0.95rem' }}>{c.text}</p>
+      {/* About This Research */}
+      <section className="section about-section">
+        <div className="container about-container">
+          <span className="section-label">About This Research</span>
+          <div className="accent-rule" />
+          <h2>Understanding the energy costs of large language models</h2>
+          <p className="about-body">
+            In an age when our lives are increasingly digitized, the environmental costs of
+            our digital habits often go unseen. Behind every query to an AI system are data centers
+            filled with servers that consume enormous amounts of electricity and water.
+          </p>
+          <p className="about-body">
+            This research evaluates whether targeted education can improve public understanding
+            of AI sustainability, and shift behavioral intentions toward more mindful use.
+          </p>
+          <blockquote className="pull-quote">
+            "Any efforts to reduce our current carbon footprint created by digital pollution
+            will become more challenging over time." <cite>[Greenly]</cite>
+          </blockquote>
+        </div>
+      </section>
+
+      {/* Research Overview: Question, Method, Output */}
+      <section className="section research-overview-section">
+        <div className="container">
+          <span className="section-label">Research Overview</span>
+          <div className="accent-rule" />
+          <div className="research-cards-grid">
+            {researchCards.map((c, i) => (
+              <div key={i} className="research-card">
+                <span className="research-card-num">0{i + 1}</span>
+                <span className="mono-tag research-card-label">{c.label}</span>
+                <p className="research-card-text">{c.text}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Site map / navigation teaser */}
+      {/* Explore the Research */}
       <section className="section nav-teaser">
         <div className="container">
           <span className="section-label">Explore the Research</span>
