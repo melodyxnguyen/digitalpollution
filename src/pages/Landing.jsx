@@ -98,7 +98,7 @@ export default function Landing() {
               { path: '/digital-technologies', num: '01', title: 'Digital Technologies', desc: 'E-waste, data infrastructure, and Internet pollution — the full lifecycle.' },
               { path: '/large-language-models', num: '02', title: 'Large Language Models', desc: 'Physical infrastructure, training vs. inference, and the GPU bottleneck.' },
               { path: '/interactive', num: '03', title: 'Interactive Tools', desc: 'Model comparison slider, email calculator, and live energy meter.' },
-              { path: '/best-practices', num: '04', title: 'Best Practices', desc: 'Concrete steps to reduce your AI and digital footprint today.' },
+              { path: '/best-practices', num: '04', title: 'Best Practices', desc: 'Nine concrete steps to reduce your AI and digital footprint today.' },
               { path: '/fun-facts', num: '05', title: 'Fun Facts & Quiz', desc: 'Test your knowledge and explore research highlights.' },
             ].map((item) => (
               <Link key={item.path} to={item.path} className="nav-card">

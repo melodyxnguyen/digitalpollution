@@ -12,24 +12,43 @@
     margin-top: 1.5rem;
   }
   
+  .practices-hint {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    margin-bottom: 1.25rem;
+    margin-top: -0.25rem;
+  }
+
   .practice-card {
     display: flex;
     flex-direction: column;
     gap: 0.6rem;
     border-top: 3px solid var(--border);
     transition: border-top-color 0.2s, transform 0.15s;
+    cursor: pointer;
+    user-select: none;
   }
-  
-  .practice-card:hover {
+
+  .practice-card:hover:not(.practice-card--static) {
     border-top-color: var(--sage);
-    transform: translateY(-2px);
+    background: var(--bg-alt);
   }
-  
+
+  .practice-card--static {
+    cursor: default;
+  }
+
+  .practice-card--open {
+    border-top-color: var(--sage);
+    grid-column: span 2;
+  }
+
   .practice-card-top {
     display: flex;
     align-items: center;
     justify-content: space-between;
   }
+
   
   .practice-icon { font-size: 1.5rem; line-height: 1; }
   
@@ -61,7 +80,139 @@
     color: var(--text-muted);
     margin-top: auto;
   }
-  
+
+  /* Bonus tip */
+  .bonus-tip {
+    margin-top: 2.5rem;
+    padding-top: 1.75rem;
+    border-top: 1px solid var(--border);
+    max-width: 560px;
+  }
+
+  .bonus-tip .section-label {
+    display: block;
+    margin-bottom: 0.5rem;
+  }
+
+  .bonus-tip h4 {
+    font-size: 1rem;
+    color: var(--ink);
+    margin: 0 0 0.4rem;
+  }
+
+  .bonus-tip p {
+    font-size: 0.88rem;
+    color: var(--text-secondary);
+    line-height: 1.65;
+    margin: 0;
+  }
+
+  /* Expand panel */
+  .practice-expand {
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border);
+  }
+
+  .expand-slide-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 0.75rem;
+  }
+
+  .expand-context-label {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--sage-dark);
+  }
+
+  .expand-nav {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+
+  .expand-nav-btn {
+    background: none;
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    color: var(--text-secondary);
+    font-size: 1rem;
+    line-height: 1;
+    width: 1.6rem;
+    height: 1.6rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: border-color 0.15s, color 0.15s;
+  }
+
+  .expand-nav-btn:hover {
+    border-color: var(--sage);
+    color: var(--sage-dark);
+  }
+
+  .expand-nav-count {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    color: var(--text-muted);
+    min-width: 2.5rem;
+    text-align: center;
+  }
+
+  .expand-cols {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    gap: 0.75rem;
+    align-items: center;
+  }
+
+  .expand-col {
+    padding: 0.85rem 1rem;
+    border-radius: 3px;
+  }
+
+  .expand-col--before {
+    background: #fdf2f2;
+    border: 1px solid #f0b8b8;
+  }
+
+  .expand-col--after {
+    background: #f2f9f4;
+    border: 1px solid #a8d5b5;
+  }
+
+  .expand-label {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 0.4rem;
+  }
+
+  .expand-col--before .expand-label { color: #b03030; }
+  .expand-col--after  .expand-label { color: #2a7a4a; }
+
+  .expand-col p {
+    font-size: 0.82rem;
+    font-style: italic;
+    color: var(--text-secondary);
+    line-height: 1.55;
+    margin: 0;
+  }
+
+  .expand-arrow {
+    font-size: 1rem;
+    color: var(--text-muted);
+    text-align: center;
+    flex-shrink: 0;
+  }
+
   /* Scenarios */
   .scenarios-section { background: var(--bg-alt); }
   
@@ -190,12 +341,16 @@
   @media (max-width: 1024px) {
     .practices-grid { grid-template-columns: repeat(2, 1fr); }
   }
-  
+
   @media (max-width: 768px) {
     .scenario-cols { grid-template-columns: 1fr; }
     .scenario-arrow { display: none; }
+    .expand-cols { grid-template-columns: 1fr; }
+    .expand-arrow { display: none; }
+    .practice-card--open { grid-column: span 1; }
   }
-  
+
   @media (max-width: 480px) {
     .practices-grid { grid-template-columns: 1fr; }
+    .practice-card--open { grid-column: span 1; }
   }
