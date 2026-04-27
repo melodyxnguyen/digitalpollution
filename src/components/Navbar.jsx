@@ -1,19 +1,17 @@
 import { useState } from 'react'
-import { NavLink, useLocation } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 import './Navbar.css'
 
 const navItems = [
-  { path: '/', label: 'Home' },
-  { path: '/digital-technologies', label: 'Digital Tech' },
-  { path: '/large-language-models', label: 'LLMs' },
-  { path: '/interactive', label: 'Explore' },
-  { path: '/best-practices', label: 'Best Practices' },
-  { path: '/fun-facts', label: 'Fun Facts' },
+  { path: '/',               label: 'Learn'   },
+  { path: '/interactive',    label: 'Explore' },
+  { path: '/best-practices', label: 'Measure' },
+  { path: '/act',            label: 'Act'     },
+  { path: '/about',          label: 'About'   },
 ]
 
 export default function Navbar() {
   const [open, setOpen] = useState(false)
-  const location = useLocation()
 
   return (
     <nav className="navbar">

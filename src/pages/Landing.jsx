@@ -1,17 +1,78 @@
+import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import './Landing.css'
 
 const stats = [
   { value: "80–90%", label: "of LLM energy used during inference, not training", cite: "[Shao et al.]" },
-  { value: "2.3B", label: "people use cloud storage services today", cite: "[Greenly]" },
-  { value: "4×", label: "TDP estimates can overstate real GPU energy use", cite: "[ML.ENERGY]" },
+  { value: "2.3B",   label: "people use cloud storage services today",            cite: "[Greenly]" },
+  { value: "4×",     label: "TDP estimates can overstate real GPU energy use",    cite: "[ML.ENERGY]" },
 ]
 
 const researchCards = [
   { label: "Research Question", text: "Do people understand the energy and emissions costs of LLMs, and can a brief educational intervention shift behavioral intentions?" },
-  { label: "Central Method", text: "Pre/post surveys with an interactive educational website as the intervention, measuring changes in knowledge, attitudes, and intentions." },
-  { label: "Key Output", text: "An open educational website pairing empirical benchmarks with interactive tools to make AI energy use tangible and personally meaningful." },
+  { label: "Central Method",   text: "Educate users on AI's hidden energy costs, equip them with practical tools for sustainable use, and activate civic action toward stronger data center oversight." },
+  { label: "Key Output",       text: "An open educational website pairing empirical benchmarks with interactive tools to make AI energy use tangible and personally meaningful." },
 ]
+
+// Add more quotes here as interviews are completed
+const expertQuotes = [
+  {
+    quote: "I would like to see a more rigorous oversight of data center planning and operations, a better model for allocating the infrastructure costs of building data centers so that we don't socialize those costs unnecessarily, and a stronger corporate governance model and legal framework for managing the social, political, and economic risks to society.",
+    name:  "David P. Chassin, PhD",
+    title: "Eudoxys Sciences (formerly SLAC National Accelerator Laboratory)",
+  },
+  {
+    quote: "I feel compelled to make people understand that when they use ChatGPT like a calculator, that comes with a cost to the planet.",
+    name:  "Sasha Luccioni",
+    title: "AI and Climate Lead, Hugging Face",
+    source: "NPR, 2024",
+  },
+]
+
+function ExpertQuotes() {
+  const [index, setIndex] = useState(0)
+  const [sliding, setSliding] = useState(false)
+
+  useEffect(() => {
+    if (expertQuotes.length < 2) return
+    const id = setInterval(() => {
+      setSliding(true)
+      setTimeout(() => {
+        setIndex(i => (i + 1) % expertQuotes.length)
+        setSliding(false)
+      }, 400)
+    }, 6000)
+    return () => clearInterval(id)
+  }, [])
+
+  const q = expertQuotes[index]
+
+  return (
+    <section className="section expert-quotes-section">
+      <div className="container">
+        <span className="section-label">Expert Perspectives</span>
+        <div className="accent-rule" />
+        <h2>What Researchers Say</h2>
+        <div className={`expert-quote-card ${sliding ? 'expert-quote-card--sliding' : ''}`}>
+          <div className="expert-quote-mark">"</div>
+          <blockquote className="expert-quote-text">{q.quote}</blockquote>
+          <div className="expert-quote-attr">
+            <span className="expert-quote-name">{q.name}</span>
+            <span className="expert-quote-title">
+              {q.title}{q.source ? ` · ${q.source}` : ''}
+            </span>
+          </div>
+        </div>
+        <div className="expert-quote-progress">
+          <div
+            className="expert-quote-progress-fill"
+            key={index}
+          />
+        </div>
+      </div>
+    </section>
+  )
+}
 
 export default function Landing() {
   return (
@@ -71,7 +132,10 @@ export default function Landing() {
         </div>
       </section>
 
-      {/* Research Overview: Question, Method, Output */}
+      {/* Expert Perspectives */}
+      <ExpertQuotes />
+
+      {/* Research Overview */}
       <section className="section research-overview-section">
         <div className="container">
           <span className="section-label">Research Overview</span>
@@ -97,9 +161,9 @@ export default function Landing() {
             {[
               { path: '/digital-technologies', num: '01', title: 'Digital Technologies', desc: 'E-waste, data infrastructure, and Internet pollution — the full lifecycle.' },
               { path: '/large-language-models', num: '02', title: 'Large Language Models', desc: 'Physical infrastructure, training vs. inference, and the GPU bottleneck.' },
-              { path: '/interactive', num: '03', title: 'Interactive Tools', desc: 'Model comparison slider, email calculator, and live energy meter.' },
-              { path: '/best-practices', num: '04', title: 'Best Practices', desc: 'Nine concrete steps to reduce your AI and digital footprint today.' },
-              { path: '/fun-facts', num: '05', title: 'Fun Facts & Quiz', desc: 'Test your knowledge and explore research highlights.' },
+              { path: '/interactive',           num: '03', title: 'Explore',               desc: 'Model comparison slider, email calculator, and live energy meter.' },
+              { path: '/best-practices',        num: '04', title: 'Measure',               desc: 'Best practices, curated tools, and ways to reduce your footprint.' },
+              { path: '/act',                   num: '05', title: 'Act',                   desc: 'Write to your senator and test your knowledge with the quiz.' },
             ].map((item) => (
               <Link key={item.path} to={item.path} className="nav-card">
                 <span className="nav-card-num">{item.num}</span>

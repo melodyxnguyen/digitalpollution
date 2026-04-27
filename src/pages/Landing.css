@@ -67,6 +67,12 @@
     padding: 2.5rem 0;
   }
 
+  .stats-strip .mono-tag {
+    background: rgba(255,255,255,0.07);
+    color: rgba(255,255,255,0.38);
+    border: none;
+  }
+
   .stats-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -134,6 +140,93 @@
     font-size: 0.78rem;
     color: var(--sage);
     margin-left: 0.35rem;
+  }
+
+  /* ── Expert Quotes ── */
+  .expert-quotes-section {
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .expert-quotes-section h2 {
+    margin-bottom: 1.75rem;
+  }
+
+  .expert-quote-card {
+    background: var(--bg-alt);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--sage);
+    border-radius: 0 4px 4px 0;
+    padding: 2rem 2.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    max-width: 800px;
+    transition: opacity 0.4s ease, transform 0.4s ease;
+  }
+
+  .expert-quote-card--sliding {
+    opacity: 0;
+    transform: translateX(12px);
+  }
+
+  .expert-quote-mark {
+    font-family: var(--font-display);
+    font-size: 3rem;
+    color: var(--sage);
+    line-height: 0.5;
+    opacity: 0.5;
+  }
+
+  .expert-quote-text {
+    font-family: var(--font-display);
+    font-style: normal;
+    font-size: clamp(0.95rem, 1.8vw, 1.1rem);
+    color: var(--text-secondary);
+    line-height: 1.75;
+    margin: 0;
+  }
+
+  .expert-quote-attr {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+    border-top: 1px solid var(--border);
+    padding-top: 1rem;
+  }
+
+  .expert-quote-name {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    color: var(--sage-dark);
+    letter-spacing: 0.04em;
+  }
+
+  .expert-quote-title {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--text-muted);
+  }
+
+  .expert-quote-progress {
+    max-width: 800px;
+    height: 2px;
+    background: var(--border);
+    border-radius: 1px;
+    margin-top: 1rem;
+    overflow: hidden;
+  }
+
+  .expert-quote-progress-fill {
+    height: 100%;
+    background: var(--sage);
+    border-radius: 1px;
+    animation: quoteProgress 6s linear forwards;
+  }
+
+  @keyframes quoteProgress {
+    from { width: 0%; }
+    to   { width: 100%; }
   }
 
   /* ── Research Overview ── */

@@ -8,6 +8,8 @@ import LLMs from './pages/LLMs'
 import Interactive from './pages/Interactive'
 import BestPractices from './pages/BestPractices'
 import FunFacts from './pages/FunFacts'
+import Act from './pages/Act'
+import About from './pages/About'
 import './App.css'
 
 function ScrollToTop() {
@@ -32,6 +34,8 @@ function App() {
         <Route path="/interactive" element={<Interactive />} />
         <Route path="/best-practices" element={<BestPractices />} />
         <Route path="/fun-facts" element={<FunFacts />} />
+        <Route path="/act" element={<Act />} />
+        <Route path="/about" element={<About />} />
       </Routes>
       <Footer />
     </BrowserRouter>
