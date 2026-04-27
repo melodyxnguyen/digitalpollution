@@ -87,7 +87,7 @@ export default function Landing() {
             <em>Pollution</em>
           </h1>
           <p className="hero-sub">
-            Every AI query, email, and cloud upload has a physical cost — electricity
+            Every AI query, email, and cloud upload has a physical cost. Electricity
             drawn from grids, water consumed by cooling systems, hardware extracted from the earth.
             This project makes the invisible visible.
           </p>
