@@ -78,9 +78,91 @@
     transition: transform 0.3s, opacity 0.3s;
   }
   
+  /* ── Explore dropdown ── */
+  .nav-dropdown-parent {
+    position: relative;
+  }
+
+  .nav-dropdown-trigger {
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+    font-family: var(--font-body);
+  }
+
+  .nav-chevron {
+    font-size: 0.6rem;
+    opacity: 0.55;
+    line-height: 1;
+    margin-top: 1px;
+  }
+
+  .nav-dropdown {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    box-shadow: 0 8px 28px rgba(0,0,0,0.08);
+    list-style: none;
+    padding: 0.4rem 0;
+    min-width: 210px;
+    z-index: 200;
+  }
+
+  .nav-dropdown--open {
+    display: block;
+  }
+
+  .nav-dropdown-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.08rem;
+    padding: 0.55rem 1.2rem;
+    text-decoration: none;
+    transition: background 0.15s;
+  }
+
+  .nav-dropdown-item:hover {
+    background: var(--bg-alt);
+  }
+
+  .nav-dropdown-chapter {
+    font-family: var(--font-mono);
+    font-size: 0.63rem;
+    color: var(--text-muted);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  .nav-dropdown-label {
+    font-family: var(--font-body);
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    transition: color 0.15s;
+  }
+
+  .nav-dropdown-item:hover .nav-dropdown-label {
+    color: var(--ink);
+  }
+
+  .nav-dropdown-item--active .nav-dropdown-label {
+    color: var(--sage-dark);
+  }
+
+  .nav-dropdown-item--active .nav-dropdown-chapter {
+    color: var(--sage);
+  }
+
+  /* ── Mobile ── */
   @media (max-width: 768px) {
     .navbar-hamburger { display: flex; }
-  
+
     .navbar-links {
       display: none;
       flex-direction: column;
@@ -94,8 +176,25 @@
       gap: 0.25rem;
       align-items: flex-start;
     }
-  
+
     .navbar-links--open { display: flex; }
     .navbar-links li { width: 100%; }
     .nav-link { display: block; width: 100%; }
+
+    .nav-dropdown-parent { width: 100%; }
+    .nav-dropdown-trigger { width: 100%; justify-content: space-between; }
+
+    .nav-dropdown {
+      position: static;
+      box-shadow: none;
+      border: none;
+      border-left: 2px solid var(--sage-pale);
+      border-radius: 0;
+      padding: 0.2rem 0 0.2rem 0.75rem;
+      margin-bottom: 0.15rem;
+      background: transparent;
+      min-width: 0;
+    }
+
+    .nav-dropdown--open { display: block; }
   }

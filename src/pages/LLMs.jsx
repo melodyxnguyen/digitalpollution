@@ -197,10 +197,12 @@ export default function LLMs() {
         <div className="container">
           <span className="section-label">03 · A Hidden Driver</span>
           <div className="accent-rule" />
-          <h2>Response Verbosity & Token Cost</h2>
+          <h2>Longer Answers Use More Energy</h2>
           <p className="llm-section-intro">
-            Every token in a model's reply requires a full forward pass through the GPU.
-            Longer responses scale energy consumption nearly linearly with output length. Click any row to learn more.
+            AI builds its reply one word at a time, and each word has an energy cost.
+            A short, direct answer uses a fraction of the electricity of a lengthy one.
+            Some AI models even generate thousands of hidden words behind the scenes before you see a single line of response.
+            Click any row to learn more.
           </p>
           <div className="llm-verbosity-list">
             {verbosityTypes.map((v, i) => (
@@ -237,9 +239,10 @@ export default function LLMs() {
         <div className="container">
           <span className="section-label">04 · Hardware Differences</span>
           <div className="accent-rule" />
-          <h2>The GPU Bottleneck & Efficiency Paradox</h2>
+          <h2>Better Hardware Doesn't Always Mean Less Energy</h2>
           <p className="llm-section-intro">
-            Newer hardware is more efficient per operation, but that efficiency often enables larger models and higher total energy use.
+            Newer chips can do more work using less power — but that improvement often just makes it practical to run bigger, more complex AI models.
+            The result: total energy use goes up even as the hardware gets more efficient.
             Click any card to learn more.
           </p>
           <div className="llm-cards-grid llm-cards-grid--3">
