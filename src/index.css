@@ -14,6 +14,16 @@
   --sage-pale:   #EEF3E8;
   --sage-dark:   #4A6535;
   --ink:         #1C2B1E;
+  /* Energy level palette */
+  --energy-yellow:      #B8900A;
+  --energy-yellow-pale: #FDF6E3;
+  --energy-yellow-dark: #8A6A08;
+  --energy-orange:      #C4621A;
+  --energy-orange-pale: #FDF1E8;
+  --energy-orange-dark: #9A4A12;
+  --energy-red:         #C0392B;
+  --energy-red-pale:    #FDF2F2;
+  --energy-red-dark:    #962D22;
   --font-display: 'Playfair Display', Georgia, serif;
   --font-body:    'Source Serif 4', Georgia, serif;
   --font-mono:    'JetBrains Mono', 'Courier New', monospace;

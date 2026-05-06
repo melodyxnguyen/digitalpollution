@@ -39,42 +39,42 @@ const expertQuotes = [
   {
     quote: "Large language models have been enormously successful because they are so general. But you can get comparable answers for far less energy cost and monetary cost if you actually just train small classical machine learning models. The hard part is that it requires expertise and time.",
     name: "Akshay Agrawal",
-    title: "Co-founder, Marimo · personal communication, April 2026",
+    title: "Co-founder · Marimo · Tech · April 2026",
   },
   {
-    quote: "Stochastic automation systems can offer substantial utility but also have the risk of causing serious harm. Hype and imprecise language make this more difficult to navigate. We should describe these systems by what users can do with them, not by anthropomorphic capabilities they purportedly possess, and acknowledge the significant human labor that goes into making these systems work, from data corpus curation and data labeling to system supervision and maintenance.",
+    quote: "Stochastic automation systems can offer substantial utility but also have the risk of causing serious harm. Hype and imprecise language make this more difficult to navigate. We should describe these systems by what users can do with them, not by anthropomorphic capabilities they purportedly possess, and acknowledge the significant human labor that goes into making these systems work.",
     name: "Bennet Meyers",
-    title: "Staff Scientist, SLAC / NREL; Adjunct Professor, Stanford University · official statement, personal communication, April 2026",
+    title: "Staff Scientist · SLAC / NREL; Adjunct Professor · Stanford University · Energy & Research · April 2026",
   },
   {
     quote: "This is a multidimensional problem. It is a security issue. It is a national race to AI competence. Everyone is giving incentives but no one is asking who pays for the externalities.",
     name: "Rimvydas Baltaduonis",
-    title: "Energy Economist, Lecturer, Stanford University · personal communication, March 2026",
+    title: "Energy Economist, Lecturer · Stanford University · Energy Policy · March 2026",
   },
   {
     quote: "LLMs exhibit jagged intelligence, excelling at complex tasks while failing simple ones. Tool use remains rudimentary, leaving significant room for the kind of efficient, task-specific design this thesis advocates.",
     name: "Arya Boudaie",
-    title: "Software Engineer, Amazon; AI Professor, Pace University · Spring 2026",
+    title: "Software Engineer · Amazon; AI Professor · Pace University · Tech & Academia · Spring 2026",
   },
   {
     quote: "If you are not paying the sticker price, or someone else pays, you do not really think about the energy costs, in the same way that people buy clothing without thinking about labor conditions or materials sourcing.",
     name: "Jonathan Lee",
-    title: "Clinical Assistant Professor, Computer Science, Pace University · written communication, April 2026",
+    title: "Clinical Assistant Professor, Computer Science · Pace University · Academia · April 2026",
   },
   {
     quote: "I would like to see more rigorous oversight of data center operations, a better model for allocating the infrastructure costs so that we do not socialize those costs unnecessarily, and a stronger corporate governance model and legal framework for managing the social, political, and economic risks to society.",
     name: "David P. Chassin, PhD",
-    title: "Owner, Eudoxys Sciences LLC; Former Chief Scientist, GISMo, SLAC · written communication, February 2026",
+    title: "Owner · Eudoxys Sciences LLC; Former Chief Scientist, GISMo · SLAC · Energy Research · February 2026",
   },
   {
     quote: "Orchestration first, automation second. Map the workflow, then automate specific steps, not replace the entire process at once. Our provider onboarding dropped from 90 days to 3 weeks.",
     name: "Dr. Sri Ramesh Eevani",
-    title: "AVP Technology, Healthfirst · personal communication, April 2026",
+    title: "AVP Technology · Healthfirst · Healthcare · April 2026",
   },
   {
     quote: "The manual work of cross-referencing regulatory requirements against company documentation is slow, error-prone, and expensive. An AI agent that surfaces evidence gaps before an audit would transform this workflow entirely.",
     name: "Nicole Ha",
-    title: "Executive Consultant, BioTech Regulatory, Quality, and CMC · personal communication, April 2026",
+    title: "Executive Consultant · BioTech Regulatory, Quality & CMC · Biotech · April 2026",
   },
 ]
 
@@ -226,10 +226,10 @@ export default function Landing() {
       <section className="argument-strip">
         <div className="container argument-strip-inner">
           <p className="argument-strip-title">
-            The most practical path to reducing AI's energy footprint is developer ergonomics, building small, task-specific models instead of defaulting to frontier LLMs.
+            The most practical path to reducing AI's energy footprint is specificity — small, task-specific models instead of frontier ones.
           </p>
           <p className="argument-strip-sub">
-            Large language models are generically powerful, but generically expensive. The answer to their energy footprint lies not in rejection, but in specificity. People who perform the same tasks repeatedly, such as biotech auditors, healthcare administrators, data scientists, and energy researchers, should step away from frontier models and utilize smarter, smaller, and more function-specific models.
+            LLMs are generically powerful but generically expensive. The answer isn't rejection — it's fit. Professionals who repeat the same tasks should reach for smaller, purpose-built models, not frontier ones.
           </p>
           <span className="argument-strip-attr">— Thesis Conclusion · Melody Nguyễn, Pace University 2026</span>
         </div>
@@ -275,11 +275,11 @@ export default function Landing() {
           <div className="accent-rule" />
           <div className="nav-teaser-grid">
             {[
-              { path: '/digital-technologies', num: '01', title: 'Digital Technologies', desc: 'E-waste, internet pollution, and the full infrastructure lifecycle behind every click.' },
-              { path: '/large-language-models', num: '02', title: 'Large Language Models', desc: 'Training vs. inference, the GPU bottleneck, and why model size is an energy decision.' },
-              { path: '/interactive',           num: '03', title: 'Explore',               desc: 'Compare models side-by-side and watch energy accumulate token-by-token in real time.' },
-              { path: '/best-practices',        num: '04', title: 'Measure',               desc: 'Best practices, curated tools, and what you can do today to reduce your footprint.' },
-              { path: '/act',                   num: '05', title: 'Act',                   desc: 'Write to your senator, audit your habits, and turn knowledge into action.' },
+              { path: '/digital-technologies', num: '01', title: 'Digital Technologies',       desc: 'E-waste, internet pollution, and the full infrastructure lifecycle behind every click.' },
+              { path: '/large-language-models', num: '02', title: 'Large Language Models',  desc: 'Training vs. inference, the GPU bottleneck, and why model size is an energy decision.' },
+              { path: '/interactive',           num: '03', title: 'Measure',               desc: 'Compare models side-by-side and watch energy accumulate token-by-token in real time.' },
+              { path: '/best-practices',        num: '04', title: 'Best Practices',        desc: 'Best practices, curated tools, and what you can do today to reduce your footprint.' },
+              { path: '/quiz',                  num: '05', title: 'Quiz',                      desc: 'Test what you\'ve learned about digital pollution and AI\'s environmental footprint.' },
             ].map((item) => (
               <Link key={item.path} to={item.path} className="nav-card">
                 <span className="nav-card-num">{item.num}</span>

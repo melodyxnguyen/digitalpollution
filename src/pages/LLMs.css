@@ -130,6 +130,24 @@
   border: 1px solid var(--sage-light);
 }
 
+.llm-badge--yellow {
+  background: var(--energy-yellow-pale);
+  color: var(--energy-yellow-dark);
+  border: 1px solid var(--energy-yellow);
+}
+
+.llm-badge--orange {
+  background: var(--energy-orange-pale);
+  color: var(--energy-orange-dark);
+  border: 1px solid var(--energy-orange);
+}
+
+.llm-badge--red {
+  background: var(--energy-red-pale);
+  color: var(--energy-red-dark);
+  border: 1px solid var(--energy-red);
+}
+
 /* ── Verbosity rows ── */
 .llm-verbosity-list {
   display: flex;
@@ -171,8 +189,9 @@
 
 .llm-verbosity-val {
   font-family: var(--font-mono);
-  font-size: 0.72rem;
-  color: var(--text-muted);
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--text-secondary);
   flex-shrink: 0;
   margin-left: 1rem;
 }
@@ -215,7 +234,7 @@
   margin: 0.5rem 0;
 }
 
-.compare-stat--ai { color: var(--sage); font-size: 1.2rem; }
+.compare-stat--ai { color: var(--energy-orange); font-size: 1.2rem; }
 
 .compare-divider {
   font-family: var(--font-display);
@@ -225,7 +244,13 @@
   font-style: italic;
 }
 
-.compare-card--ai { border-top: 3px solid var(--sage); }
+.compare-card--ai {
+  border-top: 3px solid var(--energy-orange);
+  background: var(--energy-orange-pale);
+}
+
+.compare-card--ai .mono-tag { color: var(--energy-orange-dark); }
+.compare-card--ai p { color: var(--energy-orange-dark); opacity: 0.85; }
 
 .cite-note {
   font-family: var(--font-mono);

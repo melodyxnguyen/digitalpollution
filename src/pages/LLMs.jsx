@@ -30,7 +30,7 @@ const trainFacts = [
     title: 'Building the Model',
     summary: 'A one-time but enormous energy event, comparable to running hundreds of households for a year.',
     badge: 'Very high one-time cost',
-    badgeType: 'neutral',
+    badgeType: 'orange',
     detail: 'Training involves adjusting billions of parameters through repeated computation on massive datasets. It requires hundreds or thousands of GPUs or TPUs operating continuously for weeks or months. A single state-of-the-art LLM training run can consume megawatt-hours to gigawatt-hours of electricity, comparable to the annual energy use of hundreds of U.S. households.',
     cite: '[International Energy Agency, Patterson et al.]',
   },
@@ -39,7 +39,7 @@ const trainFacts = [
     title: 'Using the Model',
     summary: 'Lower cost per query, but it runs billions of times a day — that adds up to 80–90% of lifecycle energy.',
     badge: '80–90% of lifecycle energy',
-    badgeType: 'sage',
+    badgeType: 'red',
     detail: 'Inference refers to generating a response after the model is deployed. Each query requires the model to execute a full forward pass through its neural network layers for every token it produces. While a single inference request uses far less energy than training, inference accounts for 80–90% of total lifecycle energy because it happens billions of times daily worldwide.',
     cite: '[Shao et al.]',
   },
@@ -56,14 +56,14 @@ const verbosityTypes = [
   {
     label: 'Standard chat model, full answer',
     width: '45%',
-    color: 'var(--sage-light)',
+    color: 'var(--energy-yellow)',
     val: '~Moderate energy',
     detail: 'A typical conversational response from a standard chat model uses a moderate number of tokens. Research consistently finds that users prefer longer, more elaborate AI responses, yet this preference is a meaningful and largely invisible driver of data center energy consumption at scale.',
   },
   {
     label: 'Reasoning model (chain-of-thought)',
     width: '95%',
-    color: '#C0392B',
+    color: 'var(--energy-red)',
     val: '~10× more energy',
     detail: '"Thinking" models like Qwen 3 Thinking generate extended internal chains of thought before producing a visible answer. A single query may trigger tens of thousands of internal tokens, consuming energy at an order of magnitude greater per request than a standard chat model.',
   },
@@ -80,6 +80,7 @@ const gpuFacts = [
   {
     name: 'H100 GPU',
     tag: 'Current generation',
+    accentColor: 'var(--energy-orange)',
     summary: 'Higher ops/watt, but enables larger models that cost more energy per query.',
     detail: 'The NVIDIA H100 is considerably more energy-efficient per floating-point operation than the A100. However, this efficiency gain does not automatically reduce total energy use. More capable hardware enables the deployment of more complex, parameter-rich models, including reasoning architectures. The total energy cost per request frequently increases even as the underlying silicon becomes more efficient.',
     cite: '[ML.ENERGY]',
@@ -87,6 +88,7 @@ const gpuFacts = [
   {
     name: 'Jevons Paradox',
     tag: 'The efficiency trap',
+    accentColor: 'var(--energy-red)',
     summary: 'Efficiency improvements tend to expand use, not reduce total consumption.',
     detail: "Named after 19th-century economist William Stanley Jevons, this paradox describes how efficiency improvements in resource use tend to increase total consumption rather than reduce it. Applied to AI: as GPUs become more efficient, they make larger and more complex models economically viable to run. The net result is that total system energy often grows even as hardware improves. Measuring AI sustainability requires examining full system-level costs, not just hardware specs.",
     cite: '[ML.ENERGY]',
@@ -250,6 +252,7 @@ export default function LLMs() {
               <div
                 key={i}
                 className={`llm-card${openGpu === i ? ' llm-card--open' : ''}`}
+                style={f.accentColor ? { borderTopColor: f.accentColor } : undefined}
                 onClick={() => toggle(setOpenGpu, i)}
                 role="button"
                 tabIndex={0}

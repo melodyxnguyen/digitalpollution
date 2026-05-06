@@ -1,16 +1,21 @@
-import { useState } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { senatorsByState, stateNames, generateEmailDraft } from '../data/senators'
 import './Act.css'
-import './BestPractices.css'
 
-// ─── Best Practices Data ──────────────────────────────────────────────────────
+import photoPrompts  from '../../images/dataracks.jpg'
+import photoBatch    from '../../images/mitdatacenter.webp'
+import photoModel    from '../../images/cooling.avif'
+import photoCloud    from '../../images/drought.jpg'
 
-const practices = [
+// ─── Action Cards Data ────────────────────────────────────────────────────────
+
+const actions = [
   {
     num: '01',
     title: 'Write concise prompts',
     detail: 'Shorter, well-scoped prompts generate shorter responses, reducing the number of tokens produced and the energy consumed per interaction.',
     cite: '[MIT Technology Review, Shao et al.]',
+    photo: photoPrompts,
     examples: [
       {
         context: 'Homework',
@@ -34,21 +39,22 @@ const practices = [
     title: 'Batch related questions',
     detail: 'Instead of sending five separate queries, combine them into one. Each model call has a fixed overhead cost; batching reduces that overhead.',
     cite: '[Shao et al.]',
+    photo: photoBatch,
     examples: [
       {
         context: 'New gardener',
-        before: '"When do I plant tomatoes?" ... then "How much water?" ... then "Any pests to watch for?"',
-        after:  'When to plant tomatoes, how much water, and common pests, all in one message.',
+        before: ['When do I plant tomatoes?', 'How much water does it need?', 'Any pests to watch for?'],
+        after:  'When to plant tomatoes, how much water, and common pests — all in one message.',
       },
       {
         context: 'Music producer',
-        before: '"What is EQ?" / "What is compression?" / "How do I use them together?", sent one at a time.',
+        before: ['What is EQ?', 'What is compression?', 'How do I use them together?'],
         after:  'Quick explanation of EQ vs compression and how to use both in a mix.',
       },
       {
         context: 'Job hunter',
-        before: 'Three separate chats: "How do I write a cover letter?" / "What should I include?" / "How long should it be?"',
-        after:  'How do I write a cover letter, what to include and how long it should be?',
+        before: ['How do I write a cover letter?', 'What should I include?', 'How long should it be?'],
+        after:  'How do I write a cover letter — what to include and how long it should be?',
       },
     ],
   },
@@ -57,6 +63,7 @@ const practices = [
     title: 'Choose the right model',
     detail: 'A small model like Mistral 7B uses ~0.052 J/token. A reasoning model like DeepSeek R1 uses ~2.37 J/token. For simple tasks, smaller is smarter.',
     cite: '[ML.ENERGY]',
+    photo: photoModel,
     examples: [
       {
         context: 'Casual use',
@@ -77,105 +84,14 @@ const practices = [
   },
   {
     num: '04',
-    title: 'Delete old emails',
-    detail: 'Every stored email sits on a server consuming energy. Deleting old emails and unsubscribing from newsletters reduces persistent server load.',
-    cite: '[Greenly]',
-    examples: [
-      {
-        context: 'Online shopper',
-        before: 'Every brand you have ever bought from sends weekly "deals" you scroll past without opening.',
-        after:  'Hit unsubscribe on 3 of them today; takes about a minute.',
-      },
-      {
-        context: 'Small farm',
-        before: 'Newsletters from 10 seed companies, equipment dealers, and co-ops piling up unread.',
-        after:  'Keep the one or two you actually read; unsubscribe from the rest.',
-      },
-      {
-        context: 'Recent grad',
-        before: '9,000 unread emails including newsletters from every school club and campus event from 4 years ago.',
-        after:  'Search by sender, bulk-select, and delete; clear a year of old mail in under 10 minutes.',
-      },
-    ],
-  },
-  {
-    num: '05',
-    title: 'Use Wi-Fi over cellular',
-    detail: 'Mobile networks (4G/5G) are less energy-efficient per bit than fixed broadband. Switch to Wi-Fi for data-heavy tasks like video or AI use.',
-    cite: '[Greenly]',
-    examples: [
-      {
-        context: 'Commuter',
-        before: 'Downloading 4 podcast episodes on 5G while sitting in your apartment.',
-        after:  'Download over Wi-Fi before you leave the house.',
-      },
-      {
-        context: 'Farm worker',
-        before: 'Uploading drone footage to the cloud on 4G out in the field.',
-        after:  'Save the upload for when you are back on the farm network.',
-      },
-      {
-        context: 'Gamer',
-        before: 'Downloading a 30 GB update using your phone as a hotspot.',
-        after:  'Wait until you are on Wi-Fi; faster and less wasteful.',
-      },
-    ],
-  },
-  {
-    num: '06',
-    title: 'Keep devices longer',
-    detail: 'Manufacturing a new device embeds significant carbon before it is ever turned on. Extending device life is one of the highest-impact individual actions.',
-    cite: '[Patterson et al.]',
-    examples: [
-      {
-        context: 'Photographer',
-        before: 'Trading in a camera body every year for marginal megapixel improvements.',
-        after:  'Invest in lenses; a 4-year-old body still makes great photos.',
-      },
-      {
-        context: 'Home studio',
-        before: 'Buying a new audio interface every time a new model drops.',
-        after:  'Your current gear makes the same sounds. Use it until it breaks.',
-      },
-      {
-        context: 'Everyday user',
-        before: 'Upgrading a phone every 2 years because the new one looks nicer.',
-        after:  'Replace the battery instead; it feels like a new phone for a fraction of the cost.',
-      },
-    ],
-  },
-  {
-    num: '07',
-    title: 'Disable autoplay',
-    detail: 'Automatic video playback on YouTube and social platforms continuously loads server bandwidth, even when you are not actively watching.',
-    cite: '[Greenly]',
-    examples: [
-      {
-        context: 'Binge watcher',
-        before: 'Netflix autoplays the next episode while you are already in bed with your eyes closed.',
-        after:  'Enable "manage autoplay" in settings so it stops when your episode ends.',
-      },
-      {
-        context: 'Music listener',
-        before: "Spotify's auto-queue runs for 2 hours after your playlist ends, playing songs you did not choose.",
-        after:  'Set a sleep timer or turn off autoplay so it stops when your playlist does.',
-      },
-      {
-        context: 'Social scroller',
-        before: 'Videos auto-loading on every platform as you scroll even though you are just reading captions.',
-        after:  'Disable autoplay in your platform settings; most have a toggle buried in preferences.',
-      },
-    ],
-  },
-  {
-    num: '08',
     title: 'Audit your cloud storage',
     detail: 'Unneeded cloud backups, duplicate files, and unused subscriptions place constant load on data infrastructure. Review and trim regularly.',
     cite: '[Greenly]',
+    photo: photoCloud,
     examples: [
       {
         context: 'DIY renovator',
-        before: '3 years of contractor quotes, design mood boards, and progress photos, all still backed up to the cloud.',
+        before: '3 years of contractor quotes, design mood boards, and progress photos — all still backed up to the cloud.',
         after:  'Keep the final plans and best photos; delete everything else once the project is done.',
       },
       {
@@ -194,64 +110,91 @@ const practices = [
 
 const bonusTip = {
   title: 'Skip the "thanks!"',
-  detail: 'Sending a follow-up message just to say thank you triggers another full model response; tokens in, tokens out, energy spent. If the answer was good, just move on.',
+  detail: 'Sending a follow-up message just to say thank you triggers another full model response — tokens in, tokens out, energy spent. If the answer was good, just move on.',
 }
 
-function PracticeCard({ p, isOpen, onToggle }) {
+// ─── Action Card Component ────────────────────────────────────────────────────
+
+function ActionCard({ p, index, isOpen, onToggle }) {
   const [slide, setSlide] = useState(0)
+  const [sliding, setSliding] = useState(false)
   const total = p.examples.length
-  const hasExamples = total > 0
+  const photoLeft = index % 2 === 0
+  const autoRef = useRef(null)
 
-  function prev(e) {
-    e.stopPropagation()
-    setSlide(s => (s - 1 + total) % total)
-  }
-  function next(e) {
-    e.stopPropagation()
-    setSlide(s => (s + 1) % total)
+  function goTo(next) {
+    if (sliding) return
+    setSliding(true)
+    setTimeout(() => {
+      setSlide(((next % total) + total) % total)
+      setSliding(false)
+    }, 300)
   }
 
-  const ex = hasExamples ? p.examples[slide] : null
-  const clickable = !p.static
+  useEffect(() => {
+    if (!isOpen) { clearInterval(autoRef.current); return }
+    clearInterval(autoRef.current)
+    autoRef.current = setInterval(() => goTo(slide + 1), 5000)
+    return () => clearInterval(autoRef.current)
+  }, [isOpen, slide])
+
+  const ex = p.examples[slide]
 
   return (
-    <div
-      className={`card practice-card${isOpen ? ' practice-card--open' : ''}${!clickable ? ' practice-card--static' : ''}`}
-      onClick={clickable ? onToggle : undefined}
-      role={clickable ? 'button' : undefined}
-      aria-expanded={clickable ? isOpen : undefined}
-      tabIndex={clickable ? 0 : undefined}
-      onKeyDown={clickable ? (e => (e.key === 'Enter' || e.key === ' ') && onToggle()) : undefined}
-    >
-      <div className="practice-card-top">
-        <span className="practice-num">{p.num}</span>
+    <div className={`action-full-card ${isOpen ? 'action-full-card--open' : ''}`}>
+      <div className={`action-full-split ${!photoLeft ? 'action-full-split--reverse' : ''}`}>
+        <div className="action-full-photo-frame">
+          <div
+            className="action-full-photo"
+            style={{ backgroundImage: `url(${p.photo})` }}
+            aria-hidden="true"
+          />
+        </div>
+        <div className="action-full-text">
+          <span className="action-full-num">{p.num}</span>
+          <h3 className="action-full-title">{p.title}</h3>
+          <p className="action-full-detail">{p.detail}</p>
+          {p.cite && <span className="mono-tag">{p.cite}</span>}
+          <button className="action-full-toggle" onClick={onToggle}>
+            {isOpen ? '↑ Collapse examples' : 'Real-life examples →'}
+          </button>
+        </div>
       </div>
-      <h4>{p.title}</h4>
-      <p>{p.detail}</p>
-      {p.cite && <span className="practice-cite">{p.cite}</span>}
 
-      {isOpen && hasExamples && (
-        <div className="practice-expand" onClick={e => e.stopPropagation()}>
-          <div className="expand-slide-header">
-            <span className="expand-context-label">{ex.context}</span>
+      {isOpen && (
+        <div className="action-full-examples">
+          <div className="container action-examples-inner">
+            <div className={`action-example-slide ${sliding ? 'action-example-slide--sliding' : ''}`}>
+              <div className="action-examples-header">
+                <span className="action-example-context">{ex.context}</span>
+              </div>
+              <div className="action-examples-cols">
+                <div className="action-example-col action-example-col--before">
+                  <span className="action-example-label">Before</span>
+                  {Array.isArray(ex.before)
+                    ? ex.before.map((line, i) => <p key={i}>"{line}"</p>)
+                    : <p>"{ex.before}"</p>
+                  }
+                </div>
+                <span className="action-example-arrow">→</span>
+                <div className="action-example-col action-example-col--after">
+                  <span className="action-example-label">After</span>
+                  <p>"{ex.after}"</p>
+                </div>
+              </div>
+            </div>
             {total > 1 && (
-              <div className="expand-nav">
-                <button className="expand-nav-btn" onClick={prev} aria-label="Previous example">‹</button>
-                <span className="expand-nav-count">{slide + 1} / {total}</span>
-                <button className="expand-nav-btn" onClick={next} aria-label="Next example">›</button>
+              <div className="action-examples-dots">
+                {p.examples.map((_, i) => (
+                  <button
+                    key={i}
+                    className={`action-example-dot ${i === slide ? 'action-example-dot--active' : ''}`}
+                    onClick={() => goTo(i)}
+                    aria-label={`Example ${i + 1}`}
+                  />
+                ))}
               </div>
             )}
-          </div>
-          <div className="expand-cols">
-            <div className="expand-col expand-col--before">
-              <span className="expand-label">Before</span>
-              <p>"{ex.before}"</p>
-            </div>
-            <span className="expand-arrow">→</span>
-            <div className="expand-col expand-col--after">
-              <span className="expand-label">After</span>
-              <p>"{ex.after}"</p>
-            </div>
           </div>
         </div>
       )}
@@ -259,7 +202,7 @@ function PracticeCard({ p, isOpen, onToggle }) {
   )
 }
 
-// ─── Senator Email Agent ─────────────────────────────────────────────────────
+// ─── Senator Email Agent ──────────────────────────────────────────────────────
 
 const concernOptions = [
   { id: 'energy',       label: 'Energy consumption',        desc: 'AI data centers draw enormous and growing amounts of electricity' },
@@ -343,7 +286,6 @@ function EmailAgent() {
 
   return (
     <div className="agent-widget">
-      {/* Step 0 — state selection */}
       <div className="agent-thread">
         <AgentMessage>
           <p>What state are you writing from? I'll look up your U.S. senators.</p>
@@ -368,14 +310,10 @@ function EmailAgent() {
         )}
       </div>
 
-      {/* Step 1 — senator selection */}
       {step >= 1 && (
         <div className="agent-thread">
           <AgentMessage>
-            <p>
-              Your senators for {state} are listed below.
-              Who would you like to write to?
-            </p>
+            <p>Your senators for {state} are listed below. Who would you like to write to?</p>
           </AgentMessage>
 
           {step === 1 && (
@@ -411,7 +349,6 @@ function EmailAgent() {
         </div>
       )}
 
-      {/* Step 2 — concern selection */}
       {step >= 2 && (
         <div className="agent-thread">
           <AgentMessage>
@@ -437,7 +374,6 @@ function EmailAgent() {
         </div>
       )}
 
-      {/* Step 3 — personal note */}
       {step >= 3 && (
         <div className="agent-thread">
           <AgentMessage>
@@ -457,12 +393,8 @@ function EmailAgent() {
                 onChange={e => setPersonalNote(e.target.value)}
               />
               <div className="agent-action-row">
-                <button className="btn-sage" onClick={handleGenerateEmail}>
-                  Draft my email →
-                </button>
-                <button className="btn-ghost" onClick={handleGenerateEmail}>
-                  Skip personal note
-                </button>
+                <button className="btn-sage" onClick={handleGenerateEmail}>Draft my email →</button>
+                <button className="btn-ghost" onClick={handleGenerateEmail}>Skip personal note</button>
               </div>
             </>
           )}
@@ -476,14 +408,10 @@ function EmailAgent() {
         </div>
       )}
 
-      {/* Step 4 — generated email */}
       {step >= 4 && (
         <div className="agent-thread">
           <AgentMessage>
-            <p>
-              Here is your draft. Edit it however you like; it's yours.
-              When you're ready, copy it or open it directly in your email client.
-            </p>
+            <p>Here is your draft. Edit it however you like — it's yours. When you're ready, copy it or open it directly in your email client.</p>
           </AgentMessage>
 
           <textarea
@@ -530,7 +458,7 @@ function EmailAgent() {
   )
 }
 
-// ─── Page ────────────────────────────────────────────────────────────────────
+// ─── Page ─────────────────────────────────────────────────────────────────────
 
 export default function Act() {
   const [openCard, setOpenCard] = useState(null)
@@ -549,7 +477,7 @@ export default function Act() {
           <p className="page-hero-sub">
             Learning about digital pollution is step one. Step two is making your voice
             heard by the people who write the rules. Use the tool below to draft a
-            personalized letter to your U.S. senator; it takes about two minutes.
+            personalized letter to your U.S. senator — it takes about two minutes.
           </p>
         </div>
       </section>
@@ -570,23 +498,29 @@ export default function Act() {
       </section>
 
       {/* What You Can Do Today */}
-      <section className="section">
-        <div className="container">
-          <span className="section-label">In Practice · 8 Practices</span>
+      <section className="action-cards-section">
+        <div className="container action-cards-header">
+          <span className="section-label">In Practice · 4 Actions</span>
           <div className="accent-rule" />
           <h2>What You Can Do Today</h2>
-          <p className="practices-hint">See how small choices translate into real differences. Click any card to see real-life examples.</p>
-          <div className="practices-grid">
-            {practices.map((p, i) => (
-              <PracticeCard
-                key={i}
-                p={p}
-                isOpen={openCard === i}
-                onToggle={() => toggleCard(i)}
-              />
-            ))}
-          </div>
+          <p className="action-cards-hint">
+            Small choices, real differences. Click any card to see real-life examples.
+          </p>
+        </div>
 
+        <div className="action-cards-list">
+          {actions.map((p, i) => (
+            <ActionCard
+              key={i}
+              p={p}
+              index={i}
+              isOpen={openCard === i}
+              onToggle={() => toggleCard(i)}
+            />
+          ))}
+        </div>
+
+        <div className="container">
           <div className="bonus-tip">
             <span className="section-label">One more thing</span>
             <h4>{bonusTip.title}</h4>
@@ -594,7 +528,6 @@ export default function Act() {
           </div>
         </div>
       </section>
-
     </main>
   )
 }

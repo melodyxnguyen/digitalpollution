@@ -3,6 +3,34 @@ import { encode, decode } from 'gpt-tokenizer'
 import { modelData } from '../data/content'
 import './Interactive.css'
 
+function insightTheme(ratio) {
+  if (ratio < 3)  return { bg: 'var(--sage-pale)',            border: 'var(--sage-light)',    text: 'var(--sage-dark)'            }
+  if (ratio < 10) return { bg: 'var(--energy-yellow-pale)',   border: 'var(--energy-yellow)', text: 'var(--energy-yellow-dark)'   }
+  if (ratio < 40) return { bg: 'var(--energy-orange-pale)',   border: 'var(--energy-orange)', text: 'var(--energy-orange-dark)'   }
+  return           { bg: 'var(--energy-red-pale)',            border: 'var(--energy-red)',    text: 'var(--energy-red-dark)'      }
+}
+
+function energyColor(joulesPerToken) {
+  if (joulesPerToken < 0.1)  return 'var(--sage)'
+  if (joulesPerToken < 0.35) return 'var(--energy-yellow)'
+  if (joulesPerToken < 1.0)  return 'var(--energy-orange)'
+  return 'var(--energy-red)'
+}
+
+function meterColor(progress) {
+  if (progress < 30) return 'var(--sage)'
+  if (progress < 60) return 'var(--energy-yellow)'
+  if (progress < 85) return 'var(--energy-orange)'
+  return 'var(--energy-red)'
+}
+
+function tokenizerColor(joules) {
+  if (joules < 0.5)  return 'var(--sage-dark)'
+  if (joules < 2.0)  return 'var(--energy-yellow-dark)'
+  if (joules < 10.0) return 'var(--energy-orange-dark)'
+  return 'var(--energy-red-dark)'
+}
+
 // ── Model Comparison ──────────────────────────────────────────────────────────
 function ModelComparison() {
   const [modelA, setModelA] = useState(0)
@@ -51,7 +79,7 @@ function ModelComparison() {
                   className="model-bar-fill"
                   style={{
                     width: `${(m.joulesPerToken / max) * 100}%`,
-                    background: i === 0 ? 'var(--sage)' : 'var(--ink)'
+                    background: energyColor(m.joulesPerToken)
                   }}
                 />
               </div>
@@ -60,8 +88,8 @@ function ModelComparison() {
           ))}
         </div>
         {modelA !== modelB && (
-          <div className="model-insight">
-            <span className="model-insight-ratio">{ratio}×</span>
+          <div className="model-insight" style={{ background: insightTheme(ratio).bg, borderColor: insightTheme(ratio).border }}>
+            <span className="model-insight-ratio" style={{ color: insightTheme(ratio).text }}>{ratio}×</span>
             <p>
               <strong>{ratio}× more energy</strong> per token for{' '}
               {a.joulesPerToken > b.joulesPerToken ? a.name : b.name} compared to{' '}
@@ -151,7 +179,7 @@ function EnergyMeter() {
         </div>
         <div className="meter-display">
           <div className="meter-progress-track">
-            <div className="meter-progress-fill" style={{ width: `${progress}%` }} />
+            <div className="meter-progress-fill" style={{ width: `${progress}%`, background: meterColor(progress) }} />
           </div>
           <div className="meter-stats">
             <div className="meter-stat">
@@ -261,8 +289,8 @@ function Tokenizer() {
                 </select>
               </div>
               {tokenIds.length > 0 && (
-                <div className="tokenizer-energy-result">
-                  <span className="tokenizer-energy-val">{energyJ.toFixed(3)} J</span>
+                <div className="tokenizer-energy-result" style={{ borderColor: tokenizerColor(energyJ) }}>
+                  <span className="tokenizer-energy-val" style={{ color: tokenizerColor(energyJ) }}>{energyJ.toFixed(3)} J</span>
                   <span className="tokenizer-energy-desc">
                     to process these {tokenIds.length} tokens on {model.name}
                   </span>
