@@ -4,7 +4,7 @@ import './Navbar.css'
 
 const navItems = [
   { path: '/',               label: 'Learn'   },
-  { path: '/interactive',    label: 'Explore' },
+  { path: '/large-language-models', label: 'Explore' },
   { path: '/best-practices', label: 'Measure' },
   { path: '/act',            label: 'Act'     },
   { path: '/quiz',           label: 'Quiz'    },

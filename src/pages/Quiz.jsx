@@ -3,25 +3,46 @@ import { Link } from 'react-router-dom'
 import { funFacts } from '../data/content'
 import './Quiz.css'
 
-function Quiz() {
-  const [current, setCurrent] = useState(0)
-  const [selected, setSelected] = useState(null)
-  const [score, setScore] = useState(0)
-  const [finished, setFinished] = useState(false)
-  const [answered, setAnswered] = useState([])
+function shuffle(arr) {
+  const a = [...arr]
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1))
+    ;[a[i], a[j]] = [a[j], a[i]]
+  }
+  return a
+}
 
-  const q = funFacts[current]
+function buildQuestions() {
+  return funFacts.map(q => {
+    const order = shuffle([0, 1, 2, 3])
+    return {
+      ...q,
+      shuffledOptions: order.map(i => q.options[i]),
+      correctIndex: order.indexOf(q.answer),
+    }
+  })
+}
+
+function Quiz() {
+  const [questions, setQuestions] = useState(buildQuestions)
+  const [current, setCurrent]     = useState(0)
+  const [selected, setSelected]   = useState(null)
+  const [score, setScore]         = useState(0)
+  const [finished, setFinished]   = useState(false)
+  const [answered, setAnswered]   = useState([])
+
+  const q = questions[current]
 
   function handleAnswer(i) {
     if (selected !== null) return
     setSelected(i)
-    const correct = i === q.answer
+    const correct = i === q.correctIndex
     if (correct) setScore(s => s + 1)
     setAnswered(a => [...a, { selected: i, correct }])
   }
 
   function next() {
-    if (current + 1 >= funFacts.length) {
+    if (current + 1 >= questions.length) {
       setFinished(true)
     } else {
       setCurrent(c => c + 1)
@@ -30,6 +51,7 @@ function Quiz() {
   }
 
   function restart() {
+    setQuestions(buildQuestions())
     setCurrent(0)
     setSelected(null)
     setScore(0)
@@ -38,11 +60,11 @@ function Quiz() {
   }
 
   if (finished) {
-    const pct = Math.round((score / funFacts.length) * 100)
+    const pct = Math.round((score / questions.length) * 100)
     return (
       <div className="quiz-result">
         <div className="result-score-block">
-          <span className="result-big-num">{score}<span className="result-denom">/{funFacts.length}</span></span>
+          <span className="result-big-num">{score}<span className="result-denom">/{questions.length}</span></span>
           <p className="result-pct">{pct}% correct</p>
         </div>
         <div className="result-message">
@@ -51,7 +73,7 @@ function Quiz() {
           {pct < 60 && <p>These are genuinely non-obvious concepts; explore the Learn and Measure pages to build more familiarity.</p>}
         </div>
         <div className="result-breakdown">
-          {funFacts.map((f, i) => (
+          {questions.map((f, i) => (
             <div key={i} className={`result-item ${answered[i]?.correct ? 'result-item--correct' : 'result-item--wrong'}`}>
               <span className="result-item-mark">{answered[i]?.correct ? '✓' : '✗'}</span>
               <span>{f.question}</span>
@@ -66,16 +88,16 @@ function Quiz() {
     )
   }
 
-  const isCorrect = selected === q.answer
+  const isCorrect = selected === q.correctIndex
   const isWrong = selected !== null && !isCorrect
 
   return (
     <div className="quiz-container">
       <div className="quiz-progress">
         <div className="quiz-progress-bar">
-          <div className="quiz-progress-fill" style={{ width: `${(current / funFacts.length) * 100}%` }} />
+          <div className="quiz-progress-fill" style={{ width: `${(current / questions.length) * 100}%` }} />
         </div>
-        <span className="quiz-counter">{current + 1} / {funFacts.length}</span>
+        <span className="quiz-counter">{current + 1} / {questions.length}</span>
       </div>
 
       <div className="quiz-question">
@@ -84,10 +106,10 @@ function Quiz() {
       </div>
 
       <div className="quiz-options">
-        {q.options.map((opt, i) => {
+        {q.shuffledOptions.map((opt, i) => {
           let cls = 'quiz-option'
           if (selected !== null) {
-            if (i === q.answer) cls += ' quiz-option--correct'
+            if (i === q.correctIndex) cls += ' quiz-option--correct'
             else if (i === selected && !isCorrect) cls += ' quiz-option--wrong'
             else cls += ' quiz-option--dim'
           }
@@ -99,7 +121,7 @@ function Quiz() {
               disabled={selected !== null}
             >
               <span className="option-letter">{String.fromCharCode(65 + i)}</span>
-              <span className={i === q.answer && selected !== null ? 'option-text--correct' : ''}>{opt}</span>
+              <span className={i === q.correctIndex && selected !== null ? 'option-text--correct' : ''}>{opt}</span>
             </button>
           )
         })}
@@ -116,7 +138,7 @@ function Quiz() {
 
       {selected !== null && (
         <button className="btn-sage quiz-next" onClick={next}>
-          {current + 1 >= funFacts.length ? 'See Results' : 'Next Question →'}
+          {current + 1 >= questions.length ? 'See Results' : 'Next Question →'}
         </button>
       )}
     </div>

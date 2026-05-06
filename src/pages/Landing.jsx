@@ -229,7 +229,7 @@ export default function Landing() {
             The most practical path to reducing AI's energy footprint is developer ergonomics, building small, task-specific models instead of defaulting to frontier LLMs.
           </p>
           <p className="argument-strip-sub">
-            Large language models are generically powerful, but generically expensive. The answer to their energy footprint lies not in rejection, but in specificity. People who perform the same tasks repeatedly, such as biotech auditors, healthcare administrators, data scientists, and energy researchers, should build small, task-specific AI models tailored to their exact needs. More efficient. More accurate. Stronger privacy. The future of AI is not bigger models. It is smarter.
+            Large language models are generically powerful, but generically expensive. The answer to their energy footprint lies not in rejection, but in specificity. People who perform the same tasks repeatedly, such as biotech auditors, healthcare administrators, data scientists, and energy researchers, should step away from frontier models and utilize smarter, smaller, and more function-specific models.
           </p>
           <span className="argument-strip-attr">— Thesis Conclusion · Melody Nguyễn, Pace University 2026</span>
         </div>
@@ -256,19 +256,13 @@ export default function Landing() {
           {/* Secondary stats */}
           <div className="secondary-stats">
             <div className="secondary-stat-item">
-              <span className="secondary-stat-val">2.3B</span>
-              <span className="secondary-stat-label">people use cloud storage today</span>
-              <span className="mono-tag">[Greenly]</span>
+              <p><strong>2.3 billion</strong> people use cloud storage today, placing constant and growing load on global data infrastructure. <span className="mono-tag">[Greenly]</span></p>
             </div>
             <div className="secondary-stat-item">
-              <span className="secondary-stat-val">25–75%</span>
-              <span className="secondary-stat-label">of rated TDP is actual GPU power draw, not 100%</span>
-              <span className="mono-tag">[ML.ENERGY · TDP Myth]</span>
+              <p>Actual GPU power draw sits at just <strong>25–75%</strong> of rated TDP — benchmarks overstate real-world energy use. <span className="mono-tag">[ML.ENERGY]</span></p>
             </div>
             <div className="secondary-stat-item">
-              <span className="secondary-stat-val">17 sec</span>
-              <span className="secondary-stat-label">a Google search ≈ running a 60W lightbulb for 17 seconds. AI queries cost substantially more.</span>
-              <span className="mono-tag">[MIT Tech Review]</span>
+              <p>A Google search uses roughly the energy of a 60W bulb burning for <strong>17 seconds</strong>. A large AI query costs around <strong>10×</strong> more. <span className="mono-tag">[MIT Tech Review]</span></p>
             </div>
           </div>
         </div>

@@ -5,6 +5,9 @@ const timeline = [
   { year: '2024', event: 'REGROW Project, SLAC', detail: 'California heatwave analysis, photovoltaic grid resilience, marimo visualizations' },
   { year: '2025', event: 'SULI, Stanford Synchrotron Radiation Lightsource', detail: 'Beamline automation, TiO₂ phase transformation, computational efficiency' },
   { year: '2025', event: 'Honors Thesis, Pace University', detail: 'Digital pollution, LLM energy benchmarking, educational website' },
+  { year: '2026', event: 'Lead Instructor, iD Tech at Stanford University', detail: 'Teaching AI, machine learning, and Python to middle and high school students; course design and hands-on curriculum delivery' },
+  { year: '2026', event: 'Healthfirst', detail: 'Business Analyst / Product Owner, Provider Data Management' },
+  { year: '2026', event: 'M.S. Computer Science, Georgia Institute of Technology', detail: 'Graduate study in computer science' },
 ]
 
 const meta = [
@@ -52,8 +55,16 @@ export default function About() {
               decisions about when to compute, and how much, carry real environmental implications.
             </p>
             <p>
+              Teaching AI, machine learning, and Python to middle and high school students at iD Tech on Stanford's campus
+              reinforced what this research kept returning to: the people closest to these tools rarely see the
+              infrastructure behind them. Making that infrastructure legible, especially to the next generation of builders,
+              is part of why this website exists.
+            </p>
+            <p>
               This thesis searches for a middle ground: one that preserves AI's capacity
-              to accelerate discovery while emphasizing transparent, efficient, and sustainable use. Can LLMs be used for good?
+              to accelerate discovery while emphasizing transparent, efficient, and sustainable use.
+              That question continues in the next chapter, joining Healthfirst as a Business Analyst and Product Owner
+              focused on Provider Data Management, where data quality, system design, and responsible technology intersect.
             </p>
 
             <div className="about-meta-grid">
@@ -74,7 +85,7 @@ export default function About() {
                 <div key={i} className="timeline-item">
                   <div className="timeline-dot" />
                   <div className="timeline-content">
-                    <span className="mono-tag">{t.year}</span>
+                    <span className="mono-tag timeline-year">{t.year}</span>
                     <p className="timeline-event">{t.event}</p>
                     <p className="timeline-detail">{t.detail}</p>
                   </div>

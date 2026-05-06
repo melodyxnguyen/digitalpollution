@@ -335,20 +335,17 @@
     gap: 0.3rem;
   }
 
-  .secondary-stat-val {
-    font-family: var(--font-mono);
-    font-size: 1.6rem;
-    font-weight: 700;
-    color: var(--sage-dark);
-    letter-spacing: -0.02em;
-    line-height: 1;
+  .secondary-stat-item p {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    line-height: 1.7;
+    max-width: 100%;
+    margin: 0;
   }
 
-  .secondary-stat-label {
-    font-size: 0.83rem;
-    color: var(--text-secondary);
-    line-height: 1.55;
-    max-width: 28ch;
+  .secondary-stat-item strong {
+    color: var(--ink);
+    font-weight: 700;
   }
 
   /* ── Research Overview ── */

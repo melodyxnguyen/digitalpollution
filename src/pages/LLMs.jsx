@@ -1,6 +1,110 @@
+import { useState } from 'react'
 import './LLMs.css'
 
+// ── Data ──────────────────────────────────────────────────────────────────────
+
+const infraFacts = [
+  {
+    stat: '~20%',
+    label: 'of global data-center electricity demand attributed to AI by end of 2025',
+    cite: '[WIRED]',
+    detail: 'AI workloads are projected to account for up to 20% of global data-center electricity demand by the end of 2025. Every interaction with a large language model depends on physical infrastructure: data centers filled with GPU clusters, high-voltage power supply, and industrial cooling systems operating continuously.',
+  },
+  {
+    stat: '10M+',
+    label: 'liters of water per year consumed by some AI cooling systems',
+    cite: '[MIT Technology Review]',
+    detail: 'Cooling systems for AI clusters can consume millions to tens of millions of liters of water per year, an impact often overlooked in popular discussions of AI sustainability. In water-stressed regions such as California, this is comparable to the annual water required to produce thousands of pounds of almonds.',
+  },
+  {
+    stat: '$M/yr',
+    label: 'cost to power and maintain large AI model infrastructure',
+    cite: '[WIRED]',
+    detail: 'Powering and maintaining large AI model infrastructure costs millions of dollars per year. These costs span electricity, cooling systems, hardware maintenance, and physical facilities that house the servers, all of which carry environmental and economic weight before a single query is processed.',
+  },
+]
+
+const trainFacts = [
+  {
+    tag: 'Training',
+    title: 'Building the Model',
+    summary: 'A one-time but enormous energy event, comparable to running hundreds of households for a year.',
+    badge: 'Very high one-time cost',
+    badgeType: 'neutral',
+    detail: 'Training involves adjusting billions of parameters through repeated computation on massive datasets. It requires hundreds or thousands of GPUs or TPUs operating continuously for weeks or months. A single state-of-the-art LLM training run can consume megawatt-hours to gigawatt-hours of electricity, comparable to the annual energy use of hundreds of U.S. households.',
+    cite: '[International Energy Agency, Patterson et al.]',
+  },
+  {
+    tag: 'Inference',
+    title: 'Using the Model',
+    summary: 'Lower cost per query, but it runs billions of times a day — that adds up to 80–90% of lifecycle energy.',
+    badge: '80–90% of lifecycle energy',
+    badgeType: 'sage',
+    detail: 'Inference refers to generating a response after the model is deployed. Each query requires the model to execute a full forward pass through its neural network layers for every token it produces. While a single inference request uses far less energy than training, inference accounts for 80–90% of total lifecycle energy because it happens billions of times daily worldwide.',
+    cite: '[Shao et al.]',
+  },
+]
+
+const verbosityTypes = [
+  {
+    label: 'Short prompt, concise answer',
+    width: '18%',
+    color: 'var(--sage)',
+    val: '~Low energy',
+    detail: 'Targeted prompts with specific, bounded questions produce short responses. Energy scales with token count, so concise answers are meaningfully cheaper. A well-scoped prompt is the single most effective user-level intervention for reducing AI energy consumption.',
+  },
+  {
+    label: 'Standard chat model, full answer',
+    width: '45%',
+    color: 'var(--sage-light)',
+    val: '~Moderate energy',
+    detail: 'A typical conversational response from a standard chat model uses a moderate number of tokens. Research consistently finds that users prefer longer, more elaborate AI responses, yet this preference is a meaningful and largely invisible driver of data center energy consumption at scale.',
+  },
+  {
+    label: 'Reasoning model (chain-of-thought)',
+    width: '95%',
+    color: '#C0392B',
+    val: '~10× more energy',
+    detail: '"Thinking" models like Qwen 3 Thinking generate extended internal chains of thought before producing a visible answer. A single query may trigger tens of thousands of internal tokens, consuming energy at an order of magnitude greater per request than a standard chat model.',
+  },
+]
+
+const gpuFacts = [
+  {
+    name: 'A100 GPU',
+    tag: 'Older generation',
+    summary: 'Lower ops/watt; baseline for standard chat model inference.',
+    detail: 'The NVIDIA A100 was a major advance in AI compute when it launched and is still widely deployed for standard chat model inference. Its per-operation energy cost is higher than newer accelerators, but the models it typically runs are smaller and less complex, keeping per-request costs manageable.',
+    cite: '[ML.ENERGY]',
+  },
+  {
+    name: 'H100 GPU',
+    tag: 'Current generation',
+    summary: 'Higher ops/watt, but enables larger models that cost more energy per query.',
+    detail: 'The NVIDIA H100 is considerably more energy-efficient per floating-point operation than the A100. However, this efficiency gain does not automatically reduce total energy use. More capable hardware enables the deployment of more complex, parameter-rich models, including reasoning architectures. The total energy cost per request frequently increases even as the underlying silicon becomes more efficient.',
+    cite: '[ML.ENERGY]',
+  },
+  {
+    name: 'Jevons Paradox',
+    tag: 'The efficiency trap',
+    summary: 'Efficiency improvements tend to expand use, not reduce total consumption.',
+    detail: "Named after 19th-century economist William Stanley Jevons, this paradox describes how efficiency improvements in resource use tend to increase total consumption rather than reduce it. Applied to AI: as GPUs become more efficient, they make larger and more complex models economically viable to run. The net result is that total system energy often grows even as hardware improves. Measuring AI sustainability requires examining full system-level costs, not just hardware specs.",
+    cite: '[ML.ENERGY]',
+  },
+]
+
+// ── Page ──────────────────────────────────────────────────────────────────────
+
 export default function LLMs() {
+  const [openInfra, setOpenInfra] = useState(null)
+  const [openTrain, setOpenTrain] = useState(null)
+  const [openVerb,  setOpenVerb]  = useState(null)
+  const [openGpu,   setOpenGpu]   = useState(null)
+
+  function toggle(setter, i) {
+    setter(prev => prev === i ? null : i)
+  }
+
   return (
     <main className="page-enter llms-page">
       <section className="page-hero">
@@ -15,202 +119,156 @@ export default function LLMs() {
         </div>
       </section>
 
-      {/* Physical Infrastructure */}
+      {/* 01 · Physical Infrastructure */}
       <section className="section">
         <div className="container">
           <span className="section-label">01 · Physical Infrastructure</span>
           <div className="accent-rule" />
-          <div className="two-col">
-            <div>
-              <h2>Servers, Grids & Cooling</h2>
-              <p>
-                Every interaction with a large language model depends on physical infrastructure:
-                data centers filled with GPU clusters, high-voltage power supply, and industrial
-                cooling systems operating continuously.
-              </p>
-              <p style={{ marginTop: '1rem' }}>
-                Cooling systems for AI clusters can consume millions to tens of millions of liters
-                of water per year, an impact often overlooked in popular discussions of AI
-                sustainability [MIT Technology Review]. In water-stressed regions such as California, this is comparable
-                to the annual water required to produce thousands of pounds of almonds.
-              </p>
-              <p style={{ marginTop: '1rem' }}>
-                AI workloads are projected to account for up to 20% of global data-center electricity
-                demand by the end of 2025 [WIRED].
-              </p>
-            </div>
-            <div className="infra-stats">
-              {[
-                { stat: '~20%', label: 'of global data-center electricity demand attributed to AI by end of 2025', cite: '[WIRED]' },
-                { stat: '10M+', label: 'liters of water per year consumed by some AI cooling systems', cite: '[MIT Technology Review]' },
-                { stat: '$M/yr', label: 'cost to power and maintain large AI model infrastructure', cite: '[WIRED]' },
-              ].map((s, i) => (
-                <div key={i} className="card infra-stat-card">
-                  <span className="stat-callout">{s.stat}</span>
-                  <p style={{ fontSize: '0.88rem', maxWidth: '100%' }}>{s.label} <span className="mono-tag">{s.cite}</span></p>
-                </div>
-              ))}
-            </div>
+          <h2>Servers, Grids & Cooling</h2>
+          <p className="llm-section-intro">
+            Every AI interaction depends on data centers drawing enormous amounts of electricity and water, continuously.
+            Click any card to learn more.
+          </p>
+          <div className="llm-cards-grid llm-cards-grid--3">
+            {infraFacts.map((f, i) => (
+              <div
+                key={i}
+                className={`llm-card${openInfra === i ? ' llm-card--open' : ''}`}
+                onClick={() => toggle(setOpenInfra, i)}
+                role="button"
+                tabIndex={0}
+                aria-expanded={openInfra === i}
+                onKeyDown={e => (e.key === 'Enter' || e.key === ' ') && toggle(setOpenInfra, i)}
+              >
+                <span className="llm-card-stat">{f.stat}</span>
+                <span className="llm-card-label">{f.label}</span>
+                <span className="llm-cite-tag">{f.cite}</span>
+                {openInfra === i && (
+                  <div className="llm-card-detail"><p>{f.detail}</p></div>
+                )}
+              </div>
+            ))}
           </div>
         </div>
       </section>
 
       <hr className="section-divider" style={{ margin: 0 }} />
 
-      {/* Training vs Inference */}
+      {/* 02 · Training vs Inference */}
       <section className="section">
         <div className="container">
           <span className="section-label">02 · Two Processes</span>
           <div className="accent-rule" />
           <h2>Training vs. Inference</h2>
-          <p style={{ marginBottom: '2.5rem' }}>
-            Two computational processes dominate LLM energy use, and most people conflate them [Searchlight Institute].
+          <p className="llm-section-intro">
+            Two computational processes dominate LLM energy use, and most people conflate them. Click to expand.
           </p>
-          <div className="two-col training-cols">
-            <div className="card training-card">
-              <span className="mono-tag">Training</span>
-              <h3 style={{ marginTop: '0.75rem' }}>Building the Model</h3>
-              <p>
-                Training involves adjusting billions of parameters through repeated computation on
-                massive datasets. It requires hundreds or thousands of GPUs or TPUs operating
-                continuously for weeks or months.
-              </p>
-              <p style={{ marginTop: '0.75rem' }}>
-                A single state-of-the-art LLM training run can consume megawatt-hours to
-                gigawatt-hours of electricity, comparable to the annual energy use of hundreds
-                of U.S. households [International Energy Agency, Patterson et al.].
-              </p>
-              <div className="training-badge training-badge--high">
-                Very high one-time cost
+          <div className="llm-cards-grid llm-cards-grid--2">
+            {trainFacts.map((f, i) => (
+              <div
+                key={i}
+                className={`llm-card${i === 1 ? ' llm-card--accent' : ''}${openTrain === i ? ' llm-card--open' : ''}`}
+                onClick={() => toggle(setOpenTrain, i)}
+                role="button"
+                tabIndex={0}
+                aria-expanded={openTrain === i}
+                onKeyDown={e => (e.key === 'Enter' || e.key === ' ') && toggle(setOpenTrain, i)}
+              >
+                <span className="mono-tag">{f.tag}</span>
+                <h3 className="llm-card-title">{f.title}</h3>
+                <p className="llm-card-summary">{f.summary}</p>
+                <span className={`llm-badge llm-badge--${f.badgeType}`}>{f.badge}</span>
+                {openTrain === i && (
+                  <div className="llm-card-detail">
+                    <p>{f.detail}</p>
+                    <span className="cite-note">{f.cite}</span>
+                  </div>
+                )}
               </div>
-            </div>
-            <div className="card training-card inference-card">
-              <span className="mono-tag">Inference</span>
-              <h3 style={{ marginTop: '0.75rem' }}>Using the Model</h3>
-              <p>
-                Inference refers to generating a response after the model is deployed. Each query
-                requires the model to execute a full forward pass through its neural network layers
-                for every token it produces.
-              </p>
-              <p style={{ marginTop: '0.75rem' }}>
-                While a single inference request uses far less energy than training, inference is
-                estimated to account for <strong>80–90% of total lifecycle energy</strong> because it
-                happens billions of times daily worldwide [Shao et al.].
-              </p>
-              <div className="training-badge training-badge--sage">
-                80–90% of lifecycle energy [Shao et al.]
-              </div>
-            </div>
+            ))}
           </div>
         </div>
       </section>
 
       <hr className="section-divider" style={{ margin: 0 }} />
 
-      {/* Response verbosity */}
+      {/* 03 · Verbosity */}
       <section className="section">
         <div className="container">
           <span className="section-label">03 · A Hidden Driver</span>
           <div className="accent-rule" />
           <h2>Response Verbosity & Token Cost</h2>
-          <div className="two-col">
-            <div>
-              <p>
-                Every token in a model's reply requires a full forward pass through the GPU.
-                Longer responses scale energy consumption nearly linearly with output length.
-              </p>
-              <p style={{ marginTop: '1rem' }}>
-                Research consistently finds that users prefer longer, more elaborate AI responses,
-                yet this preference is a meaningful and largely invisible driver of data center
-                energy consumption at scale.
-              </p>
-              <p style={{ marginTop: '1rem' }}>
-                "Thinking" models like Qwen 3 Thinking generate extended internal chains of thought
-                before producing a visible answer. A single query may trigger tens of thousands
-                of internal tokens, consuming energy at an order of magnitude greater per request
-                than a standard chat model.
-              </p>
-            </div>
-            <div className="verbosity-visual">
-              <div className="verbosity-bar-group">
-                <span className="verbosity-label">Short prompt, concise answer</span>
-                <div className="verbosity-track">
-                  <div className="verbosity-bar" style={{ width: '18%', background: 'var(--sage)' }} />
+          <p className="llm-section-intro">
+            Every token in a model's reply requires a full forward pass through the GPU.
+            Longer responses scale energy consumption nearly linearly with output length. Click any row to learn more.
+          </p>
+          <div className="llm-verbosity-list">
+            {verbosityTypes.map((v, i) => (
+              <div
+                key={i}
+                className={`llm-verbosity-row${openVerb === i ? ' llm-verbosity-row--open' : ''}`}
+                onClick={() => toggle(setOpenVerb, i)}
+                role="button"
+                tabIndex={0}
+                aria-expanded={openVerb === i}
+                onKeyDown={e => (e.key === 'Enter' || e.key === ' ') && toggle(setOpenVerb, i)}
+              >
+                <div className="llm-verbosity-top">
+                  <span className="llm-verbosity-label">{v.label}</span>
+                  <span className="llm-verbosity-val">{v.val}</span>
                 </div>
-                <span className="verbosity-val">~Low energy</span>
-              </div>
-              <div className="verbosity-bar-group">
-                <span className="verbosity-label">Standard chat model, full answer</span>
-                <div className="verbosity-track">
-                  <div className="verbosity-bar" style={{ width: '45%', background: 'var(--sage-light)' }} />
+                <div className="llm-verbosity-track">
+                  <div className="llm-verbosity-bar" style={{ width: v.width, background: v.color }} />
                 </div>
-                <span className="verbosity-val">~Moderate energy</span>
+                {openVerb === i && (
+                  <div className="llm-card-detail"><p>{v.detail}</p></div>
+                )}
               </div>
-              <div className="verbosity-bar-group">
-                <span className="verbosity-label">Reasoning model (chain-of-thought)</span>
-                <div className="verbosity-track">
-                  <div className="verbosity-bar" style={{ width: '95%', background: '#C0392B' }} />
-                </div>
-                <span className="verbosity-val">~10× more energy</span>
-              </div>
-              <p className="verbosity-note">Relative energy demand per user query by model type</p>
-            </div>
+            ))}
+            <p className="cite-note" style={{ marginTop: '0.5rem' }}>Relative energy demand per user query by model type</p>
           </div>
         </div>
       </section>
 
       <hr className="section-divider" style={{ margin: 0 }} />
 
-      {/* GPU section */}
+      {/* 04 · GPU Bottleneck */}
       <section className="section">
         <div className="container">
           <span className="section-label">04 · Hardware Differences</span>
           <div className="accent-rule" />
           <h2>The GPU Bottleneck & Efficiency Paradox</h2>
-          <div className="two-col">
-            <div>
-              <p>
-                Newer GPU architectures like the NVIDIA H100 are considerably more energy-efficient
-                per floating-point operation than older accelerators like the A100. But this
-                efficiency gain does not automatically reduce total energy use.
-              </p>
-              <p style={{ marginTop: '1rem' }}>
-                More capable hardware enables the deployment of more complex, parameter-rich models,
-                including reasoning architectures. The total energy cost per request frequently
-                <em> increases</em> even as the underlying silicon becomes more efficient.
-              </p>
-              <p style={{ marginTop: '1rem' }}>
-                This is the <strong>Jevons paradox</strong> applied to AI: efficiency gains enable
-                greater consumption, not less. Measuring AI sustainability requires examining
-                full system-level costs, not just hardware specifications [ML.ENERGY].
-              </p>
-            </div>
-            <div>
-              <div className="gpu-comparison">
-                {[
-                  { name: 'A100 GPU', gen: 'Older generation', efficiency: 'Lower ops/watt', impact: 'Used for standard chat models' },
-                  { name: 'H100 GPU', gen: 'Current generation', efficiency: 'Higher ops/watt', impact: 'Enables complex reasoning models → higher per-request cost' },
-                ].map((g, i) => (
-                  <div key={i} className={`card gpu-card ${i === 1 ? 'gpu-card--new' : ''}`}>
-                    <div className="gpu-card-header">
-                      <span className="mono-tag">{g.gen}</span>
-                      <h4>{g.name}</h4>
-                    </div>
-                    <p style={{ fontSize: '0.88rem', maxWidth: '100%' }}>{g.efficiency}</p>
-                    <p style={{ fontSize: '0.82rem', color: 'var(--text-muted)', marginTop: '0.4rem', maxWidth: '100%' }}>{g.impact}</p>
+          <p className="llm-section-intro">
+            Newer hardware is more efficient per operation, but that efficiency often enables larger models and higher total energy use.
+            Click any card to learn more.
+          </p>
+          <div className="llm-cards-grid llm-cards-grid--3">
+            {gpuFacts.map((f, i) => (
+              <div
+                key={i}
+                className={`llm-card${openGpu === i ? ' llm-card--open' : ''}`}
+                onClick={() => toggle(setOpenGpu, i)}
+                role="button"
+                tabIndex={0}
+                aria-expanded={openGpu === i}
+                onKeyDown={e => (e.key === 'Enter' || e.key === ' ') && toggle(setOpenGpu, i)}
+              >
+                <span className="mono-tag">{f.tag}</span>
+                <h4 className="llm-card-title">{f.name}</h4>
+                <p className="llm-card-summary">{f.summary}</p>
+                {openGpu === i && (
+                  <div className="llm-card-detail">
+                    <p>{f.detail}</p>
+                    <span className="cite-note">{f.cite}</span>
                   </div>
-                ))}
-                <div className="jevons-note">
-                  <span className="mono-tag">Jevons Paradox</span>
-                  <p>Efficiency improvements lead to expanded use, often increasing total consumption.</p>
-                </div>
+                )}
               </div>
-            </div>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* Search comparison */}
+      {/* 05 · A Familiar Comparison — kept as-is */}
       <section className="section search-compare-section">
         <div className="container">
           <span className="section-label">05 · A Familiar Comparison</span>
@@ -230,7 +288,7 @@ export default function LLMs() {
             </div>
           </div>
           <p className="cite-note" style={{ marginTop: '1.5rem' }}>
-            Source: [MIT Technology Review]. See the Interactive page to compare specific models.
+            Source: [MIT Technology Review]. See the Measure page to compare specific models.
           </p>
         </div>
       </section>

@@ -110,6 +110,20 @@
   max-width: 100%;
 }
 
+.timeline-item {
+  cursor: default;
+}
+
+.timeline-year {
+  transition: background 0.15s, color 0.15s, border-color 0.15s;
+}
+
+.timeline-item:hover .timeline-year {
+  background: var(--sage-pale);
+  color: var(--sage-dark);
+  border-color: var(--sage-light);
+}
+
 @media (max-width: 768px) {
   .about-layout {
     grid-template-columns: 1fr;

@@ -29,7 +29,7 @@
 }
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; }
+html { scroll-behavior: auto; }
 body { min-height: 100vh; background: var(--bg); }
 #root { display: flex; flex-direction: column; min-height: 100vh; }
 

@@ -338,6 +338,28 @@ export default function BestPractices() {
             These tools let researchers, developers, and curious people see AI's energy footprint
             in real numbers, not estimates.
           </p>
+          {/* Screenshot placeholders */}
+          <div className="screenshots-grid">
+            <div className="screenshot-frame">
+              <div className="screenshot-frame-header">
+                <span className="screenshot-tool-name">CodeCarbon</span>
+                <span className="screenshot-note">screenshot placeholder</span>
+              </div>
+              <div className="screenshot-placeholder-area">
+                Drop CodeCarbon interface screenshot here
+              </div>
+            </div>
+            <div className="screenshot-frame">
+              <div className="screenshot-frame-header">
+                <span className="screenshot-tool-name">AI Energy Score Leaderboard</span>
+                <span className="screenshot-note">screenshot placeholder</span>
+              </div>
+              <div className="screenshot-placeholder-area">
+                Drop AI Energy Score Leaderboard screenshot here
+              </div>
+            </div>
+          </div>
+
           <div className="tools-grid">
             <div className="tool-card">
               <div className="tool-card-header">
@@ -398,28 +420,6 @@ export default function BestPractices() {
                 token. The most granular publicly available dataset on the real energy cost
                 of running language models, used as the benchmark source for this research.
               </p>
-            </div>
-          </div>
-
-          {/* Screenshot placeholders */}
-          <div className="screenshots-grid">
-            <div className="screenshot-frame">
-              <div className="screenshot-frame-header">
-                <span className="screenshot-tool-name">CodeCarbon</span>
-                <span className="screenshot-note">screenshot placeholder</span>
-              </div>
-              <div className="screenshot-placeholder-area">
-                Drop CodeCarbon interface screenshot here
-              </div>
-            </div>
-            <div className="screenshot-frame">
-              <div className="screenshot-frame-header">
-                <span className="screenshot-tool-name">AI Energy Score Leaderboard</span>
-                <span className="screenshot-note">screenshot placeholder</span>
-              </div>
-              <div className="screenshot-placeholder-area">
-                Drop AI Energy Score Leaderboard screenshot here
-              </div>
             </div>
           </div>
         </div>
