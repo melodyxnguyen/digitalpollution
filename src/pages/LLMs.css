@@ -4,6 +4,7 @@
   color: var(--text-secondary);
   line-height: 1.7;
   max-width: 58ch;
+  margin-top: 0.75rem;
   margin-bottom: 2rem;
 }
 
