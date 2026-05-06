@@ -9,6 +9,7 @@ import Interactive from './pages/Interactive'
 import BestPractices from './pages/BestPractices'
 import FunFacts from './pages/FunFacts'
 import Act from './pages/Act'
+import QuizPage from './pages/Quiz'
 import About from './pages/About'
 import './App.css'
 
@@ -35,6 +36,7 @@ function App() {
         <Route path="/best-practices" element={<BestPractices />} />
         <Route path="/fun-facts" element={<FunFacts />} />
         <Route path="/act" element={<Act />} />
+        <Route path="/quiz" element={<QuizPage />} />
         <Route path="/about" element={<About />} />
       </Routes>
       <Footer />

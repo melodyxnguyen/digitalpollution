@@ -11,10 +11,10 @@ const categories = [
       heading: 'Hardware, Manufacturing & E-Waste',
       subtitle: 'Every device has a carbon cost before it is ever turned on.',
       facts: [
-        { stat: 'Rare Earth Mining', detail: 'Manufacturing a single GPU requires rare earth metals, significant water, and energy-intensive fabrication — before it ever runs a single computation.' },
+        { stat: 'Rare Earth Mining', detail: 'Manufacturing a single GPU requires rare earth metals, significant water, and energy-intensive fabrication, before it ever runs a single computation.' },
         { stat: 'Fastest-Growing Waste Stream', detail: 'Electronic waste is the fastest-growing waste stream globally. Most e-waste ends up in landfills, leaching toxic chemicals into soil and water.' },
         { stat: 'Frequent Hardware Turnover', detail: 'Data centers upgrade hardware frequently, generating substantial e-waste even when equipment still functions perfectly well.' },
-        { stat: 'What You Can Do', detail: 'Keeping your devices longer is one of the most impactful individual actions — it reduces the manufacturing carbon embedded in every piece of hardware you own.' },
+        { stat: 'What You Can Do', detail: 'Keeping your devices longer is one of the most impactful individual actions; it reduces the manufacturing carbon embedded in every piece of hardware you own.' },
       ],
       cite: '[Patterson et al.]',
     }
@@ -23,15 +23,15 @@ const categories = [
     num: '02',
     icon: '⚡',
     title: 'The Machines That Never Sleep',
-    preview: 'Data centers run 24/7 — and so does their energy demand.',
+    preview: 'Data centers run 24/7, and so does their energy demand.',
     modal: {
       heading: 'Data Infrastructure & Energy',
       subtitle: 'The always-on cost of storing and processing the world\'s data.',
       facts: [
-        { stat: '24/7 Operation', detail: 'Servers inside data centers never turn off. They continuously consume electricity to store, process, and serve every piece of digital content — including this page.' },
-        { stat: 'Water Consumption', detail: 'Cooling systems for AI clusters can consume millions to tens of millions of liters of water per year — an impact rarely discussed in AI sustainability conversations.' },
+        { stat: '24/7 Operation', detail: 'Servers inside data centers never turn off. They continuously consume electricity to store, process, and serve every piece of digital content, including this page.' },
+        { stat: 'Water Consumption', detail: 'Cooling systems for AI clusters can consume millions to tens of millions of liters of water per year, an impact rarely discussed in AI sustainability conversations.' },
         { stat: '2.3 Billion Users', detail: 'Approximately 2.3 billion people use cloud storage services today, placing constant and growing load on global data infrastructure.' },
-        { stat: 'AI\'s Growing Share', detail: 'AI workloads may account for up to 20% of global data-center electricity demand by the end of 2025 — and that share is rising.' },
+        { stat: 'AI\'s Growing Share', detail: 'AI workloads may account for up to 20% of global data-center electricity demand by the end of 2025, and that share is rising.' },
       ],
       cite: '[MIT Technology Review, WIRED, Greenly]',
     }
@@ -45,10 +45,10 @@ const categories = [
       heading: 'Internet Pollution & Daily Habits',
       subtitle: 'Internet pollution is the energy cost of your active digital life.',
       facts: [
-        { stat: 'What Is Internet Pollution?', detail: 'Internet pollution is a subset of digital pollution — focused on the energy cost of active data transmission: streaming, uploading, querying AI, and refreshing social media.' },
+        { stat: 'What Is Internet Pollution?', detail: 'Internet pollution is a subset of digital pollution, focused on the energy cost of active data transmission: streaming, uploading, querying AI, and refreshing social media.' },
         { stat: 'Wi-Fi vs. 4G/5G', detail: 'Streaming video over cellular networks consumes more energy per bit than Wi-Fi. Simply switching to Wi-Fi for data-heavy tasks meaningfully reduces your footprint.' },
-        { stat: 'The Email Problem', detail: '36% of Gen Z has over 1,000 unread emails sitting in a server. Each stored email has a small but real carbon cost — multiplied across billions of accounts, it adds up.' },
-        { stat: 'AI Queries', detail: 'Every AI response belongs to this category. Each token generated requires a full forward pass through a GPU — longer, more elaborate responses consume more energy.' },
+        { stat: 'The Email Problem', detail: '36% of Gen Z has over 1,000 unread emails sitting in a server. Each stored email has a small but real carbon cost; multiplied across billions of accounts, it adds up.' },
+        { stat: 'AI Queries', detail: 'Every AI response belongs to this category. Each token generated requires a full forward pass through a GPU; longer, more elaborate responses consume more energy.' },
       ],
       cite: '[Greenly]',
     }
@@ -95,7 +95,7 @@ export default function DigitalTech() {
           <div className="accent-rule" />
           <h1>Digital Technologies</h1>
           <p className="page-hero-sub">
-            Digital pollution covers the full lifecycle impact of our digital lives —
+            Digital pollution covers the full lifecycle impact of our digital lives,
             from the moment hardware is manufactured to every query you send to an AI today.
             Tap a card to explore each layer.
           </p>

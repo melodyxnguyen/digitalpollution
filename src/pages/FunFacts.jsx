@@ -19,10 +19,10 @@ export default function FunFacts() {
         <div className="container">
           <div className="highlights-grid">
             {[
-              { stat: '70%',   text: 'of new AI-related articles present neutral or positive narratives — environmental impact is rarely the focus',                    cite: '[AI Index Report]' },
+              { stat: '70%',   text: 'of new AI-related articles present neutral or positive narratives; environmental impact is rarely the focus',                    cite: '[AI Index Report]' },
               { stat: '<50%',  text: 'of survey respondents correctly identify data centers as major contributors to AI\'s environmental footprint',                    cite: '[Searchlight Institute]' },
               { stat: '800%',  text: 'increase in attendance at major AI conferences like NeurIPS over the past decade',                                               cite: '[AI Index Report]' },
-              { stat: '4 hrs', text: 'the average person spends on their phone each day — digital pollution grows with every minute online',                           cite: '[Greenly]' },
+              { stat: '4 hrs', text: 'the average person spends on their phone each day, and digital pollution grows with every minute online',                        cite: '[Greenly]' },
             ].map((h, i) => (
               <div key={i} className="card highlight-card">
                 <span className="stat-callout">{h.stat}</span>

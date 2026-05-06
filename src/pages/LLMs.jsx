@@ -9,7 +9,7 @@ export default function LLMs() {
           <div className="accent-rule" />
           <h1>Large Language Models</h1>
           <p className="page-hero-sub">
-            Every AI response travels through physical infrastructure — servers, GPUs, power grids,
+            Every AI response travels through physical infrastructure, including servers, GPUs, power grids,
             and cooling systems. Understanding where energy costs arise is the first step toward using AI more responsibly.
           </p>
         </div>
@@ -30,7 +30,7 @@ export default function LLMs() {
               </p>
               <p style={{ marginTop: '1rem' }}>
                 Cooling systems for AI clusters can consume millions to tens of millions of liters
-                of water per year — an impact often overlooked in popular discussions of AI
+                of water per year, an impact often overlooked in popular discussions of AI
                 sustainability [MIT Technology Review]. In water-stressed regions such as California, this is comparable
                 to the annual water required to produce thousands of pounds of almonds.
               </p>
@@ -64,7 +64,7 @@ export default function LLMs() {
           <div className="accent-rule" />
           <h2>Training vs. Inference</h2>
           <p style={{ marginBottom: '2.5rem' }}>
-            Two computational processes dominate LLM energy use — and most people conflate them [Searchlight Institute].
+            Two computational processes dominate LLM energy use, and most people conflate them [Searchlight Institute].
           </p>
           <div className="two-col training-cols">
             <div className="card training-card">
@@ -77,7 +77,7 @@ export default function LLMs() {
               </p>
               <p style={{ marginTop: '0.75rem' }}>
                 A single state-of-the-art LLM training run can consume megawatt-hours to
-                gigawatt-hours of electricity — comparable to the annual energy use of hundreds
+                gigawatt-hours of electricity, comparable to the annual energy use of hundreds
                 of U.S. households [International Energy Agency, Patterson et al.].
               </p>
               <div className="training-badge training-badge--high">
@@ -120,14 +120,14 @@ export default function LLMs() {
                 Longer responses scale energy consumption nearly linearly with output length.
               </p>
               <p style={{ marginTop: '1rem' }}>
-                Research consistently finds that users prefer longer, more elaborate AI responses —
+                Research consistently finds that users prefer longer, more elaborate AI responses,
                 yet this preference is a meaningful and largely invisible driver of data center
                 energy consumption at scale.
               </p>
               <p style={{ marginTop: '1rem' }}>
                 "Thinking" models like Qwen 3 Thinking generate extended internal chains of thought
                 before producing a visible answer. A single query may trigger tens of thousands
-                of internal tokens — consuming energy at an order of magnitude greater per request
+                of internal tokens, consuming energy at an order of magnitude greater per request
                 than a standard chat model.
               </p>
             </div>
@@ -175,7 +175,7 @@ export default function LLMs() {
                 efficiency gain does not automatically reduce total energy use.
               </p>
               <p style={{ marginTop: '1rem' }}>
-                More capable hardware enables the deployment of more complex, parameter-rich models —
+                More capable hardware enables the deployment of more complex, parameter-rich models,
                 including reasoning architectures. The total energy cost per request frequently
                 <em> increases</em> even as the underlying silicon becomes more efficient.
               </p>
@@ -226,7 +226,7 @@ export default function LLMs() {
             <div className="card compare-card compare-card--ai">
               <span className="mono-tag">AI Response</span>
               <div className="compare-stat compare-stat--ai">Significantly more</div>
-              <p>depending on model size and response length — small models narrow the gap; frontier models widen it</p>
+              <p>depending on model size and response length; small models narrow the gap, frontier models widen it</p>
             </div>
           </div>
           <p className="cite-note" style={{ marginTop: '1.5rem' }}>

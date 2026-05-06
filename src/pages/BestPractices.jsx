@@ -6,12 +6,12 @@ const practices = [
     num: '01',
     icon: null,
     title: 'Write concise prompts',
-    detail: 'Shorter, well-scoped prompts generate shorter responses — reducing the number of tokens produced and the energy consumed per interaction.',
+    detail: 'Shorter, well-scoped prompts generate shorter responses, reducing the number of tokens produced and the energy consumed per interaction.',
     cite: '[MIT Technology Review, Shao et al.]',
     examples: [
       {
         context: 'Homework',
-        before: 'Can you explain everything about the French Revolution — all the causes, major events, key figures, and how it changed democracy forever?',
+        before: 'Can you explain everything about the French Revolution, including all the causes, major events, key figures, and how it changed democracy forever?',
         after:  'What were the 3 main causes of the French Revolution?',
       },
       {
@@ -30,23 +30,23 @@ const practices = [
     num: '02',
     icon: null,
     title: 'Batch related questions',
-    detail: 'Instead of sending five separate queries, combine them into one. Each model call has a fixed overhead cost — batching reduces that overhead.',
+    detail: 'Instead of sending five separate queries, combine them into one. Each model call has a fixed overhead cost; batching reduces that overhead.',
     cite: '[Shao et al.]',
     examples: [
       {
         context: 'New gardener',
         before: '"When do I plant tomatoes?" ... then "How much water?" ... then "Any pests to watch for?"',
-        after:  'When to plant tomatoes, how much water, and common pests — all in one message.',
+        after:  'When to plant tomatoes, how much water, and common pests, all in one message.',
       },
       {
         context: 'Music producer',
-        before: '"What is EQ?" / "What is compression?" / "How do I use them together?" — sent one at a time.',
+        before: '"What is EQ?" / "What is compression?" / "How do I use them together?", sent one at a time.',
         after:  'Quick explanation of EQ vs compression and how to use both in a mix.',
       },
       {
         context: 'Job hunter',
         before: 'Three separate chats: "How do I write a cover letter?" / "What should I include?" / "How long should it be?"',
-        after:  'How do I write a cover letter — what to include and how long it should be?',
+        after:  'How do I write a cover letter, what to include and how long it should be?',
       },
     ],
   },
@@ -84,7 +84,7 @@ const practices = [
       {
         context: 'Online shopper',
         before: 'Every brand you have ever bought from sends weekly "deals" you scroll past without opening.',
-        after:  'Hit unsubscribe on 3 of them today — takes about a minute.',
+        after:  'Hit unsubscribe on 3 of them today; takes about a minute.',
       },
       {
         context: 'Small farm',
@@ -94,7 +94,7 @@ const practices = [
       {
         context: 'Recent grad',
         before: '9,000 unread emails including newsletters from every school club and campus event from 4 years ago.',
-        after:  'Search by sender, bulk-select, and delete — clear a year of old mail in under 10 minutes.',
+        after:  'Search by sender, bulk-select, and delete; clear a year of old mail in under 10 minutes.',
       },
     ],
   },
@@ -118,7 +118,7 @@ const practices = [
       {
         context: 'Gamer',
         before: 'Downloading a 30 GB update using your phone as a hotspot.',
-        after:  'Wait until you are on Wi-Fi — faster and less wasteful.',
+        after:  'Wait until you are on Wi-Fi; faster and less wasteful.',
       },
     ],
   },
@@ -132,7 +132,7 @@ const practices = [
       {
         context: 'Photographer',
         before: 'Trading in a camera body every year for marginal megapixel improvements.',
-        after:  'Invest in lenses — a 4-year-old body still makes great photos.',
+        after:  'Invest in lenses; a 4-year-old body still makes great photos.',
       },
       {
         context: 'Home studio',
@@ -142,7 +142,7 @@ const practices = [
       {
         context: 'Everyday user',
         before: 'Upgrading a phone every 2 years because the new one looks nicer.',
-        after:  'Replace the battery instead — it feels like a new phone for a fraction of the cost.',
+        after:  'Replace the battery instead; it feels like a new phone for a fraction of the cost.',
       },
     ],
   },
@@ -150,7 +150,7 @@ const practices = [
     num: '07',
     icon: null,
     title: 'Disable autoplay',
-    detail: 'Automatic video playback on YouTube and social platforms continuously loads server bandwidth — even when you are not actively watching.',
+    detail: 'Automatic video playback on YouTube and social platforms continuously loads server bandwidth, even when you are not actively watching.',
     cite: '[Greenly]',
     examples: [
       {
@@ -160,13 +160,13 @@ const practices = [
       },
       {
         context: 'Music listener',
-        before: 'Spotify\'s auto-queue runs for 2 hours after your playlist ends — playing songs you did not choose.',
+        before: 'Spotify\'s auto-queue runs for 2 hours after your playlist ends, playing songs you did not choose.',
         after:  'Set a sleep timer or turn off autoplay so it stops when your playlist does.',
       },
       {
         context: 'Social scroller',
         before: 'Videos auto-loading on every platform as you scroll even though you are just reading captions.',
-        after:  'Disable autoplay in your platform settings — most have a toggle buried in preferences.',
+        after:  'Disable autoplay in your platform settings; most have a toggle buried in preferences.',
       },
     ],
   },
@@ -179,7 +179,7 @@ const practices = [
     examples: [
       {
         context: 'DIY renovator',
-        before: '3 years of contractor quotes, design mood boards, and progress photos — all still backed up to the cloud.',
+        before: '3 years of contractor quotes, design mood boards, and progress photos, all still backed up to the cloud.',
         after:  'Keep the final plans and best photos; delete everything else once the project is done.',
       },
       {
@@ -190,7 +190,7 @@ const practices = [
       {
         context: 'Student',
         before: 'Three years of old class notes, duplicate PDFs, and half-finished assignments backed up forever.',
-        after:  'A 15-minute end-of-semester cleanup — delete drafts and keep only the finals.',
+        after:  'A 15-minute end-of-semester cleanup; delete drafts and keep only the finals.',
       },
     ],
   },
@@ -198,7 +198,7 @@ const practices = [
 
 const bonusTip = {
   title: 'Skip the "thanks!"',
-  detail: 'Sending a follow-up message just to say thank you triggers another full model response — tokens in, tokens out, energy spent. If the answer was good, just move on.',
+  detail: 'Sending a follow-up message just to say thank you triggers another full model response; tokens in, tokens out, energy spent. If the answer was good, just move on.',
 }
 
 const scenarios = [
@@ -206,7 +206,7 @@ const scenarios = [
     title: 'Quick question',
     bad: 'Tell me everything about climate change, its causes, effects, history, and what I can do about it.',
     good: 'What are the top 3 individual actions to reduce carbon footprint?',
-    why: 'The concise prompt targets exactly what you need — fewer tokens, less energy, same value.',
+    why: 'The concise prompt targets exactly what you need; fewer tokens, less energy, same value.',
   },
   {
     title: 'Choosing a model',
@@ -300,7 +300,7 @@ export default function BestPractices() {
           <div className="accent-rule" />
           <h1>Best Practices</h1>
           <p className="page-hero-sub">
-            Sustainable AI use is not about using less — it is about using wisely.
+            Sustainable AI use is not about using less; it is about using wisely.
             These practices reduce your computational footprint without sacrificing productivity.
           </p>
         </div>
@@ -339,7 +339,7 @@ export default function BestPractices() {
           <h2>Measure What Matters</h2>
           <p className="tools-intro">
             These tools let researchers, developers, and curious people see AI's energy footprint
-            in real numbers — not estimates.
+            in real numbers, not estimates.
           </p>
           <div className="tools-grid">
             <div className="tool-card">
@@ -379,7 +379,7 @@ export default function BestPractices() {
               </div>
               <p className="tool-desc">
                 A standardized benchmark comparing the energy efficiency of 166+ AI models
-                across 10 task types. Built by Sasha Luccioni at Hugging Face — the first
+                across 10 task types. Built by Sasha Luccioni at Hugging Face, the first
                 apples-to-apples comparison of model efficiency at scale.
               </p>
             </div>
@@ -399,7 +399,7 @@ export default function BestPractices() {
               <p className="tool-desc">
                 Direct GPU power measurements for LLM inference, reported in joules per
                 token. The most granular publicly available dataset on the real energy cost
-                of running language models — used as the benchmark source for this research.
+                of running language models, used as the benchmark source for this research.
               </p>
             </div>
           </div>

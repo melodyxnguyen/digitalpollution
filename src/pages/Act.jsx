@@ -1,118 +1,6 @@
 import { useState } from 'react'
-import { funFacts } from '../data/content'
 import { senatorsByState, stateNames, generateEmailDraft } from '../data/senators'
 import './Act.css'
-
-// ─── Quiz (moved from FunFacts) ──────────────────────────────────────────────
-
-function Quiz() {
-  const [current, setCurrent] = useState(0)
-  const [selected, setSelected] = useState(null)
-  const [score, setScore] = useState(0)
-  const [finished, setFinished] = useState(false)
-  const [answered, setAnswered] = useState([])
-
-  const q = funFacts[current]
-
-  function handleAnswer(i) {
-    if (selected !== null) return
-    setSelected(i)
-    const correct = i === q.answer
-    if (correct) setScore(s => s + 1)
-    setAnswered(a => [...a, { selected: i, correct }])
-  }
-
-  function next() {
-    if (current + 1 >= funFacts.length) {
-      setFinished(true)
-    } else {
-      setCurrent(c => c + 1)
-      setSelected(null)
-    }
-  }
-
-  function restart() {
-    setCurrent(0)
-    setSelected(null)
-    setScore(0)
-    setFinished(false)
-    setAnswered([])
-  }
-
-  if (finished) {
-    const pct = Math.round((score / funFacts.length) * 100)
-    return (
-      <div className="quiz-result">
-        <span className="section-label">Quiz Complete</span>
-        <div className="result-score">
-          <span className="stat-callout">{score}/{funFacts.length}</span>
-          <p>{pct}% correct</p>
-        </div>
-        <div className="result-message">
-          {pct === 100 && <p>Perfect score. You have a strong grasp of AI energy fundamentals.</p>}
-          {pct >= 60 && pct < 100 && <p>Good work. Review the sections on the topics you missed to deepen your understanding.</p>}
-          {pct < 60 && <p>These are genuinely non-obvious facts — explore the Learn and Explore pages to build more familiarity.</p>}
-        </div>
-        <div className="result-breakdown">
-          {funFacts.map((f, i) => (
-            <div key={i} className={`result-item ${answered[i]?.correct ? 'result-item--correct' : 'result-item--wrong'}`}>
-              <span className="result-item-mark">{answered[i]?.correct ? '✓' : '✗'}</span>
-              <span>{f.question}</span>
-            </div>
-          ))}
-        </div>
-        <button className="btn-sage" onClick={restart} style={{ marginTop: '2rem' }}>Retake Quiz</button>
-      </div>
-    )
-  }
-
-  return (
-    <div className="quiz-container">
-      <div className="quiz-progress">
-        <div className="quiz-progress-bar">
-          <div className="quiz-progress-fill" style={{ width: `${(current / funFacts.length) * 100}%` }} />
-        </div>
-        <span className="quiz-counter">{current + 1} / {funFacts.length}</span>
-      </div>
-
-      <div className="quiz-question">
-        <span className="section-label">Question {current + 1}</span>
-        <h3>{q.question}</h3>
-      </div>
-
-      <div className="quiz-options">
-        {q.options.map((opt, i) => {
-          let cls = 'quiz-option'
-          if (selected !== null) {
-            if (i === q.answer) cls += ' quiz-option--correct'
-            else if (i === selected && selected !== q.answer) cls += ' quiz-option--wrong'
-            else cls += ' quiz-option--dim'
-          }
-          return (
-            <button key={i} className={cls} onClick={() => handleAnswer(i)} disabled={selected !== null}>
-              <span className="option-letter">{String.fromCharCode(65 + i)}</span>
-              <span>{opt}</span>
-            </button>
-          )
-        })}
-      </div>
-
-      {selected !== null && (
-        <div className={`quiz-feedback ${selected === q.answer ? 'quiz-feedback--correct' : 'quiz-feedback--wrong'}`}>
-          <span className="feedback-mark">{selected === q.answer ? '✓ Correct' : '✗ Incorrect'}</span>
-          <p>{q.explanation}</p>
-          <span className="cite-note">Source: {q.source}</span>
-        </div>
-      )}
-
-      {selected !== null && (
-        <button className="btn-sage quiz-next" onClick={next}>
-          {current + 1 >= funFacts.length ? 'See Results' : 'Next Question →'}
-        </button>
-      )}
-    </div>
-  )
-}
 
 // ─── Senator Email Agent ─────────────────────────────────────────────────────
 
@@ -298,7 +186,7 @@ function EmailAgent() {
           <AgentMessage>
             <p>
               Would you like to add a personal note? Something specific to your experience
-              makes the email more compelling — but this is optional.
+              makes the email more compelling, but this is optional.
             </p>
           </AgentMessage>
 
@@ -336,7 +224,7 @@ function EmailAgent() {
         <div className="agent-thread">
           <AgentMessage>
             <p>
-              Here is your draft. Edit it however you like — it's yours.
+              Here is your draft. Edit it however you like; it's yours.
               When you're ready, copy it or open it directly in your email client.
             </p>
           </AgentMessage>
@@ -398,7 +286,7 @@ export default function Act() {
           <p className="page-hero-sub">
             Learning about digital pollution is step one. Step two is making your voice
             heard by the people who write the rules. Use the tool below to draft a
-            personalized letter to your U.S. senator — it takes about two minutes.
+            personalized letter to your U.S. senator; it takes about two minutes.
           </p>
         </div>
       </section>
@@ -411,26 +299,13 @@ export default function Act() {
           <h2>Draft a Letter to Congress</h2>
           <p className="act-intro">
             Answer a few questions and this tool will write a professional, personalized
-            email advocating for AI transparency and data center regulation — with your
+            email advocating for AI transparency and data center regulation, with your
             state's senators pre-filled.
           </p>
           <EmailAgent />
         </div>
       </section>
 
-      {/* Quiz */}
-      <section className="section act-quiz-section">
-        <div className="container quiz-layout">
-          <span className="section-label">Test Your Knowledge</span>
-          <div className="accent-rule" />
-          <h2>How Much Do You Know?</h2>
-          <p style={{ marginBottom: '2rem', color: 'var(--text-secondary)', fontSize: '0.95rem' }}>
-            Six questions on AI energy, digital pollution, and sustainable computing —
-            based on real research findings and empirical benchmarks.
-          </p>
-          <Quiz />
-        </div>
-      </section>
     </main>
   )
 }

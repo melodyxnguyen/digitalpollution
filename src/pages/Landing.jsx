@@ -10,7 +10,7 @@ const stats = [
   },
   {
     value: "3.7M tons",
-    label: "CO₂e/year projected from OpenAI's Stargate data center — roughly Iceland's entire annual emissions",
+    label: "CO₂e/year projected from OpenAI's Stargate data center, roughly Iceland's entire annual emissions",
     cite: "[IEA]",
   },
   {
@@ -23,7 +23,7 @@ const stats = [
 const researchCards = [
   {
     label: "Research Question",
-    text: "Do people understand the energy and emissions costs of large language models — and can developer ergonomics, building small task-specific models instead of defaulting to frontier LLMs, shift how AI is used for the benefit of humanity?",
+    text: "Do people understand the energy and emissions costs of large language models, and can developer ergonomics, building small task-specific models instead of defaulting to frontier LLMs, shift how AI is used for the benefit of humanity?",
   },
   {
     label: "Method",
@@ -31,7 +31,7 @@ const researchCards = [
   },
   {
     label: "Central Finding",
-    text: "For bounded, well-scoped tasks, small models match frontier LLMs at a fraction of the energy cost. The answer to AI's environmental footprint is not rejection — it is specificity.",
+    text: "For bounded, well-scoped tasks, small models match frontier LLMs at a fraction of the energy cost. The answer to AI's environmental footprint is not rejection; it is specificity.",
   },
 ]
 
@@ -52,12 +52,12 @@ const expertQuotes = [
     title: "Energy Economist, Lecturer, Stanford University · personal communication, March 2026",
   },
   {
-    quote: "LLMs exhibit jagged intelligence — excelling at complex tasks while failing simple ones. Tool use remains rudimentary, leaving significant room for the kind of efficient, task-specific design this thesis advocates.",
+    quote: "LLMs exhibit jagged intelligence, excelling at complex tasks while failing simple ones. Tool use remains rudimentary, leaving significant room for the kind of efficient, task-specific design this thesis advocates.",
     name: "Arya Boudaie",
     title: "Software Engineer, Amazon; AI Professor, Pace University · Spring 2026",
   },
   {
-    quote: "If you are not paying the sticker price, or someone else pays, you do not really think about the energy costs — in the same way that people buy clothing without thinking about labor conditions or materials sourcing.",
+    quote: "If you are not paying the sticker price, or someone else pays, you do not really think about the energy costs, in the same way that people buy clothing without thinking about labor conditions or materials sourcing.",
     name: "Jonathan Lee",
     title: "Clinical Assistant Professor, Computer Science, Pace University · written communication, April 2026",
   },
@@ -67,7 +67,7 @@ const expertQuotes = [
     title: "Owner, Eudoxys Sciences LLC; Former Chief Scientist, GISMo, SLAC · written communication, February 2026",
   },
   {
-    quote: "Orchestration first, automation second. Map the workflow, then automate specific steps — not replace the entire process at once. Our provider onboarding dropped from 90 days to 3 weeks.",
+    quote: "Orchestration first, automation second. Map the workflow, then automate specific steps, not replace the entire process at once. Our provider onboarding dropped from 90 days to 3 weeks.",
     name: "Dr. Sri Ramesh Eevani",
     title: "AVP Technology, Healthfirst · personal communication, April 2026",
   },
@@ -226,10 +226,10 @@ export default function Landing() {
       <section className="argument-strip">
         <div className="container argument-strip-inner">
           <p className="argument-strip-title">
-            The most practical path to reducing AI's energy footprint is developer ergonomics — building small, task-specific models instead of defaulting to frontier LLMs.
+            The most practical path to reducing AI's energy footprint is developer ergonomics, building small, task-specific models instead of defaulting to frontier LLMs.
           </p>
           <p className="argument-strip-sub">
-            Large language models are generically powerful — but generically expensive. The answer to their energy footprint lies not in rejection, but in specificity. People who perform the same tasks repeatedly — biotech auditors, healthcare administrators, data scientists, energy researchers — should build small, task-specific AI models tailored to their exact needs. More efficient. More accurate. Stronger privacy. The future of AI is not bigger models. It is smarter.
+            Large language models are generically powerful, but generically expensive. The answer to their energy footprint lies not in rejection, but in specificity. People who perform the same tasks repeatedly, such as biotech auditors, healthcare administrators, data scientists, and energy researchers, should build small, task-specific AI models tailored to their exact needs. More efficient. More accurate. Stronger privacy. The future of AI is not bigger models. It is smarter.
           </p>
           <span className="argument-strip-attr">— Thesis Conclusion · Melody Nguyễn, Pace University 2026</span>
         </div>
@@ -262,7 +262,7 @@ export default function Landing() {
             </div>
             <div className="secondary-stat-item">
               <span className="secondary-stat-val">25–75%</span>
-              <span className="secondary-stat-label">of rated TDP is actual GPU power draw — not 100%</span>
+              <span className="secondary-stat-label">of rated TDP is actual GPU power draw, not 100%</span>
               <span className="mono-tag">[ML.ENERGY · TDP Myth]</span>
             </div>
             <div className="secondary-stat-item">
