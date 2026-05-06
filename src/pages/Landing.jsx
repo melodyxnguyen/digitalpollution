@@ -1,73 +1,162 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import './Landing.css'
 
 const stats = [
-  { value: "80–90%", label: "of LLM energy used during inference, not training", cite: "[Shao et al.]" },
-  { value: "2.3B",   label: "people use cloud storage services today",            cite: "[Greenly]" },
-  { value: "4×",     label: "TDP estimates can overstate real GPU energy use",    cite: "[ML.ENERGY]" },
+  {
+    value: "85×",
+    label: "more energy per token: DeepSeek R1 (2.37 J) vs. GPT OSS 20B (0.028 J)",
+    cite: "[ML.ENERGY]",
+  },
+  {
+    value: "3.7M tons",
+    label: "CO₂e/year projected from OpenAI's Stargate data center — roughly Iceland's entire annual emissions",
+    cite: "[IEA]",
+  },
+  {
+    value: "20%",
+    label: "of global data center electricity demand may be attributed to AI by end of 2025",
+    cite: "[WIRED]",
+  },
 ]
 
 const researchCards = [
-  { label: "Research Question", text: "Do people understand the energy and emissions costs of LLMs, and can a brief educational intervention shift behavioral intentions?" },
-  { label: "Central Method",   text: "Educate users on AI's hidden energy costs, equip them with practical tools for sustainable use, and activate civic action toward stronger data center oversight." },
-  { label: "Key Output",       text: "An open educational website pairing empirical benchmarks with interactive tools to make AI energy use tangible and personally meaningful." },
-]
-
-// Add more quotes here as interviews are completed
-const expertQuotes = [
   {
-    quote: "I would like to see a more rigorous oversight of data center planning and operations, a better model for allocating the infrastructure costs of building data centers so that we don't socialize those costs unnecessarily, and a stronger corporate governance model and legal framework for managing the social, political, and economic risks to society.",
-    name:  "David P. Chassin, PhD",
-    title: "Eudoxys Sciences (formerly SLAC National Accelerator Laboratory)",
+    label: "Research Question",
+    text: "Do people understand the energy and emissions costs of large language models — and can developer ergonomics, building small task-specific models instead of defaulting to frontier LLMs, shift how AI is used for the benefit of humanity?",
   },
   {
-    quote: "I feel compelled to make people understand that when they use ChatGPT like a calculator, that comes with a cost to the planet.",
-    name:  "Sasha Luccioni",
-    title: "AI and Climate Lead, Hugging Face",
-    source: "NPR, 2024",
+    label: "Method",
+    text: "8 expert interviews across energy, healthcare, and tech + direct hardware benchmarks from ML.ENERGY Leaderboard + an interactive educational website + Sentra, a task-specific AI agent built on a student budget.",
+  },
+  {
+    label: "Central Finding",
+    text: "For bounded, well-scoped tasks, small models match frontier LLMs at a fraction of the energy cost. The answer to AI's environmental footprint is not rejection — it is specificity.",
+  },
+]
+
+const expertQuotes = [
+  {
+    quote: "Large language models have been enormously successful because they are so general. But you can get comparable answers for far less energy cost and monetary cost if you actually just train small classical machine learning models. The hard part is that it requires expertise and time.",
+    name: "Akshay Agrawal",
+    title: "Co-founder, Marimo · personal communication, April 2026",
+  },
+  {
+    quote: "Stochastic automation systems can offer substantial utility but also have the risk of causing serious harm. Hype and imprecise language make this more difficult to navigate. We should describe these systems by what users can do with them, not by anthropomorphic capabilities they purportedly possess, and acknowledge the significant human labor that goes into making these systems work, from data corpus curation and data labeling to system supervision and maintenance.",
+    name: "Bennet Meyers",
+    title: "Staff Scientist, SLAC / NREL; Adjunct Professor, Stanford University · official statement, personal communication, April 2026",
+  },
+  {
+    quote: "This is a multidimensional problem. It is a security issue. It is a national race to AI competence. Everyone is giving incentives but no one is asking who pays for the externalities.",
+    name: "Rimvydas Baltaduonis",
+    title: "Energy Economist, Lecturer, Stanford University · personal communication, March 2026",
+  },
+  {
+    quote: "LLMs exhibit jagged intelligence — excelling at complex tasks while failing simple ones. Tool use remains rudimentary, leaving significant room for the kind of efficient, task-specific design this thesis advocates.",
+    name: "Arya Boudaie",
+    title: "Software Engineer, Amazon; AI Professor, Pace University · Spring 2026",
+  },
+  {
+    quote: "If you are not paying the sticker price, or someone else pays, you do not really think about the energy costs — in the same way that people buy clothing without thinking about labor conditions or materials sourcing.",
+    name: "Jonathan Lee",
+    title: "Clinical Assistant Professor, Computer Science, Pace University · written communication, April 2026",
+  },
+  {
+    quote: "I would like to see more rigorous oversight of data center operations, a better model for allocating the infrastructure costs so that we do not socialize those costs unnecessarily, and a stronger corporate governance model and legal framework for managing the social, political, and economic risks to society.",
+    name: "David P. Chassin, PhD",
+    title: "Owner, Eudoxys Sciences LLC; Former Chief Scientist, GISMo, SLAC · written communication, February 2026",
+  },
+  {
+    quote: "Orchestration first, automation second. Map the workflow, then automate specific steps — not replace the entire process at once. Our provider onboarding dropped from 90 days to 3 weeks.",
+    name: "Dr. Sri Ramesh Eevani",
+    title: "AVP Technology, Healthfirst · personal communication, April 2026",
+  },
+  {
+    quote: "The manual work of cross-referencing regulatory requirements against company documentation is slow, error-prone, and expensive. An AI agent that surfaces evidence gaps before an audit would transform this workflow entirely.",
+    name: "Nicole Ha",
+    title: "Executive Consultant, BioTech Regulatory, Quality, and CMC · personal communication, April 2026",
   },
 ]
 
 function ExpertQuotes() {
   const [index, setIndex] = useState(0)
   const [sliding, setSliding] = useState(false)
+  const touchStartX = useRef(null)
+  const autoRef = useRef(null)
+
+  function goTo(next) {
+    if (sliding) return
+    setSliding(true)
+    setTimeout(() => {
+      setIndex(((next % expertQuotes.length) + expertQuotes.length) % expertQuotes.length)
+      setSliding(false)
+    }, 320)
+  }
+
+  function startAuto() {
+    clearInterval(autoRef.current)
+    autoRef.current = setInterval(() => goTo(index + 1), 7000)
+  }
 
   useEffect(() => {
-    if (expertQuotes.length < 2) return
-    const id = setInterval(() => {
-      setSliding(true)
-      setTimeout(() => {
-        setIndex(i => (i + 1) % expertQuotes.length)
-        setSliding(false)
-      }, 400)
-    }, 6000)
-    return () => clearInterval(id)
-  }, [])
+    startAuto()
+    return () => clearInterval(autoRef.current)
+  }, [index])
+
+  function handleTouchStart(e) {
+    touchStartX.current = e.touches[0].clientX
+  }
+
+  function handleTouchEnd(e) {
+    if (touchStartX.current === null) return
+    const dx = e.changedTouches[0].clientX - touchStartX.current
+    if (Math.abs(dx) > 48) {
+      dx < 0 ? goTo(index + 1) : goTo(index - 1)
+    }
+    touchStartX.current = null
+  }
 
   const q = expertQuotes[index]
 
   return (
     <section className="section expert-quotes-section">
       <div className="container">
-        <span className="section-label">Expert Perspectives</span>
+        <span className="section-label">Expert Perspectives · {expertQuotes.length} Voices</span>
         <div className="accent-rule" />
         <h2>What Researchers Say</h2>
-        <div className={`expert-quote-card ${sliding ? 'expert-quote-card--sliding' : ''}`}>
-          <div className="expert-quote-mark">"</div>
+        <div
+          className={`expert-quote-card ${sliding ? 'expert-quote-card--sliding' : ''}`}
+          onTouchStart={handleTouchStart}
+          onTouchEnd={handleTouchEnd}
+        >
+          <div className="expert-quote-mark">“</div>
           <blockquote className="expert-quote-text">{q.quote}</blockquote>
           <div className="expert-quote-attr">
             <span className="expert-quote-name">{q.name}</span>
-            <span className="expert-quote-title">
-              {q.title}{q.source ? ` · ${q.source}` : ''}
-            </span>
+            <span className="expert-quote-title">{q.title}</span>
           </div>
         </div>
-        <div className="expert-quote-progress">
-          <div
-            className="expert-quote-progress-fill"
-            key={index}
-          />
+        <div className="expert-quote-nav">
+          <button
+            className="expert-nav-arrow"
+            onClick={() => goTo(index - 1)}
+            aria-label="Previous quote"
+          >‹</button>
+          <div className="expert-quote-dots">
+            {expertQuotes.map((_, i) => (
+              <button
+                key={i}
+                className={`expert-quote-dot ${i === index ? 'expert-quote-dot--active' : ''}`}
+                onClick={() => goTo(i)}
+                aria-label={`Quote ${i + 1}`}
+              />
+            ))}
+          </div>
+          <button
+            className="expert-nav-arrow"
+            onClick={() => goTo(index + 1)}
+            aria-label="Next quote"
+          >›</button>
         </div>
       </div>
     </section>
@@ -92,7 +181,7 @@ export default function Landing() {
             This project makes the invisible visible.
           </p>
           <div className="hero-actions">
-            <Link to="/interactive" className="btn-sage">Measure My Consumption →</Link>
+            <Link to="/best-practices" className="btn-sage">Measure My Consumption →</Link>
             <Link to="/digital-technologies" className="btn-ghost">What is Digital Pollution?</Link>
           </div>
         </div>
@@ -125,10 +214,24 @@ export default function Landing() {
             This research evaluates whether targeted education can improve public understanding
             of AI sustainability, and shift behavioral intentions toward more mindful use.
           </p>
+
           <blockquote className="pull-quote">
             "Any efforts to reduce our current carbon footprint created by digital pollution
             will become more challenging over time." <cite>[Greenly]</cite>
           </blockquote>
+        </div>
+      </section>
+
+      {/* Core Argument */}
+      <section className="argument-strip">
+        <div className="container argument-strip-inner">
+          <p className="argument-strip-title">
+            The most practical path to reducing AI's energy footprint is developer ergonomics — building small, task-specific models instead of defaulting to frontier LLMs.
+          </p>
+          <p className="argument-strip-sub">
+            Large language models are generically powerful — but generically expensive. The answer to their energy footprint lies not in rejection, but in specificity. People who perform the same tasks repeatedly — biotech auditors, healthcare administrators, data scientists, energy researchers — should build small, task-specific AI models tailored to their exact needs. More efficient. More accurate. Stronger privacy. The future of AI is not bigger models. It is smarter.
+          </p>
+          <span className="argument-strip-attr">— Thesis Conclusion · Melody Nguyễn, Pace University 2026</span>
         </div>
       </section>
 
@@ -149,6 +252,25 @@ export default function Landing() {
               </div>
             ))}
           </div>
+
+          {/* Secondary stats */}
+          <div className="secondary-stats">
+            <div className="secondary-stat-item">
+              <span className="secondary-stat-val">2.3B</span>
+              <span className="secondary-stat-label">people use cloud storage today</span>
+              <span className="mono-tag">[Greenly]</span>
+            </div>
+            <div className="secondary-stat-item">
+              <span className="secondary-stat-val">25–75%</span>
+              <span className="secondary-stat-label">of rated TDP is actual GPU power draw — not 100%</span>
+              <span className="mono-tag">[ML.ENERGY · TDP Myth]</span>
+            </div>
+            <div className="secondary-stat-item">
+              <span className="secondary-stat-val">17 sec</span>
+              <span className="secondary-stat-label">a Google search ≈ running a 60W lightbulb for 17 seconds. AI queries cost substantially more.</span>
+              <span className="mono-tag">[MIT Tech Review]</span>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -159,11 +281,11 @@ export default function Landing() {
           <div className="accent-rule" />
           <div className="nav-teaser-grid">
             {[
-              { path: '/digital-technologies', num: '01', title: 'Digital Technologies', desc: 'E-waste, data infrastructure, and Internet pollution — the full lifecycle.' },
-              { path: '/large-language-models', num: '02', title: 'Large Language Models', desc: 'Physical infrastructure, training vs. inference, and the GPU bottleneck.' },
-              { path: '/interactive',           num: '03', title: 'Explore',               desc: 'Model comparison slider, email calculator, and live energy meter.' },
-              { path: '/best-practices',        num: '04', title: 'Measure',               desc: 'Best practices, curated tools, and ways to reduce your footprint.' },
-              { path: '/act',                   num: '05', title: 'Act',                   desc: 'Write to your senator and test your knowledge with the quiz.' },
+              { path: '/digital-technologies', num: '01', title: 'Digital Technologies', desc: 'E-waste, internet pollution, and the full infrastructure lifecycle behind every click.' },
+              { path: '/large-language-models', num: '02', title: 'Large Language Models', desc: 'Training vs. inference, the GPU bottleneck, and why model size is an energy decision.' },
+              { path: '/interactive',           num: '03', title: 'Explore',               desc: 'Compare models side-by-side and watch energy accumulate token-by-token in real time.' },
+              { path: '/best-practices',        num: '04', title: 'Measure',               desc: 'Best practices, curated tools, and what you can do today to reduce your footprint.' },
+              { path: '/act',                   num: '05', title: 'Act',                   desc: 'Write to your senator, audit your habits, and turn knowledge into action.' },
             ].map((item) => (
               <Link key={item.path} to={item.path} className="nav-card">
                 <span className="nav-card-num">{item.num}</span>

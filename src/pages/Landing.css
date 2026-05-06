@@ -123,15 +123,16 @@
 
   .pull-quote {
     border-left: 3px solid var(--sage);
-    padding: 0.75rem 1.25rem;
+    padding: 1.1rem 1.75rem;
     margin: 1.75rem 0 0;
     background: var(--sage-pale);
-    border-radius: 0 3px 3px 0;
+    border-radius: 0 4px 4px 0;
     font-family: var(--font-display);
-    font-style: italic;
-    font-size: 1rem;
+    font-style: normal;
+    font-size: 1.13rem;
     color: var(--text-secondary);
-    max-width: 65ch;
+    max-width: 75ch;
+    line-height: 1.75;
   }
 
   .pull-quote cite {
@@ -140,6 +141,45 @@
     font-size: 0.78rem;
     color: var(--sage);
     margin-left: 0.35rem;
+  }
+
+  /* ── Core Argument Strip ── */
+  .argument-strip {
+    background: var(--ink);
+    padding: 3.5rem 0;
+    border-top: 1px solid rgba(255,255,255,0.06);
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+
+  .argument-strip-inner {
+    max-width: 780px;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+  .argument-strip-title {
+    font-size: clamp(1.2rem, 2.8vw, 1.65rem);
+    font-weight: 700;
+    color: var(--sage-light);
+    line-height: 1.45;
+    letter-spacing: -0.015em;
+    margin: 0;
+  }
+
+  .argument-strip-sub {
+    font-size: clamp(0.88rem, 1.6vw, 1rem);
+    color: rgba(255,255,255,0.55);
+    line-height: 1.8;
+    margin: 0;
+    max-width: 72ch;
+  }
+
+  .argument-strip-attr {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: rgba(255,255,255,0.3);
+    letter-spacing: 0.04em;
   }
 
   /* ── Expert Quotes ── */
@@ -171,11 +211,12 @@
   }
 
   .expert-quote-mark {
-    font-family: var(--font-display);
-    font-size: 3rem;
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 3.5rem;
+    font-weight: 700;
     color: var(--sage);
     line-height: 0.5;
-    opacity: 0.5;
+    opacity: 0.6;
   }
 
   .expert-quote-text {
@@ -208,25 +249,106 @@
     color: var(--text-muted);
   }
 
-  .expert-quote-progress {
+  /* Quote dot navigation */
+  .expert-quote-nav {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
     max-width: 800px;
-    height: 2px;
+    margin-top: 1.25rem;
+  }
+
+  .expert-nav-arrow {
+    background: none;
+    border: 1px solid var(--border);
+    border-radius: 50%;
+    width: 2rem;
+    height: 2rem;
+    font-size: 1.1rem;
+    color: var(--text-secondary);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: border-color 0.2s, color 0.2s;
+    flex-shrink: 0;
+  }
+
+  .expert-nav-arrow:hover {
+    border-color: var(--sage);
+    color: var(--sage);
+  }
+
+  .expert-quote-dots {
+    display: flex;
+    gap: 0.4rem;
+    flex-wrap: wrap;
+  }
+
+  .expert-quote-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
     background: var(--border);
-    border-radius: 1px;
-    margin-top: 1rem;
-    overflow: hidden;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    transition: background 0.2s, transform 0.2s;
   }
 
-  .expert-quote-progress-fill {
-    height: 100%;
+  .expert-quote-dot--active {
     background: var(--sage);
-    border-radius: 1px;
-    animation: quoteProgress 6s linear forwards;
+    transform: scale(1.35);
   }
 
-  @keyframes quoteProgress {
-    from { width: 0%; }
-    to   { width: 100%; }
+  /* Core argument callout */
+  .core-argument {
+    margin: 2rem 0 1.75rem;
+    padding: 1.5rem 2rem;
+    background: var(--ink);
+    border-radius: 6px;
+    max-width: 65ch;
+  }
+
+  .core-argument p {
+    font-size: clamp(1.05rem, 2.5vw, 1.3rem);
+    font-weight: 700;
+    color: var(--sage-light);
+    line-height: 1.55;
+    margin: 0;
+    letter-spacing: -0.01em;
+  }
+
+  /* Secondary stats row */
+  .secondary-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.25rem;
+    margin-top: 2.5rem;
+    border-top: 1px solid var(--border);
+    padding-top: 2rem;
+  }
+
+  .secondary-stat-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+  }
+
+  .secondary-stat-val {
+    font-family: var(--font-mono);
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--sage-dark);
+    letter-spacing: -0.02em;
+    line-height: 1;
+  }
+
+  .secondary-stat-label {
+    font-size: 0.83rem;
+    color: var(--text-secondary);
+    line-height: 1.55;
+    max-width: 28ch;
   }
 
   /* ── Research Overview ── */
@@ -341,8 +463,11 @@
   @media (max-width: 768px) {
     .stats-grid { grid-template-columns: 1fr; gap: 1.5rem; }
     .research-cards-grid { grid-template-columns: 1fr; }
+    .secondary-stats { grid-template-columns: 1fr; }
   }
 
   @media (max-width: 480px) {
     .hero-actions { flex-direction: column; }
+    .core-argument { padding: 1.25rem 1.25rem; }
+    .core-argument p { font-size: 1rem; }
   }

@@ -7,6 +7,7 @@ const navItems = [
   { path: '/interactive',    label: 'Explore' },
   { path: '/best-practices', label: 'Measure' },
   { path: '/act',            label: 'Act'     },
+  { path: '/quiz',           label: 'Quiz'    },
   { path: '/about',          label: 'About'   },
 ]
 
