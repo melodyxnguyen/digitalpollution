@@ -1,297 +1,319 @@
-import { useState } from 'react'
+import { useState, useEffect, useRef, useMemo } from 'react'
+import { encode, decode } from 'gpt-tokenizer'
+import { modelData } from '../data/content'
 import './BestPractices.css'
+import './Interactive.css'
 
-const practices = [
-  {
-    num: '01',
-    icon: null,
-    title: 'Write concise prompts',
-    detail: 'Shorter, well-scoped prompts generate shorter responses, reducing the number of tokens produced and the energy consumed per interaction.',
-    cite: '[MIT Technology Review, Shao et al.]',
-    examples: [
-      {
-        context: 'Homework',
-        before: 'Can you explain everything about the French Revolution, including all the causes, major events, key figures, and how it changed democracy forever?',
-        after:  'What were the 3 main causes of the French Revolution?',
-      },
-      {
-        context: 'Home cooking',
-        before: 'Tell me everything I could possibly make with chicken, rice, and broccoli including prep methods, cuisines, and nutrition info.',
-        after:  'Quick dinner idea using chicken, rice, and broccoli?',
-      },
-      {
-        context: 'Trip planning',
-        before: 'Give me a complete travel guide to Tokyo with history, neighborhoods, food, transport, culture, packing tips, and what to avoid.',
-        after:  'Top 3 things to do in Tokyo for a first-time visitor?',
-      },
-    ],
-  },
-  {
-    num: '02',
-    icon: null,
-    title: 'Batch related questions',
-    detail: 'Instead of sending five separate queries, combine them into one. Each model call has a fixed overhead cost; batching reduces that overhead.',
-    cite: '[Shao et al.]',
-    examples: [
-      {
-        context: 'New gardener',
-        before: '"When do I plant tomatoes?" ... then "How much water?" ... then "Any pests to watch for?"',
-        after:  'When to plant tomatoes, how much water, and common pests, all in one message.',
-      },
-      {
-        context: 'Music producer',
-        before: '"What is EQ?" / "What is compression?" / "How do I use them together?", sent one at a time.',
-        after:  'Quick explanation of EQ vs compression and how to use both in a mix.',
-      },
-      {
-        context: 'Job hunter',
-        before: 'Three separate chats: "How do I write a cover letter?" / "What should I include?" / "How long should it be?"',
-        after:  'How do I write a cover letter, what to include and how long it should be?',
-      },
-    ],
-  },
-  {
-    num: '03',
-    icon: null,
-    title: 'Choose the right model',
-    detail: 'A small model like Mistral 7B uses ~0.052 J/token. A reasoning model like DeepSeek R1 uses ~2.37 J/token. For simple tasks, smaller is smarter.',
-    cite: '[ML.ENERGY]',
-    examples: [
-      {
-        context: 'Casual use',
-        before: 'Using the most powerful AI model to brainstorm a birthday gift for your mom.',
-        after:  'Any basic chat model handles "gift ideas for a mom who likes gardening" just fine.',
-      },
-      {
-        context: 'Songwriting',
-        before: 'Running a full reasoning model to suggest a rhyme for "blue" in a verse.',
-        after:  'A lightweight model is more than enough for rhyme suggestions or lyric tweaks.',
-      },
-      {
-        context: 'Health question',
-        before: 'Asking the heaviest reasoning model what ibuprofen does.',
-        after:  'A small model answers common health FAQs reliably without the extra compute.',
-      },
-    ],
-  },
-  {
-    num: '04',
-    icon: null,
-    title: 'Delete old emails',
-    detail: 'Every stored email sits on a server consuming energy. Deleting old emails and unsubscribing from newsletters reduces persistent server load.',
-    cite: '[Greenly]',
-    examples: [
-      {
-        context: 'Online shopper',
-        before: 'Every brand you have ever bought from sends weekly "deals" you scroll past without opening.',
-        after:  'Hit unsubscribe on 3 of them today; takes about a minute.',
-      },
-      {
-        context: 'Small farm',
-        before: 'Newsletters from 10 seed companies, equipment dealers, and co-ops piling up unread.',
-        after:  'Keep the one or two you actually read; unsubscribe from the rest.',
-      },
-      {
-        context: 'Recent grad',
-        before: '9,000 unread emails including newsletters from every school club and campus event from 4 years ago.',
-        after:  'Search by sender, bulk-select, and delete; clear a year of old mail in under 10 minutes.',
-      },
-    ],
-  },
-  {
-    num: '05',
-    icon: null,
-    title: 'Use Wi-Fi over cellular',
-    detail: 'Mobile networks (4G/5G) are less energy-efficient per bit than fixed broadband. Switch to Wi-Fi for data-heavy tasks like video or AI use.',
-    cite: '[Greenly]',
-    examples: [
-      {
-        context: 'Commuter',
-        before: 'Downloading 4 podcast episodes on 5G while sitting in your apartment.',
-        after:  'Download over Wi-Fi before you leave the house.',
-      },
-      {
-        context: 'Farm worker',
-        before: 'Uploading drone footage to the cloud on 4G out in the field.',
-        after:  'Save the upload for when you are back on the farm network.',
-      },
-      {
-        context: 'Gamer',
-        before: 'Downloading a 30 GB update using your phone as a hotspot.',
-        after:  'Wait until you are on Wi-Fi; faster and less wasteful.',
-      },
-    ],
-  },
-  {
-    num: '06',
-    icon: null,
-    title: 'Keep devices longer',
-    detail: 'Manufacturing a new device embeds significant carbon before it is ever turned on. Extending device life is one of the highest-impact individual actions.',
-    cite: '[Patterson et al.]',
-    examples: [
-      {
-        context: 'Photographer',
-        before: 'Trading in a camera body every year for marginal megapixel improvements.',
-        after:  'Invest in lenses; a 4-year-old body still makes great photos.',
-      },
-      {
-        context: 'Home studio',
-        before: 'Buying a new audio interface every time a new model drops.',
-        after:  'Your current gear makes the same sounds. Use it until it breaks.',
-      },
-      {
-        context: 'Everyday user',
-        before: 'Upgrading a phone every 2 years because the new one looks nicer.',
-        after:  'Replace the battery instead; it feels like a new phone for a fraction of the cost.',
-      },
-    ],
-  },
-  {
-    num: '07',
-    icon: null,
-    title: 'Disable autoplay',
-    detail: 'Automatic video playback on YouTube and social platforms continuously loads server bandwidth, even when you are not actively watching.',
-    cite: '[Greenly]',
-    examples: [
-      {
-        context: 'Binge watcher',
-        before: 'Netflix autoplays the next episode while you are already in bed with your eyes closed.',
-        after:  'Enable "manage autoplay" in settings so it stops when your episode ends.',
-      },
-      {
-        context: 'Music listener',
-        before: 'Spotify\'s auto-queue runs for 2 hours after your playlist ends, playing songs you did not choose.',
-        after:  'Set a sleep timer or turn off autoplay so it stops when your playlist does.',
-      },
-      {
-        context: 'Social scroller',
-        before: 'Videos auto-loading on every platform as you scroll even though you are just reading captions.',
-        after:  'Disable autoplay in your platform settings; most have a toggle buried in preferences.',
-      },
-    ],
-  },
-  {
-    num: '08',
-    icon: null,
-    title: 'Audit your cloud storage',
-    detail: 'Unneeded cloud backups, duplicate files, and unused subscriptions place constant load on data infrastructure. Review and trim regularly.',
-    cite: '[Greenly]',
-    examples: [
-      {
-        context: 'DIY renovator',
-        before: '3 years of contractor quotes, design mood boards, and progress photos, all still backed up to the cloud.',
-        after:  'Keep the final plans and best photos; delete everything else once the project is done.',
-      },
-      {
-        context: 'Music producer',
-        before: 'Gigabytes of scratch recordings, test renders, and failed beats spread across three cloud drives.',
-        after:  'Keep finals and stems; delete scratch files. Your hard drive will thank you too.',
-      },
-      {
-        context: 'Student',
-        before: 'Three years of old class notes, duplicate PDFs, and half-finished assignments backed up forever.',
-        after:  'A 15-minute end-of-semester cleanup; delete drafts and keep only the finals.',
-      },
-    ],
-  },
-]
+// ── Model Comparison ──────────────────────────────────────────────────────────
+function ModelComparison() {
+  const [modelA, setModelA] = useState(0)
+  const [modelB, setModelB] = useState(2)
 
-const bonusTip = {
-  title: 'Skip the "thanks!"',
-  detail: 'Sending a follow-up message just to say thank you triggers another full model response; tokens in, tokens out, energy spent. If the answer was good, just move on.',
-}
-
-const scenarios = [
-  {
-    title: 'Quick question',
-    bad: 'Tell me everything about climate change, its causes, effects, history, and what I can do about it.',
-    good: 'What are the top 3 individual actions to reduce carbon footprint?',
-    why: 'The concise prompt targets exactly what you need; fewer tokens, less energy, same value.',
-  },
-  {
-    title: 'Choosing a model',
-    bad: 'Use GPT-4 or DeepSeek R1 to summarize this 3-sentence email.',
-    good: 'Use Mistral 7B or a small chat model for simple summarization tasks.',
-    why: 'Reasoning models burn ~85× more energy per token than small models for tasks that don\'t need deep reasoning.',
-  },
-  {
-    title: 'Research task',
-    bad: 'Send 10 follow-up queries one at a time as you think of them.',
-    good: 'Draft all your questions first, then send them together in one prompt.',
-    why: 'Each query carries a fixed infrastructure cost. Batching cuts that overhead significantly.',
-  },
-]
-
-function PracticeCard({ p, isOpen, onToggle }) {
-  const [slide, setSlide] = useState(0)
-  const total = p.examples.length
-  const hasExamples = total > 0
-
-  function prev(e) {
-    e.stopPropagation()
-    setSlide(s => (s - 1 + total) % total)
-  }
-  function next(e) {
-    e.stopPropagation()
-    setSlide(s => (s + 1) % total)
-  }
-
-  const ex = hasExamples ? p.examples[slide] : null
-  const clickable = !p.static
+  const a = modelData[modelA]
+  const b = modelData[modelB]
+  const max = Math.max(a.joulesPerToken, b.joulesPerToken)
+  const ratio = max > 0
+    ? (Math.max(a.joulesPerToken, b.joulesPerToken) / Math.min(a.joulesPerToken, b.joulesPerToken)).toFixed(1)
+    : 1
 
   return (
-    <div
-      className={`card practice-card${isOpen ? ' practice-card--open' : ''}${!clickable ? ' practice-card--static' : ''}`}
-      onClick={clickable ? onToggle : undefined}
-      role={clickable ? 'button' : undefined}
-      aria-expanded={clickable ? isOpen : undefined}
-      tabIndex={clickable ? 0 : undefined}
-      onKeyDown={clickable ? (e => (e.key === 'Enter' || e.key === ' ') && onToggle()) : undefined}
-    >
-      <div className="practice-card-top">
-        {p.icon && <span className="practice-icon">{p.icon}</span>}
-        <span className="practice-num">{p.num}</span>
-      </div>
-      <h4>{p.title}</h4>
-      <p>{p.detail}</p>
-      {p.cite && <span className="practice-cite">{p.cite}</span>}
-
-      {isOpen && hasExamples && (
-        <div className="practice-expand" onClick={e => e.stopPropagation()}>
-          <div className="expand-slide-header">
-            <span className="expand-context-label">{ex.context}</span>
-            {total > 1 && (
-              <div className="expand-nav">
-                <button className="expand-nav-btn" onClick={prev} aria-label="Previous example">‹</button>
-                <span className="expand-nav-count">{slide + 1} / {total}</span>
-                <button className="expand-nav-btn" onClick={next} aria-label="Next example">›</button>
-              </div>
-            )}
+    <div className="tool-section">
+      <div className="container">
+        <span className="section-label">Tool 01</span>
+        <div className="accent-rule" />
+        <h2>Model Energy Comparison</h2>
+        <p className="tool-desc">
+          Select two models to compare their energy cost per token of output.
+          Data sourced from the ML.ENERGY Leaderboard [ML.ENERGY].
+        </p>
+        <div className="model-selectors">
+          <div className="model-selector">
+            <label>Model A</label>
+            <select value={modelA} onChange={e => setModelA(Number(e.target.value))}>
+              {modelData.map((m, i) => <option key={i} value={i}>{m.name}</option>)}
+            </select>
           </div>
-          <div className="expand-cols">
-            <div className="expand-col expand-col--before">
-              <span className="expand-label">Before</span>
-              <p>"{ex.before}"</p>
-            </div>
-            <span className="expand-arrow">→</span>
-            <div className="expand-col expand-col--after">
-              <span className="expand-label">After</span>
-              <p>"{ex.after}"</p>
-            </div>
+          <div className="model-selector">
+            <label>Model B</label>
+            <select value={modelB} onChange={e => setModelB(Number(e.target.value))}>
+              {modelData.map((m, i) => <option key={i} value={i}>{m.name}</option>)}
+            </select>
           </div>
         </div>
-      )}
+        <div className="model-bars">
+          {[a, b].map((m, i) => (
+            <div key={i} className="model-bar-row">
+              <div className="model-bar-meta">
+                <span className="model-bar-name">{m.name}</span>
+                <span className="mono-tag">{m.params} · {m.type}</span>
+              </div>
+              <div className="model-bar-track">
+                <div
+                  className="model-bar-fill"
+                  style={{
+                    width: `${(m.joulesPerToken / max) * 100}%`,
+                    background: i === 0 ? 'var(--sage)' : 'var(--ink)'
+                  }}
+                />
+              </div>
+              <span className="model-bar-val">{m.joulesPerToken} J/token</span>
+            </div>
+          ))}
+        </div>
+        {modelA !== modelB && (
+          <div className="model-insight">
+            <span className="model-insight-ratio">{ratio}×</span>
+            <p>
+              <strong>{ratio}× more energy</strong> per token for{' '}
+              {a.joulesPerToken > b.joulesPerToken ? a.name : b.name} compared to{' '}
+              {a.joulesPerToken > b.joulesPerToken ? b.name : a.name}.
+              For 1,000 tokens, that's{' '}
+              {(Math.max(a.joulesPerToken, b.joulesPerToken) * 1000).toFixed(1)} J vs{' '}
+              {(Math.min(a.joulesPerToken, b.joulesPerToken) * 1000).toFixed(2)} J.
+            </p>
+          </div>
+        )}
+      </div>
     </div>
   )
 }
 
-export default function BestPractices() {
-  const [openCard, setOpenCard] = useState(null)
+// ── Live Energy Meter ─────────────────────────────────────────────────────────
+function EnergyMeter() {
+  const [prompt, setPrompt] = useState('')
+  const [running, setRunning] = useState(false)
+  const [tokensGenerated, setTokensGenerated] = useState(0)
+  const [selectedModel, setSelectedModel] = useState(2)
+  const intervalRef = useRef(null)
 
-  function toggle(i) {
-    setOpenCard(prev => (prev === i ? null : i))
+  const model = modelData[selectedModel]
+  const estimatedOutputTokens = Math.max(20, Math.round(prompt.trim().split(/\s+/).length * 3.5))
+  const totalJoules = tokensGenerated * model.joulesPerToken
+  const progress = estimatedOutputTokens > 0 ? Math.min((tokensGenerated / estimatedOutputTokens) * 100, 100) : 0
+
+  function startMeter() {
+    if (running || prompt.trim() === '') return
+    setTokensGenerated(0)
+    setRunning(true)
+    let count = 0
+    intervalRef.current = setInterval(() => {
+      count++
+      setTokensGenerated(count)
+      if (count >= estimatedOutputTokens) {
+        clearInterval(intervalRef.current)
+        setRunning(false)
+      }
+    }, 40)
   }
 
+  function resetMeter() {
+    clearInterval(intervalRef.current)
+    setRunning(false)
+    setTokensGenerated(0)
+  }
+
+  useEffect(() => () => clearInterval(intervalRef.current), [])
+
+  return (
+    <div className="tool-section tool-section--alt">
+      <div className="container">
+        <span className="section-label">Tool 02</span>
+        <div className="accent-rule" />
+        <h2>Live Energy Meter</h2>
+        <p className="tool-desc">
+          Type a prompt and watch the energy cost accumulate token by token,
+          just as it would on a real GPU. Uses measured J/token values from the ML.ENERGY Leaderboard [ML.ENERGY].
+        </p>
+        <div className="meter-controls">
+          <div className="meter-model-select">
+            <label>Model</label>
+            <select value={selectedModel} onChange={e => { setSelectedModel(Number(e.target.value)); resetMeter() }}>
+              {modelData.map((m, i) => <option key={i} value={i}>{m.name} — {m.joulesPerToken} J/token</option>)}
+            </select>
+          </div>
+          <div className="meter-prompt">
+            <label>Your prompt</label>
+            <textarea
+              rows={3}
+              placeholder="Type your prompt here…"
+              value={prompt}
+              onChange={e => { setPrompt(e.target.value); resetMeter() }}
+            />
+            <p className="meter-estimate">
+              Estimated output: ~{estimatedOutputTokens} tokens
+            </p>
+          </div>
+          <div className="meter-actions">
+            <button className="btn btn-primary" onClick={startMeter} disabled={running || prompt.trim() === ''}>
+              {running ? 'Generating…' : 'Simulate Response'}
+            </button>
+            <button className="btn btn-ghost" onClick={resetMeter}>Reset</button>
+          </div>
+        </div>
+        <div className="meter-display">
+          <div className="meter-progress-track">
+            <div className="meter-progress-fill" style={{ width: `${progress}%` }} />
+          </div>
+          <div className="meter-stats">
+            <div className="meter-stat">
+              <span className="meter-stat-val">{tokensGenerated}</span>
+              <span className="meter-stat-label">tokens generated</span>
+            </div>
+            <div className="meter-stat">
+              <span className="meter-stat-val">{totalJoules.toFixed(3)}</span>
+              <span className="meter-stat-label">joules consumed</span>
+            </div>
+            <div className="meter-stat">
+              <span className="meter-stat-val">{(totalJoules / 3600).toExponential(2)}</span>
+              <span className="meter-stat-label">watt-hours</span>
+            </div>
+          </div>
+          {tokensGenerated > 0 && !running && (
+            <div className="meter-complete">
+              <span>✓ Complete — {model.name} used {totalJoules.toFixed(3)} J for this response.</span>
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  )
+}
+
+// ── Token Visualizer ──────────────────────────────────────────────────────────
+const TOKEN_COLORS = [
+  'rgba(107,143,78,0.22)',
+  'rgba(196,149,90,0.22)',
+  'rgba(90,124,164,0.22)',
+  'rgba(176,107,90,0.22)',
+  'rgba(90,143,143,0.22)',
+  'rgba(122,90,143,0.22)',
+]
+
+function Tokenizer() {
+  const [text, setText] = useState('The environmental cost of AI is often invisible.')
+  const [selectedModel, setSelectedModel] = useState(2)
+  const [showIds, setShowIds] = useState(false)
+
+  const { tokenIds, tokenTexts } = useMemo(() => {
+    if (!text) return { tokenIds: [], tokenTexts: [] }
+    const ids = encode(text)
+    const texts = ids.map(id => decode([id]))
+    return { tokenIds: ids, tokenTexts: texts }
+  }, [text])
+
+  const model = modelData[selectedModel]
+  const energyJ = tokenIds.length * model.joulesPerToken
+
+  return (
+    <div className="tool-section">
+      <div className="container">
+        <span className="section-label">Tool 03</span>
+        <div className="accent-rule" />
+        <h2>Token Visualizer</h2>
+        <p className="tool-desc">
+          LLMs don't read words — they read <em>tokens</em>, subword pieces produced by
+          byte-pair encoding. Type anything below to see exactly how GPT-4's tokenizer
+          (cl100k_base) splits your text, and what that costs in energy.
+        </p>
+
+        <div className="tokenizer-layout">
+          <div className="tokenizer-input-col">
+            <label className="tokenizer-label">Your text</label>
+            <textarea
+              className="tokenizer-textarea"
+              rows={6}
+              value={text}
+              onChange={e => setText(e.target.value)}
+              placeholder="Type or paste any text…"
+            />
+            <div className="tokenizer-stats-bar">
+              <span className="tokenizer-stat">
+                <span className="tokenizer-stat-val">{text.length}</span>
+                <span className="tokenizer-stat-key">characters</span>
+              </span>
+              <span className="tokenizer-divider" />
+              <span className="tokenizer-stat">
+                <span className="tokenizer-stat-val">{tokenIds.length}</span>
+                <span className="tokenizer-stat-key">tokens</span>
+              </span>
+              {text.length > 0 && (
+                <>
+                  <span className="tokenizer-divider" />
+                  <span className="tokenizer-stat">
+                    <span className="tokenizer-stat-val">
+                      {(text.length / Math.max(tokenIds.length, 1)).toFixed(2)}
+                    </span>
+                    <span className="tokenizer-stat-key">chars / token</span>
+                  </span>
+                </>
+              )}
+            </div>
+
+            <div className="tokenizer-energy-row">
+              <div className="tokenizer-model-select">
+                <label className="tokenizer-label">Model (for energy estimate)</label>
+                <select
+                  value={selectedModel}
+                  onChange={e => setSelectedModel(Number(e.target.value))}
+                >
+                  {modelData.map((m, i) => (
+                    <option key={i} value={i}>{m.name} — {m.joulesPerToken} J/token</option>
+                  ))}
+                </select>
+              </div>
+              {tokenIds.length > 0 && (
+                <div className="tokenizer-energy-result">
+                  <span className="tokenizer-energy-val">{energyJ.toFixed(3)} J</span>
+                  <span className="tokenizer-energy-desc">
+                    to process these {tokenIds.length} tokens on {model.name}
+                  </span>
+                </div>
+              )}
+            </div>
+          </div>
+
+          <div className="tokenizer-vis-col">
+            <div className="tokenizer-vis-header">
+              <label className="tokenizer-label">Token view</label>
+              <button
+                className={`tokenizer-ids-toggle ${showIds ? 'active' : ''}`}
+                onClick={() => setShowIds(v => !v)}
+              >
+                {showIds ? 'Hide IDs' : 'Show IDs'}
+              </button>
+            </div>
+            <div className="tokenizer-vis-box">
+              {tokenTexts.length === 0 ? (
+                <span className="tokenizer-empty">Start typing to see tokens…</span>
+              ) : (
+                tokenTexts.map((txt, i) => (
+                  <span
+                    key={i}
+                    className="token-chip"
+                    style={{ background: TOKEN_COLORS[i % TOKEN_COLORS.length] }}
+                    title={`Token ID: ${tokenIds[i]}`}
+                  >
+                    {txt.replace(/ /g, '·')}
+                    {showIds && (
+                      <sub className="token-id">{tokenIds[i]}</sub>
+                    )}
+                  </span>
+                ))
+              )}
+            </div>
+            <p className="tokenizer-note">
+              Middle dots (·) represent spaces. Hover a token to see its integer ID.
+              Encoding: cl100k_base (GPT-4 / GPT-3.5).
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+// ── Page ───────────────────────────────────────────────────────────────────────
+export default function BestPractices() {
   return (
     <main className="page-enter best-practices-page">
       <section className="page-hero">
@@ -301,33 +323,8 @@ export default function BestPractices() {
           <h1>Best Practices</h1>
           <p className="page-hero-sub">
             Sustainable AI use is not about using less; it is about using wisely.
-            These practices reduce your computational footprint without sacrificing productivity.
+            Curated tools and hands-on visualizers to help you measure and understand AI's real energy footprint.
           </p>
-        </div>
-      </section>
-
-      <section className="section">
-        <div className="container">
-          <span className="section-label">In Practice · 8 Practices</span>
-          <div className="accent-rule" />
-          <h2>What You Can Do Today</h2>
-          <p className="practices-hint">See how small prompt choices translate into real energy differences. Click any card to see real-life examples.</p>
-          <div className="practices-grid">
-            {practices.map((p, i) => (
-              <PracticeCard
-                key={i}
-                p={p}
-                isOpen={openCard === i}
-                onToggle={() => toggle(i)}
-              />
-            ))}
-          </div>
-
-          <div className="bonus-tip">
-            <span className="section-label">One more thing</span>
-            <h4>{bonusTip.title}</h4>
-            <p>{bonusTip.detail}</p>
-          </div>
         </div>
       </section>
 
@@ -403,8 +400,49 @@ export default function BestPractices() {
               </p>
             </div>
           </div>
+
+          {/* Screenshot placeholders */}
+          <div className="screenshots-grid">
+            <div className="screenshot-frame">
+              <div className="screenshot-frame-header">
+                <span className="screenshot-tool-name">CodeCarbon</span>
+                <span className="screenshot-note">screenshot placeholder</span>
+              </div>
+              <div className="screenshot-placeholder-area">
+                Drop CodeCarbon interface screenshot here
+              </div>
+            </div>
+            <div className="screenshot-frame">
+              <div className="screenshot-frame-header">
+                <span className="screenshot-tool-name">AI Energy Score Leaderboard</span>
+                <span className="screenshot-note">screenshot placeholder</span>
+              </div>
+              <div className="screenshot-placeholder-area">
+                Drop AI Energy Score Leaderboard screenshot here
+              </div>
+            </div>
+          </div>
         </div>
       </section>
+
+      <hr className="section-divider" style={{ margin: 0 }} />
+
+      {/* Interactive Tools intro */}
+      <section className="section">
+        <div className="container">
+          <span className="section-label">Try It Yourself</span>
+          <div className="accent-rule" />
+          <h2>Interactive Tools</h2>
+          <p style={{ color: 'var(--text-secondary)', maxWidth: '58ch', marginBottom: 0 }}>
+            Three hands-on tools to make AI energy costs tangible. Compare model efficiency,
+            watch energy accumulate in real time, and see exactly how your text is split into tokens.
+          </p>
+        </div>
+      </section>
+
+      <ModelComparison />
+      <EnergyMeter />
+      <Tokenizer />
 
       <section className="section quote-section">
         <div className="container">

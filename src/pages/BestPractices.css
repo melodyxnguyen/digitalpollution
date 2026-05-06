@@ -302,6 +302,61 @@
     max-width: 100%;
   }
   
+  /* Screenshot frames */
+  .screenshots-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.25rem;
+    margin-top: 2rem;
+  }
+
+  .screenshot-frame {
+    border: 2px dashed var(--border);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  .screenshot-frame-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.6rem 1rem;
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .screenshot-tool-name {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: var(--ink);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+
+  .screenshot-note {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    color: var(--text-muted);
+  }
+
+  .screenshot-placeholder-area {
+    min-height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--bg-alt);
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    font-style: italic;
+    padding: 2rem;
+    text-align: center;
+  }
+
+  @media (max-width: 768px) {
+    .screenshots-grid { grid-template-columns: 1fr; }
+  }
+
   /* Curated Tools */
   .tools-section {
     background: var(--bg-alt);
