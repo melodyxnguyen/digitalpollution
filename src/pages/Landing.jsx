@@ -268,6 +268,13 @@ export default function Landing() {
         </div>
       </section>
 
+      {/* Photo frame */}
+      <div className="landing-photo-frame-wrap">
+        <div className="container">
+          <div className="landing-photo-frame" />
+        </div>
+      </div>
+
       {/* Explore the Research */}
       <section className="section nav-teaser">
         <div className="container">

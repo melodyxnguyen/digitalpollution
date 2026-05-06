@@ -171,7 +171,7 @@ function EnergyMeter() {
             </p>
           </div>
           <div className="meter-actions">
-            <button className="btn btn-primary" onClick={startMeter} disabled={running || prompt.trim() === ''}>
+            <button className="btn-sage" onClick={startMeter} disabled={running || prompt.trim() === ''}>
               {running ? 'Generating…' : 'Simulate Response'}
             </button>
             <button className="btn btn-ghost" onClick={resetMeter}>Reset</button>

@@ -469,3 +469,19 @@
     .core-argument { padding: 1.25rem 1.25rem; }
     .core-argument p { font-size: 1rem; }
   }
+
+  /* Photo frame placeholder */
+  .landing-photo-frame-wrap {
+    padding: 2rem 0;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    background: var(--bg-alt);
+  }
+
+  .landing-photo-frame {
+    width: 100%;
+    height: 340px;
+    border: 2px dashed var(--border);
+    border-radius: 4px;
+    background: var(--surface);
+  }

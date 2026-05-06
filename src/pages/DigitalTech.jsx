@@ -61,7 +61,6 @@ function Modal({ cat, onClose }) {
       <div className="modal-box" onClick={e => e.stopPropagation()}>
         <button className="modal-close" onClick={onClose} aria-label="Close">✕</button>
         <div className="modal-header">
-          <span className="modal-icon">{cat.icon}</span>
           <span className="modal-num">{cat.num}</span>
         </div>
         <h2 className="modal-heading">{cat.modal.heading}</h2>
@@ -129,10 +128,12 @@ export default function DigitalTech() {
                 className="category-card"
                 onClick={() => setActive(i)}
               >
-                <span className="category-card-icon">{cat.icon}</span>
-                <span className="category-card-num">{cat.num}</span>
-                <h3 className="category-card-title">{cat.title}</h3>
-                <span className="category-card-cta">Learn more →</span>
+                <div className="category-card-img-frame" />
+                <div className="category-card-body">
+                  <span className="category-card-num">{cat.num}</span>
+                  <h3 className="category-card-title">{cat.title}</h3>
+                  <span className="category-card-cta">Learn more →</span>
+                </div>
               </button>
             ))}
           </div>

@@ -209,6 +209,29 @@
   transition: width 0.5s ease;
 }
 
+/* ── Photo frames ── */
+.llm-photo-frame {
+  width: 100%;
+  height: 260px;
+  margin-top: 2rem;
+  border: 2px dashed var(--border);
+  border-radius: 4px;
+  background: var(--bg-alt);
+}
+
+.llm-photo-frame--wide {
+  height: 320px;
+}
+
+.llm-card-photo-frame {
+  width: calc(100% + 3rem);
+  margin: -1.5rem -1.5rem 1rem -1.5rem;
+  height: 160px;
+  background: var(--bg-alt);
+  border-bottom: 2px dashed var(--border);
+  flex-shrink: 0;
+}
+
 /* ── Search comparison (kept as-is) ── */
 .search-compare-section { background: var(--bg-alt); }
 
@@ -234,7 +257,7 @@
   margin: 0.5rem 0;
 }
 
-.compare-stat--ai { color: var(--energy-orange); font-size: 1.2rem; }
+.compare-stat--ai { color: var(--energy-red); font-size: 2rem; }
 
 .compare-divider {
   font-family: var(--font-display);
@@ -245,12 +268,12 @@
 }
 
 .compare-card--ai {
-  border-top: 3px solid var(--energy-orange);
-  background: var(--energy-orange-pale);
+  border-top: 3px solid var(--energy-red);
+  background: var(--surface);
 }
 
-.compare-card--ai .mono-tag { color: var(--energy-orange-dark); }
-.compare-card--ai p { color: var(--energy-orange-dark); opacity: 0.85; }
+.compare-card--ai .mono-tag { color: var(--ink); }
+.compare-card--ai p { color: var(--text-secondary); opacity: 1; }
 
 .cite-note {
   font-family: var(--font-mono);

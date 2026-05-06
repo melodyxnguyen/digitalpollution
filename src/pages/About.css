@@ -94,6 +94,7 @@
   display: flex;
   flex-direction: column;
   gap: 0.25rem;
+  position: relative;
 }
 
 .timeline-event {
@@ -128,6 +129,49 @@
   background: var(--sage-pale);
   color: var(--sage-dark);
   border-color: var(--sage-light);
+}
+
+/* Timeline hover popup */
+.timeline-popup {
+  position: absolute;
+  left: 0;
+  top: calc(100% + 0.5rem);
+  min-width: 260px;
+  max-width: 300px;
+  padding: 0.85rem 1rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--sage);
+  border-radius: 0 4px 4px 0;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  z-index: 20;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(4px);
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.timeline-popup p {
+  font-size: 0.84rem;
+  color: var(--text-secondary);
+  line-height: 1.65;
+  margin: 0;
+  max-width: 100%;
+}
+
+.timeline-item:hover .timeline-popup {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Photo frame placeholders */
+.about-photo-frame {
+  width: 100%;
+  height: 200px;
+  border: 2px dashed var(--border);
+  border-radius: 4px;
+  background: var(--bg-alt);
+  margin: 1.25rem 0;
 }
 
 @media (max-width: 768px) {

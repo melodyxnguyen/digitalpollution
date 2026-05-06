@@ -1,20 +1,55 @@
 import './About.css'
 
 const timeline = [
-  { year: '2023', event: 'GISMo Group, SLAC National Accelerator Laboratory', detail: 'Renewable energy web platforms, grid integration research' },
-  { year: '2024', event: 'REGROW Project, SLAC', detail: 'California heatwave analysis, photovoltaic grid resilience, marimo visualizations' },
-  { year: '2025', event: 'SULI, Stanford Synchrotron Radiation Lightsource', detail: 'Beamline automation, TiO₂ phase transformation, computational efficiency' },
-  { year: '2025', event: 'Honors Thesis, Pace University', detail: 'Digital pollution, LLM energy benchmarking, educational website' },
-  { year: '2026', event: 'Lead Instructor, iD Tech at Stanford University', detail: 'Teaching AI, machine learning, and Python to middle and high school students; course design and hands-on curriculum delivery' },
-  { year: '2026', event: 'Healthfirst', detail: 'Business Analyst / Product Owner, Provider Data Management' },
-  { year: '2026', event: 'M.S. Computer Science, Georgia Institute of Technology', detail: 'Graduate study in computer science' },
+  {
+    year: '2023',
+    event: 'SLAC National Accelerator Laboratory, GISMo',
+    detail: 'Renewable energy web platforms, grid integration research',
+    popup: 'I led publication efforts for SLAC energy initiatives — building platforms for training materials and simulation tools. Through each project I grew aware of hidden complexity: the servers, computation, and cooling infrastructure behind the research were rarely part of the conversation.',
+  },
+  {
+    year: '2024',
+    event: 'SLAC, REGROW Project',
+    detail: 'Heatwave analysis, photovoltaic grid resilience',
+    popup: 'Using Marimo, I analyzed meteorological and energy data from the 2020 California heat wave — integrating temperature, solar irradiance, and wind speed to assess how extreme weather disrupts photovoltaic grids. It made system-level optimization feel urgent and real.',
+  },
+  {
+    year: '2025',
+    event: 'Stanford Synchrotron Radiation Lightsource, SULI',
+    detail: 'Beamline automation, TiO₂ phase analysis',
+    popup: 'At SSRL, I automated beamline experiments to scan only information-rich regions — reducing unnecessary computation while preserving data quality for TiO₂ phase analysis. This was the turning point: decisions about when and how much to compute carry real environmental weight.',
+  },
+  {
+    year: '2025',
+    event: 'Honors Thesis, Pace University',
+    detail: 'LLM energy benchmarking, educational website',
+    popup: 'Central finding: LLMs are generically powerful but generically expensive. The answer lies not in rejection, but specificity — building small, task-specific models that are more efficient, more accurate, and keep sensitive data local.',
+  },
+  {
+    year: '2026',
+    event: 'Lead Instructor, iD Tech at Stanford',
+    detail: 'Teaching AI, ML, and Python',
+    popup: 'Teaching AI to students reinforced what this research kept returning to: the people closest to these tools rarely see the infrastructure behind them. Making that legible — especially for the next generation of builders — is part of why this site exists.',
+  },
+  {
+    year: '2026',
+    event: 'Healthfirst',
+    detail: 'Business Analyst, Provider Data Management',
+    popup: 'Joining Healthfirst\'s Provider Data Management team as Business Analyst and Product Owner. Healthfirst serves nearly two million members across NYC — a chance to apply responsible AI principles from this thesis to real healthcare workflows at scale.',
+  },
+  {
+    year: '2026',
+    event: 'M.S. Computer Science, Georgia Tech',
+    detail: 'Graduate study in computer science',
+    popup: 'Encouraged by thesis advisor Arya Boudaie, continuing at Georgia Tech to study computer science more deeply — with a focus on how AI systems can be built more efficiently, responsibly, and at less environmental cost.',
+  },
 ]
 
 const meta = [
   { label: 'Researcher', value: 'Melody Nguyen, Pace University' },
   { label: 'Faculty Advisor', value: 'Arya Boudaie, Software Engineer at Amazon' },
   { label: 'Funding', value: 'Pforzheimer Honors College at Pace University' },
-  { label: 'Presentation', value: 'New York City, May 8th, 2026' },
+  { label: 'Presentation', value: 'New York City, May 7th, 2026' },
 ]
 
 export default function About() {
@@ -42,30 +77,17 @@ export default function About() {
               I grew up in Arizona and California during the 2010s and experienced firsthand
               the impact of drought and wildfire. Daily conservation practices like reusing water and minimizing waste were part of my upbringing.
             </p>
+
+            <div className="about-photo-frame" />
+
             <p>
               Being raised by a Buddhist family taught me the importance of interconnectedness
               where all humans, animals, and nature are profoundly linked, and damaging
               one part harms the whole. These childhood teachings shape my motivation for
               understanding how technological progress can align with ethical and environmental responsibility.
             </p>
-            <p>
-              Through internships at SLAC National Accelerator Laboratory and research at the
-              Stanford Synchrotron Radiation Lightsource, I came to see how thoughtful system
-              design can improve scientific throughput while conserving limited resources;
-              decisions about when to compute, and how much, carry real environmental implications.
-            </p>
-            <p>
-              Teaching AI, machine learning, and Python to middle and high school students at iD Tech on Stanford's campus
-              reinforced what this research kept returning to: the people closest to these tools rarely see the
-              infrastructure behind them. Making that infrastructure legible, especially to the next generation of builders,
-              is part of why this website exists.
-            </p>
-            <p>
-              This thesis searches for a middle ground: one that preserves AI's capacity
-              to accelerate discovery while emphasizing transparent, efficient, and sustainable use.
-              That question continues in the next chapter, joining Healthfirst as a Business Analyst and Product Owner
-              focused on Provider Data Management, where data quality, system design, and responsible technology intersect.
-            </p>
+
+            <div className="about-photo-frame" />
 
             <div className="about-meta-grid">
               {meta.map((m, i) => (
@@ -88,6 +110,11 @@ export default function About() {
                     <span className="mono-tag timeline-year">{t.year}</span>
                     <p className="timeline-event">{t.event}</p>
                     <p className="timeline-detail">{t.detail}</p>
+                    {t.popup && (
+                      <div className="timeline-popup">
+                        <p>{t.popup}</p>
+                      </div>
+                    )}
                   </div>
                 </div>
               ))}

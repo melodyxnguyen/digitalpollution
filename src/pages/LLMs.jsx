@@ -151,6 +151,7 @@ export default function LLMs() {
               </div>
             ))}
           </div>
+          <div className="llm-photo-frame" />
         </div>
       </section>
 
@@ -176,6 +177,7 @@ export default function LLMs() {
                 aria-expanded={openTrain === i}
                 onKeyDown={e => (e.key === 'Enter' || e.key === ' ') && toggle(setOpenTrain, i)}
               >
+                <div className="llm-card-photo-frame" />
                 <span className="mono-tag">{f.tag}</span>
                 <h3 className="llm-card-title">{f.title}</h3>
                 <p className="llm-card-summary">{f.summary}</p>
@@ -271,6 +273,7 @@ export default function LLMs() {
               </div>
             ))}
           </div>
+          <div className="llm-photo-frame llm-photo-frame--wide" />
         </div>
       </section>
 
