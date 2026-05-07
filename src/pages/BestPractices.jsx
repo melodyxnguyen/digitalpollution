@@ -1,5 +1,5 @@
 import imgCodeCarbon from '../../images/codecarbon1.png'
-import imgScoreboard from '../../images/scoreboard.svg'
+import imgScoreboard from '../../images/scoreboard.jpeg'
 import './BestPractices.css'
 
 // ── Page ───────────────────────────────────────────────────────────────────────
