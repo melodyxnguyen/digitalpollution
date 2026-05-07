@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import imgCooling from '../../images/southmem.jpg'
 import './LLMs.css'
 
 // ── Data ──────────────────────────────────────────────────────────────────────
@@ -151,7 +152,9 @@ export default function LLMs() {
               </div>
             ))}
           </div>
-          <div className="llm-photo-frame" />
+          <div className="llm-photo-frame">
+            <img src={imgCooling} alt="" className="llm-photo-frame-img" />
+          </div>
         </div>
       </section>
 

@@ -1,10 +1,14 @@
 import { useState } from 'react'
+import imgEwaste from '../../images/ewaste.jpg'
+import imgData from '../../images/data.jpg'
+import imgMetro from '../../images/phones.png'
 import './DigitalTech.css'
 
 const categories = [
   {
     num: '01',
     icon: '🖥️',
+    image: imgEwaste,
     title: 'Where Does E-Waste Go?',
     preview: 'The hidden cost of making and discarding hardware.',
     modal: {
@@ -22,6 +26,7 @@ const categories = [
   {
     num: '02',
     icon: '⚡',
+    image: imgData,
     title: 'The Machines That Never Sleep',
     preview: 'Data centers run 24/7, and so does their energy demand.',
     modal: {
@@ -39,6 +44,7 @@ const categories = [
   {
     num: '03',
     icon: '📡',
+    image: imgMetro,
     title: 'Every Click Has a Cost',
     preview: 'Streaming, scrolling, and AI queries all leave a footprint.',
     modal: {
@@ -128,7 +134,9 @@ export default function DigitalTech() {
                 className="category-card"
                 onClick={() => setActive(i)}
               >
-                <div className="category-card-img-frame" />
+                <div className="category-card-img-frame">
+                  <img src={cat.image} alt="" className="category-card-img" />
+                </div>
                 <div className="category-card-body">
                   <span className="category-card-num">{cat.num}</span>
                   <h3 className="category-card-title">{cat.title}</h3>

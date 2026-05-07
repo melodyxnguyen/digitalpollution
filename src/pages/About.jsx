@@ -1,3 +1,5 @@
+import imgDrought from '../../images/drought.jpg'
+import imgGarden from '../../images/garden.png'
 import './About.css'
 
 const timeline = [
@@ -78,7 +80,9 @@ export default function About() {
               the impact of drought and wildfire. Daily conservation practices like reusing water and minimizing waste were part of my upbringing.
             </p>
 
-            <div className="about-photo-frame" />
+            <div className="about-photo-frame about-photo-frame--sm">
+              <img src={imgDrought} alt="" className="about-photo-frame-img" />
+            </div>
 
             <p>
               Being raised by a Buddhist family taught me the importance of interconnectedness
@@ -87,7 +91,9 @@ export default function About() {
               understanding how technological progress can align with ethical and environmental responsibility.
             </p>
 
-            <div className="about-photo-frame" />
+            <div className="about-photo-frame">
+              <img src={imgGarden} alt="" className="about-photo-frame-img" />
+            </div>
 
             <div className="about-meta-grid">
               {meta.map((m, i) => (

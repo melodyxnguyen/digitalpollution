@@ -1,3 +1,5 @@
+import imgCodeCarbon from '../../images/codecarbon1.png'
+import imgScoreboard from '../../images/scoreboard.svg'
 import './BestPractices.css'
 
 // ── Page ───────────────────────────────────────────────────────────────────────
@@ -31,20 +33,14 @@ export default function BestPractices() {
             <div className="screenshot-frame">
               <div className="screenshot-frame-header">
                 <span className="screenshot-tool-name">CodeCarbon</span>
-                <span className="screenshot-note">screenshot placeholder</span>
               </div>
-              <div className="screenshot-placeholder-area">
-                Drop CodeCarbon interface screenshot here
-              </div>
+              <img src={imgCodeCarbon} alt="CodeCarbon interface" className="screenshot-img" />
             </div>
             <div className="screenshot-frame">
               <div className="screenshot-frame-header">
                 <span className="screenshot-tool-name">AI Energy Score Leaderboard</span>
-                <span className="screenshot-note">screenshot placeholder</span>
               </div>
-              <div className="screenshot-placeholder-area">
-                Drop AI Energy Score Leaderboard screenshot here
-              </div>
+              <img src={imgScoreboard} alt="AI Energy Score Leaderboard" className="screenshot-img" />
             </div>
           </div>
 
@@ -116,7 +112,7 @@ export default function BestPractices() {
       <section className="section quote-section">
         <div className="container">
           <div className="block-quote">
-            <div className="block-quote-mark">"</div>
+            <div className="block-quote-mark">&ldquo;</div>
             <blockquote>
               The dominant research culture rewards scale and performance
               while sidelining environmental and social costs.

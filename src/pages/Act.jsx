@@ -2,10 +2,6 @@ import { useState, useEffect, useRef } from 'react'
 import { senatorsByState, stateNames, generateEmailDraft } from '../data/senators'
 import './Act.css'
 
-import photoPrompts  from '../../images/dataracks.jpg'
-import photoBatch    from '../../images/mitdatacenter.webp'
-import photoModel    from '../../images/cooling.avif'
-import photoCloud    from '../../images/drought.jpg'
 
 // ─── Action Cards Data ────────────────────────────────────────────────────────
 
@@ -15,7 +11,6 @@ const actions = [
     title: 'Write concise prompts',
     detail: 'Shorter, well-scoped prompts generate shorter responses, reducing the number of tokens produced and the energy consumed per interaction.',
     cite: '[MIT Technology Review, Shao et al.]',
-    photo: photoPrompts,
     examples: [
       {
         context: 'Homework',
@@ -42,7 +37,6 @@ const actions = [
     title: 'Batch related questions',
     detail: 'Instead of sending five separate queries, combine them into one. Each model call has a fixed overhead cost; batching reduces that overhead.',
     cite: '[Shao et al.]',
-    photo: photoBatch,
     examples: [
       {
         context: 'New gardener',
@@ -66,7 +60,6 @@ const actions = [
     title: 'Choose the right model',
     detail: 'A small model like Mistral 7B uses ~0.052 J/token. A reasoning model like DeepSeek R1 uses ~2.37 J/token. For simple tasks, smaller is smarter.',
     cite: '[ML.ENERGY]',
-    photo: photoModel,
     examples: [
       {
         context: 'Casual use',
@@ -90,7 +83,6 @@ const actions = [
     title: 'Audit your cloud storage',
     detail: 'Unneeded cloud backups, duplicate files, and unused subscriptions place constant load on data infrastructure. Review and trim regularly.',
     cite: '[Greenly]',
-    photo: photoCloud,
     examples: [
       {
         context: 'DIY renovator',
@@ -155,11 +147,7 @@ function ActionCard({ p, index, isOpen, onToggle }) {
     <div className={`action-full-card ${isOpen ? 'action-full-card--open' : ''}`}>
       <div className={`action-full-split ${!photoLeft ? 'action-full-split--reverse' : ''}`}>
         <div className="action-full-photo-frame">
-          <div
-            className="action-full-photo"
-            style={{ backgroundImage: `url(${p.photo})` }}
-            aria-hidden="true"
-          />
+          <div className="action-full-photo" aria-hidden="true" />
         </div>
         <div className="action-full-text">
           <span className="action-full-num">{p.num}</span>
