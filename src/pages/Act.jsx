@@ -3,6 +3,7 @@ import { senatorsByState, stateNames, generateEmailDraft } from '../data/senator
 import catGif from '../../images/typing.gif'
 import retroGif from '../../images/retro.gif'
 import choicesGif from '../../images/choices.gif'
+import deleteGif from '../../images/delete.gif'
 import './Act.css'
 
 
@@ -89,6 +90,7 @@ const actions = [
     title: 'Audit your cloud storage',
     detail: 'Unneeded cloud backups, duplicate files, and unused subscriptions place constant load on data infrastructure. Review and trim regularly.',
     cite: '[Greenly]',
+    photo: deleteGif,
     examples: [
       {
         context: 'DIY renovator',
@@ -154,7 +156,7 @@ function ActionCard({ p, index, isOpen, onToggle }) {
       <div className={`action-full-split ${!photoLeft ? 'action-full-split--reverse' : ''}`}>
         <div className="action-full-photo-frame">
           {p.photo
-            ? <img src={p.photo} alt="" className={`action-full-photo-img${index === 3 ? ' action-full-photo-img--bottom' : ''}`} />
+            ? <img src={p.photo} alt="" className={`action-full-photo-img${index === 3 ? ' action-full-photo-img--contain' : ''}`} />
             : <div className="action-full-photo" aria-hidden="true" />
           }
         </div>

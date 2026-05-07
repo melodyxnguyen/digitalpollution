@@ -552,6 +552,7 @@
   background: var(--bg-alt);
   display: flex;
   box-sizing: border-box;
+  position: relative;
 }
 
 .action-full-photo {
@@ -575,6 +576,15 @@
   height: 150%;
   object-fit: cover;
   transform: translateY(-33.33%);
+}
+
+.action-full-photo-img--contain {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+  border-radius: 3px;
 }
 
 .action-full-text {
