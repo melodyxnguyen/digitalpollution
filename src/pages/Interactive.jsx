@@ -17,6 +17,13 @@ function energyColor(joulesPerToken) {
   return 'var(--energy-red)'
 }
 
+function tagEnergyStyle(joulesPerToken) {
+  if (joulesPerToken < 0.1)  return {}
+  if (joulesPerToken < 0.35) return { color: 'var(--energy-yellow-dark)', background: 'var(--energy-yellow-pale)' }
+  if (joulesPerToken < 1.0)  return { color: 'var(--energy-orange)',      background: 'var(--energy-orange-pale)' }
+  return                            { color: 'var(--energy-red)',          background: 'var(--energy-red-pale)'   }
+}
+
 function meterColor(progress) {
   if (progress < 30) return 'var(--sage)'
   if (progress < 60) return 'var(--energy-yellow)'
@@ -72,7 +79,7 @@ function ModelComparison() {
             <div key={i} className="model-bar-row">
               <div className="model-bar-meta">
                 <span className="model-bar-name">{m.name}</span>
-                <span className="mono-tag">{m.params} · {m.type}</span>
+                <span className="mono-tag" style={tagEnergyStyle(m.joulesPerToken)}>{m.params} · {m.type}</span>
               </div>
               <div className="model-bar-track">
                 <div
