@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import imgEwaste from '../../images/ewaste.jpg'
-import imgData from '../../images/data.jpg'
-import imgMetro from '../../images/phones.png'
+import imgData from '../../images/computer.gif'
+import imgMetro from '../../images/phone.gif'
 import './DigitalTech.css'
 
 const categories = [

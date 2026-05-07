@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react'
 import { senatorsByState, stateNames, generateEmailDraft } from '../data/senators'
 import catGif from '../../images/typing.gif'
+import retroGif from '../../images/retro.gif'
 import './Act.css'
 
 
@@ -39,6 +40,7 @@ const actions = [
     title: 'Batch related questions',
     detail: 'Instead of sending five separate queries, combine them into one. Each model call has a fixed overhead cost; batching reduces that overhead.',
     cite: '[Shao et al.]',
+    photo: retroGif,
     examples: [
       {
         context: 'New gardener',
@@ -150,7 +152,7 @@ function ActionCard({ p, index, isOpen, onToggle }) {
       <div className={`action-full-split ${!photoLeft ? 'action-full-split--reverse' : ''}`}>
         <div className="action-full-photo-frame">
           {p.photo
-            ? <img src={p.photo} alt="" className="action-full-photo-img" />
+            ? <img src={p.photo} alt="" className={`action-full-photo-img${index === 3 ? ' action-full-photo-img--bottom' : ''}`} />
             : <div className="action-full-photo" aria-hidden="true" />
           }
         </div>
