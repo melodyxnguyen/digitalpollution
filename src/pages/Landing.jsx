@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
-import southmem from '../../images/mitdatacenter.webp'
+import nightGif from '../../images/night.gif'
 import './Landing.css'
 
 const stats = [
@@ -271,7 +271,11 @@ export default function Landing() {
 
       {/* Photo frame */}
       <div className="landing-photo-frame-wrap">
-        <img src={southmem} alt="" className="landing-photo-frame-img" />
+        <div className="container">
+          <div className="landing-photo-frame">
+            <img src={nightGif} alt="" className="landing-photo-frame-img" />
+          </div>
+        </div>
       </div>
 
       {/* Explore the Research */}

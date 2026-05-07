@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react'
 import { senatorsByState, stateNames, generateEmailDraft } from '../data/senators'
+import catGif from '../../images/typing.gif'
 import './Act.css'
 
 
@@ -11,6 +12,7 @@ const actions = [
     title: 'Write concise prompts',
     detail: 'Shorter, well-scoped prompts generate shorter responses, reducing the number of tokens produced and the energy consumed per interaction.',
     cite: '[MIT Technology Review, Shao et al.]',
+    photo: catGif,
     examples: [
       {
         context: 'Homework',
@@ -147,7 +149,10 @@ function ActionCard({ p, index, isOpen, onToggle }) {
     <div className={`action-full-card ${isOpen ? 'action-full-card--open' : ''}`}>
       <div className={`action-full-split ${!photoLeft ? 'action-full-split--reverse' : ''}`}>
         <div className="action-full-photo-frame">
-          <div className="action-full-photo" aria-hidden="true" />
+          {p.photo
+            ? <img src={p.photo} alt="" className="action-full-photo-img" />
+            : <div className="action-full-photo" aria-hidden="true" />
+          }
         </div>
         <div className="action-full-text">
           <span className="action-full-num">{p.num}</span>

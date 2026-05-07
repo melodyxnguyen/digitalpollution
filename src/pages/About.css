@@ -172,6 +172,8 @@
   background: var(--bg-alt);
   margin: 1.25rem 0;
   overflow: hidden;
+  border: 6px solid #ffffff;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.08);
 }
 
 .about-photo-frame--sm {
