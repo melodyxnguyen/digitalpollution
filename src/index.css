@@ -60,7 +60,8 @@ a:hover { color: var(--sage-dark); }
   font-family: var(--font-body); font-size: 0.95rem; font-weight: 500;
   cursor: pointer; transition: background 0.2s, transform 0.15s; letter-spacing: 0.02em;
 }
-.btn-sage:hover { background: var(--sage-dark); transform: translateY(-1px); }
+.btn-sage:hover { background: var(--sage-dark); transform: translateY(-1px); color: white; }
+.btn-sage:visited, .btn-sage:active, .btn-sage:focus { color: white; }
 
 .btn-ghost {
   display: inline-flex; align-items: center; gap: 0.5rem;
