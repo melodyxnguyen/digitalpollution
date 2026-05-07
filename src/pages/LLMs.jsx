@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import imgCooling from '../../images/southmem.jpg'
+import imgGpu from '../../images/gpu.png'
 import swipeImg from '../../images/swipe.webp'
 import buildingGif from '../../images/building.gif'
 import './LLMs.css'
@@ -281,7 +282,9 @@ export default function LLMs() {
               </div>
             ))}
           </div>
-          <div className="llm-photo-frame llm-photo-frame--wide" />
+          <div className="llm-photo-frame llm-photo-frame--wide">
+            <img src={imgGpu} alt="" className="llm-photo-frame-img" />
+          </div>
         </div>
       </section>
 

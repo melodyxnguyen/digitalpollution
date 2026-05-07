@@ -182,7 +182,7 @@ export default function Landing() {
             This project makes the invisible visible.
           </p>
           <div className="hero-actions">
-            <Link to="/best-practices" className="btn-sage">Measure My Consumption →</Link>
+            <Link to="/interactive" className="btn-sage">Measure My Consumption →</Link>
             <Link to="/digital-technologies" className="btn-ghost">What is Digital Pollution?</Link>
           </div>
         </div>
