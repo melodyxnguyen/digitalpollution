@@ -484,6 +484,8 @@
     border-radius: 4px;
     overflow: hidden;
     background: var(--surface);
+    border: 5px solid #ffffff;
+    outline: 3px solid #2d4a2d;
   }
 
   .landing-photo-frame-img {

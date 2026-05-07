@@ -233,10 +233,18 @@
 .llm-card-photo-frame {
   width: calc(100% + 3rem);
   margin: -1.5rem -1.5rem 1rem -1.5rem;
-  height: 160px;
+  height: 300px;
   background: var(--bg-alt);
   border-bottom: 2px dashed var(--border);
   flex-shrink: 0;
+  overflow: hidden;
+}
+
+.llm-card-photo-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
 }
 
 /* ── Search comparison (kept as-is) ── */

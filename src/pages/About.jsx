@@ -94,6 +94,7 @@ export default function About() {
             <div className="about-photo-frame">
               <img src={imgGarden} alt="" className="about-photo-frame-img" />
             </div>
+            <p className="about-photo-caption">Biggest thank you to Ông ngoại for inspiring this work.</p>
 
             <div className="about-meta-grid">
               {meta.map((m, i) => (

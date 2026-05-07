@@ -180,6 +180,15 @@
   height: 280px;
 }
 
+.about-photo-caption {
+  font-size: 0.65rem;
+  color: var(--text-muted);
+  opacity: 0.6;
+  font-style: italic;
+  margin-top: 0.4rem;
+  margin-bottom: 0;
+}
+
 .about-photo-frame-img {
   width: 100%;
   height: 100%;

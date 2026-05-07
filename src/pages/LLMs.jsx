@@ -1,5 +1,7 @@
 import { useState } from 'react'
 import imgCooling from '../../images/southmem.jpg'
+import swipeImg from '../../images/swipe.webp'
+import buildingGif from '../../images/building.gif'
 import './LLMs.css'
 
 // ── Data ──────────────────────────────────────────────────────────────────────
@@ -180,7 +182,10 @@ export default function LLMs() {
                 aria-expanded={openTrain === i}
                 onKeyDown={e => (e.key === 'Enter' || e.key === ' ') && toggle(setOpenTrain, i)}
               >
-                <div className="llm-card-photo-frame" />
+                <div className="llm-card-photo-frame">
+                  {i === 0 && <img src={buildingGif} alt="" className="llm-card-photo-img" />}
+                  {i === 1 && <img src={swipeImg} alt="" className="llm-card-photo-img" />}
+                </div>
                 <span className="mono-tag">{f.tag}</span>
                 <h3 className="llm-card-title">{f.title}</h3>
                 <p className="llm-card-summary">{f.summary}</p>
