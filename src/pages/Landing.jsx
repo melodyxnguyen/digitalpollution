@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
-import nightGif from '../../images/night.gif'
+import nightGif from '../../images/mitdatacenter.webp'
 import './Landing.css'
 
 const stats = [
