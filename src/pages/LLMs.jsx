@@ -179,6 +179,7 @@ export default function LLMs() {
               <div
                 key={i}
                 className={`llm-card${i === 1 ? ' llm-card--accent' : ''}${openTrain === i ? ' llm-card--open' : ''}`}
+                style={{ borderTopColor: i === 0 ? 'var(--energy-orange)' : 'var(--energy-red)' }}
                 onClick={() => toggle(setOpenTrain, i)}
                 role="button"
                 tabIndex={0}
