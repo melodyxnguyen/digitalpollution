@@ -85,6 +85,7 @@ const gpuFacts = [
     name: 'H100 GPU',
     tag: 'Current generation',
     accentColor: 'var(--energy-orange)',
+    tagBg: 'var(--energy-orange-pale)',
     summary: 'Higher ops/watt, but enables larger models that cost more energy per query.',
     detail: 'The NVIDIA H100 is considerably more energy-efficient per floating-point operation than the A100. However, this efficiency gain does not automatically reduce total energy use. More capable hardware enables the deployment of more complex, parameter-rich models, including reasoning architectures. The total energy cost per request frequently increases even as the underlying silicon becomes more efficient.',
     cite: '[ML.ENERGY]',
@@ -93,6 +94,7 @@ const gpuFacts = [
     name: 'Jevons Paradox',
     tag: 'The efficiency trap',
     accentColor: 'var(--energy-red)',
+    tagBg: 'var(--energy-red-pale)',
     summary: 'Efficiency improvements tend to expand use, not reduce total consumption.',
     detail: "Named after 19th-century economist William Stanley Jevons, this paradox describes how efficiency improvements in resource use tend to increase total consumption rather than reduce it. Applied to AI: as GPUs become more efficient, they make larger and more complex models economically viable to run. The net result is that total system energy often grows even as hardware improves. Measuring AI sustainability requires examining full system-level costs, not just hardware specs.",
     cite: '[ML.ENERGY]',
@@ -187,7 +189,10 @@ export default function LLMs() {
                   {i === 0 && <img src={buildingGif} alt="" className="llm-card-photo-img" />}
                   {i === 1 && <img src={swipeImg} alt="" className="llm-card-photo-img" />}
                 </div>
-                <span className="mono-tag">{f.tag}</span>
+                <span className="mono-tag" style={i === 0
+                  ? { color: 'var(--energy-orange)', background: 'var(--energy-orange-pale)' }
+                  : { color: 'var(--energy-red)', background: 'var(--energy-red-pale)' }
+                }>{f.tag}</span>
                 <h3 className="llm-card-title">{f.title}</h3>
                 <p className="llm-card-summary">{f.summary}</p>
                 <span className={`llm-badge llm-badge--${f.badgeType}`}>{f.badge}</span>
@@ -270,7 +275,7 @@ export default function LLMs() {
                 aria-expanded={openGpu === i}
                 onKeyDown={e => (e.key === 'Enter' || e.key === ' ') && toggle(setOpenGpu, i)}
               >
-                <span className="mono-tag">{f.tag}</span>
+                <span className="mono-tag" style={f.accentColor ? { color: f.accentColor, background: f.tagBg } : undefined}>{f.tag}</span>
                 <h4 className="llm-card-title">{f.name}</h4>
                 <p className="llm-card-summary">{f.summary}</p>
                 {openGpu === i && (
@@ -302,7 +307,7 @@ export default function LLMs() {
             </div>
             <div className="compare-divider">vs.</div>
             <div className="card compare-card compare-card--ai">
-              <span className="mono-tag">AI Response</span>
+              <span className="mono-tag" style={{ color: 'var(--energy-red)', background: 'var(--energy-red-pale)' }}>AI Response</span>
               <div className="compare-stat compare-stat--ai">Significantly more</div>
               <p>depending on model size and response length; small models narrow the gap, frontier models widen it</p>
             </div>
