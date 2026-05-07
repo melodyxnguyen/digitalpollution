@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from 'react'
 import { senatorsByState, stateNames, generateEmailDraft } from '../data/senators'
 import catGif from '../../images/typing.gif'
 import retroGif from '../../images/retro.gif'
+import choicesGif from '../../images/choices.gif'
 import './Act.css'
 
 
@@ -64,6 +65,7 @@ const actions = [
     title: 'Choose the right model',
     detail: 'A small model like Mistral 7B uses ~0.052 J/token. A reasoning model like DeepSeek R1 uses ~2.37 J/token. For simple tasks, smaller is smarter.',
     cite: '[ML.ENERGY]',
+    photo: choicesGif,
     examples: [
       {
         context: 'Casual use',

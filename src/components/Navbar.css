@@ -182,7 +182,7 @@
     .nav-link { display: block; width: 100%; }
 
     .nav-dropdown-parent { width: 100%; }
-    .nav-dropdown-trigger { width: 100%; justify-content: space-between; }
+    .nav-dropdown-trigger { width: 100%; justify-content: flex-start; }
 
     .nav-dropdown {
       position: static;
