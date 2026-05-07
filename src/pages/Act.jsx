@@ -20,16 +20,19 @@ const actions = [
       {
         context: 'Homework',
         before: 'Can you explain everything about the French Revolution, including all the causes, major events, key figures, and how it changed democracy forever?',
+        boldWords: ['everything'],
         after:  'What were the 3 main causes of the French Revolution?',
       },
       {
         context: 'Home cooking',
         before: 'Tell me everything I could possibly make with chicken, rice, and broccoli including prep methods, cuisines, and nutrition info.',
+        boldWords: ['everything'],
         after:  'Quick dinner idea using chicken, rice, and broccoli?',
       },
       {
         context: 'Trip planning',
         before: 'Give me a complete travel guide to Tokyo with history, neighborhoods, food, transport, culture, packing tips, and what to avoid.',
+        boldWords: ['complete'],
         after:  'Top 3 things to do in Tokyo for a first-time visitor?',
       },
     ],
@@ -115,6 +118,14 @@ const bonusTip = {
 
 // ─── Action Card Component ────────────────────────────────────────────────────
 
+function highlightBoldWords(text, boldWords) {
+  if (!boldWords?.length) return text
+  const pattern = new RegExp(`(${boldWords.map(w => w.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')).join('|')})`, 'gi')
+  return text.split(pattern).map((part, i) =>
+    pattern.test(part) ? <strong key={i} className="before-highlight">{part}</strong> : part
+  )
+}
+
 function ActionCard({ p, index, isOpen, onToggle }) {
   const [slide, setSlide] = useState(0)
   const [sliding, setSliding] = useState(false)
@@ -173,7 +184,7 @@ function ActionCard({ p, index, isOpen, onToggle }) {
                   <span className="action-example-label">Before</span>
                   {Array.isArray(ex.before)
                     ? ex.before.map((line, i) => <p key={i}>"{line}"</p>)
-                    : <p>"{ex.before}"</p>
+                    : <p>"{highlightBoldWords(ex.before, ex.boldWords)}"</p>
                   }
                 </div>
                 <span className="action-example-arrow">→</span>

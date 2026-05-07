@@ -718,6 +718,11 @@
 .action-example-col--before .action-example-label { color: var(--energy-red-dark); }
 .action-example-col--after  .action-example-label { color: var(--sage-dark); }
 
+.before-highlight {
+  font-weight: 700;
+  color: var(--energy-red-dark);
+}
+
 .action-example-col p {
   font-size: 0.9rem;
   color: var(--text-secondary);
