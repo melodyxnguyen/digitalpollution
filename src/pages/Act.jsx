@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from 'react'
 import { senatorsByState, stateNames, generateEmailDraft } from '../data/senators'
 import catGif from '../../images/typing.gif'
 import retroGif from '../../images/retro.gif'
-import choicesGif from '../../images/choices.gif'
+import choicesGif from '../../images/justice.gif'
 import deleteGif from '../../images/delete.gif'
 import './Act.css'
 
