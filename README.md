@@ -5,6 +5,8 @@
 > An interactive educational platform that makes AI's hidden energy footprint visible and actionable.
 
 **Live site:** [digitalpollution.io](https://digitalpollution.io)  
+**Written Report:** [Digital Pollution - Melody Nguyen Thesis.pdf](https://github.com/melodyxnguyen/digitalpollution/blob/main/Digital%20Pollution%20-%20Melody%20Nguyen%20Thesis.pdf)
+
 **Thesis:** Pforzheimer Honors College, Pace University · May 2026  
 **Author:** Melody Quynh Nguyen
 
